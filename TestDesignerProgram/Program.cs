@@ -16,7 +16,7 @@ namespace TestDesignerProgram
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestDesignerForm());
+            Application.Run(new Form1());
         }
     }
 }

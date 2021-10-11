@@ -161,7 +161,7 @@ namespace TestDesignerProgram
             this.groupBoxAnwersList.Controls.Add(this.checkedListBoxAnswerList);
             this.groupBoxAnwersList.Location = new System.Drawing.Point(24, 162);
             this.groupBoxAnwersList.Name = "groupBoxAnwersList";
-            this.groupBoxAnwersList.Size = new System.Drawing.Size(341, 208);
+            this.groupBoxAnwersList.Size = new System.Drawing.Size(341, 220);
             this.groupBoxAnwersList.TabIndex = 1;
             this.groupBoxAnwersList.TabStop = false;
             this.groupBoxAnwersList.Text = "Answers List";
@@ -170,7 +170,7 @@ namespace TestDesignerProgram
             // 
             this.buttonEditAnswer.Location = new System.Drawing.Point(10, 174);
             this.buttonEditAnswer.Name = "buttonEditAnswer";
-            this.buttonEditAnswer.Size = new System.Drawing.Size(314, 28);
+            this.buttonEditAnswer.Size = new System.Drawing.Size(314, 34);
             this.buttonEditAnswer.TabIndex = 11;
             this.buttonEditAnswer.Text = "Edit Correct Answer";
             this.buttonEditAnswer.UseVisualStyleBackColor = true;

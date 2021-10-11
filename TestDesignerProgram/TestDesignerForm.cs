@@ -95,7 +95,6 @@ namespace TestDesignerProgram
         {
 
             currentTest.Questions[count - 1].Answers.Add(new Answer() { Description = textBoxAnswer.Text });
-            currentTest.QuestionCount++;
             currentAnswer = new Answer();
             currentAnswer.Description = textBoxAnswer.Text;
             if (checkBoxIsCorrect.CheckState == CheckState.Checked)
@@ -112,6 +111,10 @@ namespace TestDesignerProgram
                 else { checkedListBoxAnswerList.Items.Add(currentAnswer, CheckState.Unchecked); }
             }
             else MessageBox.Show("Same answer is already added");
+            currentTest.Questions[count - 1]
+                        .Answers
+                        .Find(x => x.Description == currentAnswer.Description)                        
+                        .IsCorrect = currentAnswer.IsCorrect;
             textBoxAnswer.Text = "";
         }
         private void CheckCorrectAnswer()
@@ -132,8 +135,6 @@ namespace TestDesignerProgram
         private void checkedListBoxAnswerList_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonEditAnswer.Enabled = true;
-            textBoxAnswer.Text = checkedListBoxAnswerList.SelectedItem.ToString();
-
             if (checkedListBoxAnswerList.GetItemChecked(checkedListBoxAnswerList.SelectedIndex) == true)
             {
                 for (int i = 0; i < checkedListBoxAnswerList.Items.Count; i++)
@@ -156,6 +157,11 @@ namespace TestDesignerProgram
                 formatter.Serialize(fs, currentTest);
             }
             currentTest = new Test();
+            checkedListBoxAnswerList.Items.Clear();
+            count = 0;
+            textBoxAuthor.Text = "";
+            textBoxTestName.Text = "";
+            numericUpDownDifficulty.Value = 1;
         }
 
         private void buttonEditAnswer_Click(object sender, EventArgs e)

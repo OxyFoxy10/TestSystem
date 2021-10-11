@@ -16,16 +16,15 @@ namespace TestDesignerDll
 		[XmlElement]
 		public string Author { get; set; }
 		[XmlElement(ElementName = "QuestionCount")]
-		public int QuestionCount { get; set; } = 0;
+		public int QuestionCount { get { return Questions.Count; } }
 		[XmlElement(ElementName = "Question")]
 		public List<Question> Questions { get; set; }
 		public Test() { this.Questions = new List<Question>(); }
 
-        public Test(string testName, string author, int questionCount, List<Question> questions)
+        public Test(string testName, string author, List<Question> questions)
         {
             TestName = testName;
             Author = author;
-            QuestionCount = questionCount;
             Questions = questions;
         }
 
@@ -77,7 +76,7 @@ namespace TestDesignerDll
         {
 			//return $"Question {Count}: {Description}\n" +
 			//	$"Answers:\n{string.Join<Answer>("\n", Answers)}";
-			return $"Question {Number}";
+			return $"Question {Number}:{Description}";
 		}
 
         public override bool Equals(object obj)
