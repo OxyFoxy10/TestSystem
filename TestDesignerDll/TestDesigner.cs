@@ -7,34 +7,84 @@ using System.Xml.Serialization;
 
 namespace TestDesignerDll
 {
-	[XmlRoot(ElementName = "TestDesigner")]
-	public class TestDesigner
+	[Serializable]
+	[XmlRoot]
+	public class Test
 	{
-		[XmlElement(ElementName = "Author")]
-		public string Author { get; set; }
-		[XmlElement(ElementName = "TestName")]
+		[XmlElement]
 		public string TestName { get; set; }
+		[XmlElement]
+		public string Author { get; set; }
 		[XmlElement(ElementName = "QuestionCount")]
-		public string QuestionCount { get; set; }
+		public int QuestionCount { get; set; } = 0;
 		[XmlElement(ElementName = "Question")]
-		public List<Question> QuestionList { get; set; }
-		[XmlRoot(ElementName = "Answer")]
-		public class Answer
-		{
-			[XmlElement(ElementName = "Description")]
-			public string Description { get; set; }
-			[XmlElement(ElementName = "IsRight")]
-			public string IsRight { get; set; }
+		public List<Question> Questions { get; set; }
+		public Test() { this.Questions = new List<Question>(); }
+
+        public Test(string testName, string author, int questionCount, List<Question> questions)
+        {
+            TestName = testName;
+            Author = author;
+            QuestionCount = questionCount;
+            Questions = questions;
+        }
+
+        public override string ToString()
+        {
+			return $"Test Name: {TestName} | Author {Author} | Question Count: {QuestionCount}";
+        }
+    }
+	[Serializable]
+	[XmlRoot]
+	public class Answer
+	{
+		[XmlElement(ElementName = "Description")]
+		public string Description { get; set; }
+		[XmlAttribute]
+		public bool IsCorrect { get; set; }
+        public override bool Equals(object obj)
+        {
+			return obj is Answer answer &&
+				   Description == answer.Description;
+        }
+        public override string ToString()
+        {
+            return $"{Description}";
 		}
-		[XmlRoot(ElementName = "Question")]
-		public class Question
-		{
-			[XmlElement(ElementName = "Description")]
-			public string Description { get; set; }
-			[XmlElement(ElementName = "Difficulty")]
-			public string Difficulty { get; set; }
-			[XmlElement(ElementName = "Answer")]
-			public List<Answer> AnswerList { get; set; }
+    }
+	[Serializable]
+	[XmlRoot]
+	public class Question
+	{		
+		[XmlAttribute]
+		public int Number { get; set; }
+		[XmlAttribute]
+		public string Description { get; set; }
+		[XmlElement(ElementName = "Difficulty")]
+		public int Difficulty { get; set; } = 1;
+		[XmlElement(ElementName = "Answer")]
+		public List<Answer> Answers { get; set; }
+		public Question() { this.Answers = new List<Answer>(); }
+
+        public Question(string description, int difficulty, List<Answer> answers)
+        {
+            Description = description;
+            Difficulty = difficulty;
+            Answers = answers;
+        }
+
+        public override string ToString()
+        {
+			//return $"Question {Count}: {Description}\n" +
+			//	$"Answers:\n{string.Join<Answer>("\n", Answers)}";
+			return $"Question {Number}";
 		}
-	}
+
+        public override bool Equals(object obj)
+        {
+            return obj is Question question &&
+                   Description == question.Description;
+        }
+    }
+
 }
