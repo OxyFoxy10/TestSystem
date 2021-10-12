@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace DAL_TestSystem
 {
     public class User
-    {
-      
-
+    {    
         public int Id { get; set; }
         [Required, MaxLength(50),MinLength(2)]
         public string FirstName { get; set; }

@@ -13,9 +13,11 @@ namespace DAL_TestSystem
             protected override void Seed(TestSystemDBContext context)
             {
                 User admin = new User() { Login = "sa", Password = "1", IsAdmin = true, FirstName = "admin", LastName = "admin" };
-            Group group = new Group() { GroupName = "Administrators" };
-            context.Users.Add(admin);
+                Group group = new Group() { GroupName = "Administrators" };
+            admin.Groups.Add(group);
             group.Users.Add(admin);
+            context.Users.Add(admin);
+            context.Groups.Add(group);
                 context.SaveChanges();
             }
         }

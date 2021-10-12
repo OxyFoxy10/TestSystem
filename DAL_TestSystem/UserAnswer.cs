@@ -7,12 +7,7 @@ namespace DAL_TestSystem
     {
         public int Id { get; set; }
         public DateTime UserAnswerDate { get; set; }
-        public virtual ICollection<User> Users { get; set; }
-        public virtual ICollection<Answer> Answers { get; set; }
-        public UserAnswer()
-        {
-            Users = new List<User>();
-            Answers = new List<Answer>();
-        }
+        public virtual User GetUserss { get; set; }
+        public virtual Answer GetAnswers { get; set; }
     }
 }

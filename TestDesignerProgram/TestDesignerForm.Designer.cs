@@ -251,7 +251,7 @@ namespace TestDesignerProgram
             this.Controls.Add(this.groupBoxQuestion);
             this.Controls.Add(this.groupBoxInfo);
             this.Name = "TestDesignerForm";
-            this.Text = "Form1";
+            this.Text = "Create New Test";
             this.groupBoxInfo.ResumeLayout(false);
             this.groupBoxInfo.PerformLayout();
             this.groupBoxQuestion.ResumeLayout(false);
