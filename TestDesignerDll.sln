@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDesignerDll", "TestDesi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDesignerProgram", "TestDesignerProgram\TestDesignerProgram.csproj", "{6BC56303-4B83-4FA1-92E8-AC5FA896CCA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_TestSystem", "DAL_TestSystem\DAL_TestSystem.csproj", "{02565ABD-A443-49C7-BA02-5FC683C498F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6BC56303-4B83-4FA1-92E8-AC5FA896CCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BC56303-4B83-4FA1-92E8-AC5FA896CCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BC56303-4B83-4FA1-92E8-AC5FA896CCA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02565ABD-A443-49C7-BA02-5FC683C498F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02565ABD-A443-49C7-BA02-5FC683C498F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02565ABD-A443-49C7-BA02-5FC683C498F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02565ABD-A443-49C7-BA02-5FC683C498F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
