@@ -14,7 +14,7 @@ namespace DAL_TestSystem
             {
                 User admin = new User() { Login = "sa", Password = "1", IsAdmin = true, FirstName = "admin", LastName = "admin" };
                 Group group = new Group() { GroupName = "Administrators" };
-            admin.Groups.Add(group);
+           // admin.Groups.Add(group);
             group.Users.Add(admin);
             context.Users.Add(admin);
             context.Groups.Add(group);

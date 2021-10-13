@@ -24,12 +24,23 @@ namespace DAL_TestSystem
             public DbSet<UserAnswer> UserAnswers { get; set; }
             protected override void OnModelCreating(DbModelBuilder modelBuilder)
             {
-                modelBuilder.Entity<Question>().HasMany(x => x.Answers).WithRequired(x => x.GetQuestion).WillCascadeOnDelete(true);
-                modelBuilder.Entity<Test>().HasMany(x => x.Questions).WithRequired(x => x.GetTest).WillCascadeOnDelete(true);
-                modelBuilder.Entity<User>().HasMany(x => x.Results).WithRequired(x => x.GetUser).WillCascadeOnDelete(true);
-                modelBuilder.Entity<Group>().HasMany(x => x.TestGroups).WithRequired(x => x.GetGroups).WillCascadeOnDelete(true);
-                modelBuilder.Entity<Test>().HasMany(x => x.Results).WithRequired(x => x.GetTest).WillCascadeOnDelete(true);
-                modelBuilder.Entity<Test>().HasMany(x => x.TestGroups).WithRequired(x => x.GetTests).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Question>().HasMany(x => x.Answers).WithRequired(x => x.GetQuestion).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Test>().HasMany(x => x.Questions).WithRequired(x => x.GetTest).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<User>().HasMany(x => x.Results).WithRequired(x => x.GetUser).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Group>().HasMany(x => x.TestGroups).WithRequired(x => x.GetGroups).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Test>().HasMany(x => x.Results).WithRequired(x => x.GetTest).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Test>().HasMany(x => x.TestGroups).WithRequired(x => x.GetTests).WillCascadeOnDelete(true); modelBuilder.Entity<Question>().HasMany(x => x.Answers).WithRequired(x => x.GetQuestion).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Test>().HasMany(x => x.Results);
+            modelBuilder.Entity<Test>().HasMany(x => x.TestGroups);
+            modelBuilder.Entity<Test>().HasMany(x => x.Questions);
+            modelBuilder.Entity<Question>().HasMany(x => x.Answers);
+            modelBuilder.Entity<Answer>().HasMany(x => x.UserAnswers);
+            modelBuilder.Entity<User>().HasMany(x => x.Results);
+            modelBuilder.Entity<User>().HasMany(x => x.Groups);
+            modelBuilder.Entity<User>().HasMany(x => x.UserAnswers);
+            modelBuilder.Entity<Group>().HasMany(x => x.TestGroups);
+            modelBuilder.Entity<Group>().HasMany(x => x.Users);
+           
             }
         }    
 }

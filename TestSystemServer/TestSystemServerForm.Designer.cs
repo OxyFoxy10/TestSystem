@@ -37,15 +37,24 @@ namespace TestSystemServer
             this.ToolStripMenuItemAddTest = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemEditTest = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemRemoveTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabControlGroupManage = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBoxQuestion = new System.Windows.Forms.GroupBox();
+            this.buttonRemoveAnswer = new System.Windows.Forms.Button();
+            this.buttonAddAnswer = new System.Windows.Forms.Button();
+            this.checkBoxIsCorrect = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxAnswer = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxAnswerList = new System.Windows.Forms.ComboBox();
             this.numericUpDownDifficulty = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonSaveQuestion = new System.Windows.Forms.Button();
             this.textBoxQuestion = new System.Windows.Forms.TextBox();
             this.groupBoxQuestionList = new System.Windows.Forms.GroupBox();
+            this.buttonSaveTest = new System.Windows.Forms.Button();
             this.buttonRemoveQuestion = new System.Windows.Forms.Button();
             this.textBoxTestName = new System.Windows.Forms.TextBox();
             this.textBoxAuthor = new System.Windows.Forms.TextBox();
@@ -69,27 +78,20 @@ namespace TestSystemServer
             this.toolStripMenuItemEditGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRemoveGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageResults = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxAnswer = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.checkBoxIsCorrect = new System.Windows.Forms.CheckBox();
-            this.buttonAddAnswer = new System.Windows.Forms.Button();
-            this.buttonRemoveAnswer = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.dataGridViewResults = new System.Windows.Forms.DataGridView();
             this.bindingNavigator2 = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorAddNewItem1 = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorCountItem1 = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorPositionItem1 = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorCountItem1 = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorMoveNextItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorAddNewItem1 = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
-            this.dataGridViewResults = new System.Windows.Forms.DataGridView();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestManage)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.tabControlGroupManage.SuspendLayout();
@@ -104,9 +106,9 @@ namespace TestSystemServer
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGroupManage)).BeginInit();
             this.menuStrip3.SuspendLayout();
             this.tabPageResults.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator2)).BeginInit();
             this.bindingNavigator2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewTestManage
@@ -122,6 +124,8 @@ namespace TestSystemServer
             this.dataGridViewTestManage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTestManage.Size = new System.Drawing.Size(558, 310);
             this.dataGridViewTestManage.TabIndex = 10;
+            this.dataGridViewTestManage.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTestManage_CellContentClick);
+            this.dataGridViewTestManage.SelectionChanged += new System.EventHandler(this.dataGridViewTestManage_SelectionChanged);
             // 
             // menuStrip2
             // 
@@ -131,12 +135,13 @@ namespace TestSystemServer
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemShowAll,
+            this.loadTestToolStripMenuItem,
             this.ToolStripMenuItemAddTest,
             this.ToolStripMenuItemEditTest,
             this.ToolStripMenuItemRemoveTest});
             this.menuStrip2.Location = new System.Drawing.Point(3, 3);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(433, 33);
+            this.menuStrip2.Size = new System.Drawing.Size(715, 33);
             this.menuStrip2.TabIndex = 9;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -152,18 +157,28 @@ namespace TestSystemServer
             this.ToolStripMenuItemAddTest.Name = "ToolStripMenuItemAddTest";
             this.ToolStripMenuItemAddTest.Size = new System.Drawing.Size(97, 29);
             this.ToolStripMenuItemAddTest.Text = "Add Test";
+            this.ToolStripMenuItemAddTest.Click += new System.EventHandler(this.ToolStripMenuItemAddTest_Click);
             // 
             // ToolStripMenuItemEditTest
             // 
             this.ToolStripMenuItemEditTest.Name = "ToolStripMenuItemEditTest";
             this.ToolStripMenuItemEditTest.Size = new System.Drawing.Size(93, 29);
             this.ToolStripMenuItemEditTest.Text = "Edit Test";
+            this.ToolStripMenuItemEditTest.Click += new System.EventHandler(this.ToolStripMenuItemEditTest_Click);
             // 
             // ToolStripMenuItemRemoveTest
             // 
             this.ToolStripMenuItemRemoveTest.Name = "ToolStripMenuItemRemoveTest";
             this.ToolStripMenuItemRemoveTest.Size = new System.Drawing.Size(127, 29);
             this.ToolStripMenuItemRemoveTest.Text = "Remove Test";
+            this.ToolStripMenuItemRemoveTest.Click += new System.EventHandler(this.ToolStripMenuItemRemoveTest_Click);
+            // 
+            // loadTestToolStripMenuItem
+            // 
+            this.loadTestToolStripMenuItem.Name = "loadTestToolStripMenuItem";
+            this.loadTestToolStripMenuItem.Size = new System.Drawing.Size(102, 29);
+            this.loadTestToolStripMenuItem.Text = "Load Test";
+            this.loadTestToolStripMenuItem.Click += new System.EventHandler(this.loadTestToolStripMenuItem_Click);
             // 
             // splitter1
             // 
@@ -199,6 +214,7 @@ namespace TestSystemServer
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Test Manage";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // groupBoxQuestion
             // 
@@ -208,7 +224,7 @@ namespace TestSystemServer
             this.groupBoxQuestion.Controls.Add(this.label4);
             this.groupBoxQuestion.Controls.Add(this.textBoxAnswer);
             this.groupBoxQuestion.Controls.Add(this.label3);
-            this.groupBoxQuestion.Controls.Add(this.comboBox1);
+            this.groupBoxQuestion.Controls.Add(this.comboBoxAnswerList);
             this.groupBoxQuestion.Controls.Add(this.numericUpDownDifficulty);
             this.groupBoxQuestion.Controls.Add(this.label5);
             this.groupBoxQuestion.Controls.Add(this.buttonSaveQuestion);
@@ -219,6 +235,74 @@ namespace TestSystemServer
             this.groupBoxQuestion.TabIndex = 12;
             this.groupBoxQuestion.TabStop = false;
             this.groupBoxQuestion.Text = "Question View";
+            // 
+            // buttonRemoveAnswer
+            // 
+            this.buttonRemoveAnswer.Enabled = false;
+            this.buttonRemoveAnswer.Location = new System.Drawing.Point(144, 203);
+            this.buttonRemoveAnswer.Name = "buttonRemoveAnswer";
+            this.buttonRemoveAnswer.Size = new System.Drawing.Size(189, 36);
+            this.buttonRemoveAnswer.TabIndex = 20;
+            this.buttonRemoveAnswer.Text = "Remove Answer";
+            this.buttonRemoveAnswer.UseVisualStyleBackColor = true;
+            this.buttonRemoveAnswer.Click += new System.EventHandler(this.buttonRemoveAnswer_Click);
+            // 
+            // buttonAddAnswer
+            // 
+            this.buttonAddAnswer.Enabled = false;
+            this.buttonAddAnswer.Location = new System.Drawing.Point(142, 313);
+            this.buttonAddAnswer.Name = "buttonAddAnswer";
+            this.buttonAddAnswer.Size = new System.Drawing.Size(189, 36);
+            this.buttonAddAnswer.TabIndex = 19;
+            this.buttonAddAnswer.Text = "Add To AnswerList";
+            this.buttonAddAnswer.UseVisualStyleBackColor = true;
+            this.buttonAddAnswer.Click += new System.EventHandler(this.buttonAddAnswer_Click);
+            // 
+            // checkBoxIsCorrect
+            // 
+            this.checkBoxIsCorrect.AutoSize = true;
+            this.checkBoxIsCorrect.Location = new System.Drawing.Point(17, 320);
+            this.checkBoxIsCorrect.Name = "checkBoxIsCorrect";
+            this.checkBoxIsCorrect.Size = new System.Drawing.Size(100, 24);
+            this.checkBoxIsCorrect.TabIndex = 18;
+            this.checkBoxIsCorrect.Text = "IsCorrect";
+            this.checkBoxIsCorrect.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 226);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 20);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Answer View";
+            // 
+            // textBoxAnswer
+            // 
+            this.textBoxAnswer.Location = new System.Drawing.Point(17, 249);
+            this.textBoxAnswer.Multiline = true;
+            this.textBoxAnswer.Name = "textBoxAnswer";
+            this.textBoxAnswer.Size = new System.Drawing.Size(314, 62);
+            this.textBoxAnswer.TabIndex = 16;
+            this.textBoxAnswer.TextChanged += new System.EventHandler(this.textBoxAnswer_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 146);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 20);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Answer List";
+            // 
+            // comboBoxAnswerList
+            // 
+            this.comboBoxAnswerList.FormattingEnabled = true;
+            this.comboBoxAnswerList.Location = new System.Drawing.Point(19, 169);
+            this.comboBoxAnswerList.Name = "comboBoxAnswerList";
+            this.comboBoxAnswerList.Size = new System.Drawing.Size(314, 28);
+            this.comboBoxAnswerList.TabIndex = 14;
+            this.comboBoxAnswerList.SelectedIndexChanged += new System.EventHandler(this.comboBoxAnswerList_SelectedIndexChanged);
             // 
             // numericUpDownDifficulty
             // 
@@ -249,6 +333,7 @@ namespace TestSystemServer
             this.buttonSaveQuestion.TabIndex = 11;
             this.buttonSaveQuestion.Text = "Save Question";
             this.buttonSaveQuestion.UseVisualStyleBackColor = true;
+            this.buttonSaveQuestion.Click += new System.EventHandler(this.buttonSaveQuestion_Click);
             // 
             // textBoxQuestion
             // 
@@ -257,10 +342,11 @@ namespace TestSystemServer
             this.textBoxQuestion.Name = "textBoxQuestion";
             this.textBoxQuestion.Size = new System.Drawing.Size(314, 80);
             this.textBoxQuestion.TabIndex = 2;
+            this.textBoxQuestion.TextChanged += new System.EventHandler(this.textBoxQuestion_TextChanged);
             // 
             // groupBoxQuestionList
             // 
-            this.groupBoxQuestionList.Controls.Add(this.button1);
+            this.groupBoxQuestionList.Controls.Add(this.buttonSaveTest);
             this.groupBoxQuestionList.Controls.Add(this.buttonRemoveQuestion);
             this.groupBoxQuestionList.Controls.Add(this.textBoxTestName);
             this.groupBoxQuestionList.Controls.Add(this.textBoxAuthor);
@@ -273,6 +359,16 @@ namespace TestSystemServer
             this.groupBoxQuestionList.TabIndex = 11;
             this.groupBoxQuestionList.TabStop = false;
             this.groupBoxQuestionList.Text = "Test View";
+            // 
+            // buttonSaveTest
+            // 
+            this.buttonSaveTest.Location = new System.Drawing.Point(19, 355);
+            this.buttonSaveTest.Name = "buttonSaveTest";
+            this.buttonSaveTest.Size = new System.Drawing.Size(308, 37);
+            this.buttonSaveTest.TabIndex = 15;
+            this.buttonSaveTest.Text = "Save Test";
+            this.buttonSaveTest.UseVisualStyleBackColor = true;
+            this.buttonSaveTest.Click += new System.EventHandler(this.buttonSaveTest_Click);
             // 
             // buttonRemoveQuestion
             // 
@@ -289,6 +385,7 @@ namespace TestSystemServer
             this.textBoxTestName.Name = "textBoxTestName";
             this.textBoxTestName.Size = new System.Drawing.Size(214, 26);
             this.textBoxTestName.TabIndex = 7;
+            this.textBoxTestName.TextChanged += new System.EventHandler(this.textBoxTestName_TextChanged);
             // 
             // textBoxAuthor
             // 
@@ -296,6 +393,7 @@ namespace TestSystemServer
             this.textBoxAuthor.Name = "textBoxAuthor";
             this.textBoxAuthor.Size = new System.Drawing.Size(214, 26);
             this.textBoxAuthor.TabIndex = 6;
+            this.textBoxAuthor.TextChanged += new System.EventHandler(this.textBoxAuthor_TextChanged);
             // 
             // label2
             // 
@@ -324,6 +422,8 @@ namespace TestSystemServer
             this.listBoxQuestionList.ScrollAlwaysVisible = true;
             this.listBoxQuestionList.Size = new System.Drawing.Size(308, 184);
             this.listBoxQuestionList.TabIndex = 1;
+            this.listBoxQuestionList.SelectedIndexChanged += new System.EventHandler(this.listBoxQuestionList_SelectedIndexChanged);
+            this.listBoxQuestionList.DoubleClick += new System.EventHandler(this.listBoxQuestionList_DoubleClick);
             // 
             // tabPageUserManage
             // 
@@ -495,78 +595,19 @@ namespace TestSystemServer
             this.tabPageResults.UseVisualStyleBackColor = true;
             this.tabPageResults.Click += new System.EventHandler(this.tabPageResults_Click);
             // 
-            // comboBox1
+            // dataGridViewResults
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(19, 169);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(314, 28);
-            this.comboBox1.TabIndex = 14;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 146);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 20);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Answer List";
-            // 
-            // textBoxAnswer
-            // 
-            this.textBoxAnswer.Location = new System.Drawing.Point(17, 249);
-            this.textBoxAnswer.Multiline = true;
-            this.textBoxAnswer.Name = "textBoxAnswer";
-            this.textBoxAnswer.Size = new System.Drawing.Size(314, 62);
-            this.textBoxAnswer.TabIndex = 16;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 226);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 20);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Answer View";
-            // 
-            // checkBoxIsCorrect
-            // 
-            this.checkBoxIsCorrect.AutoSize = true;
-            this.checkBoxIsCorrect.Location = new System.Drawing.Point(17, 320);
-            this.checkBoxIsCorrect.Name = "checkBoxIsCorrect";
-            this.checkBoxIsCorrect.Size = new System.Drawing.Size(100, 24);
-            this.checkBoxIsCorrect.TabIndex = 18;
-            this.checkBoxIsCorrect.Text = "IsCorrect";
-            this.checkBoxIsCorrect.UseVisualStyleBackColor = true;
-            // 
-            // buttonAddAnswer
-            // 
-            this.buttonAddAnswer.Enabled = false;
-            this.buttonAddAnswer.Location = new System.Drawing.Point(142, 313);
-            this.buttonAddAnswer.Name = "buttonAddAnswer";
-            this.buttonAddAnswer.Size = new System.Drawing.Size(189, 36);
-            this.buttonAddAnswer.TabIndex = 19;
-            this.buttonAddAnswer.Text = "Add To AnswerList";
-            this.buttonAddAnswer.UseVisualStyleBackColor = true;
-            // 
-            // buttonRemoveAnswer
-            // 
-            this.buttonRemoveAnswer.Enabled = false;
-            this.buttonRemoveAnswer.Location = new System.Drawing.Point(144, 203);
-            this.buttonRemoveAnswer.Name = "buttonRemoveAnswer";
-            this.buttonRemoveAnswer.Size = new System.Drawing.Size(189, 36);
-            this.buttonRemoveAnswer.TabIndex = 20;
-            this.buttonRemoveAnswer.Text = "Remove Answer";
-            this.buttonRemoveAnswer.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(19, 355);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(308, 37);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Save Test";
-            this.button1.UseVisualStyleBackColor = true;
+            this.dataGridViewResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewResults.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewResults.Location = new System.Drawing.Point(6, 49);
+            this.dataGridViewResults.MultiSelect = false;
+            this.dataGridViewResults.Name = "dataGridViewResults";
+            this.dataGridViewResults.RowHeadersWidth = 62;
+            this.dataGridViewResults.RowTemplate.Height = 28;
+            this.dataGridViewResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewResults.Size = new System.Drawing.Size(558, 310);
+            this.dataGridViewResults.TabIndex = 16;
             // 
             // bindingNavigator2
             // 
@@ -597,11 +638,36 @@ namespace TestSystemServer
             this.bindingNavigator2.TabIndex = 0;
             this.bindingNavigator2.Text = "bindingNavigator2";
             // 
+            // bindingNavigatorAddNewItem1
+            // 
+            this.bindingNavigatorAddNewItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem1.Image")));
+            this.bindingNavigatorAddNewItem1.Name = "bindingNavigatorAddNewItem1";
+            this.bindingNavigatorAddNewItem1.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem1.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorAddNewItem1.Text = "Add new";
+            // 
+            // bindingNavigatorCountItem1
+            // 
+            this.bindingNavigatorCountItem1.Name = "bindingNavigatorCountItem1";
+            this.bindingNavigatorCountItem1.Size = new System.Drawing.Size(54, 28);
+            this.bindingNavigatorCountItem1.Text = "of {0}";
+            this.bindingNavigatorCountItem1.ToolTipText = "Total number of items";
+            // 
+            // bindingNavigatorDeleteItem1
+            // 
+            this.bindingNavigatorDeleteItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem1.Image")));
+            this.bindingNavigatorDeleteItem1.Name = "bindingNavigatorDeleteItem1";
+            this.bindingNavigatorDeleteItem1.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteItem1.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorDeleteItem1.Text = "Delete";
+            // 
             // bindingNavigatorMoveFirstItem1
             // 
             this.bindingNavigatorMoveFirstItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMoveFirstItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem1.Image")));
-            this.bindingNavigatorMoveFirstItem1.Name = "bindingNavigatorMoveFirstItem";
+            this.bindingNavigatorMoveFirstItem1.Name = "bindingNavigatorMoveFirstItem1";
             this.bindingNavigatorMoveFirstItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveFirstItem1.Size = new System.Drawing.Size(34, 28);
             this.bindingNavigatorMoveFirstItem1.Text = "Move first";
@@ -610,14 +676,14 @@ namespace TestSystemServer
             // 
             this.bindingNavigatorMovePreviousItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMovePreviousItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem1.Image")));
-            this.bindingNavigatorMovePreviousItem1.Name = "bindingNavigatorMovePreviousItem";
+            this.bindingNavigatorMovePreviousItem1.Name = "bindingNavigatorMovePreviousItem1";
             this.bindingNavigatorMovePreviousItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMovePreviousItem1.Size = new System.Drawing.Size(34, 28);
             this.bindingNavigatorMovePreviousItem1.Text = "Move previous";
             // 
             // bindingNavigatorSeparator3
             // 
-            this.bindingNavigatorSeparator3.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator3.Name = "bindingNavigatorSeparator3";
             this.bindingNavigatorSeparator3.Size = new System.Drawing.Size(6, 33);
             // 
             // bindingNavigatorPositionItem1
@@ -625,28 +691,21 @@ namespace TestSystemServer
             this.bindingNavigatorPositionItem1.AccessibleName = "Position";
             this.bindingNavigatorPositionItem1.AutoSize = false;
             this.bindingNavigatorPositionItem1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.bindingNavigatorPositionItem1.Name = "bindingNavigatorPositionItem";
+            this.bindingNavigatorPositionItem1.Name = "bindingNavigatorPositionItem1";
             this.bindingNavigatorPositionItem1.Size = new System.Drawing.Size(50, 31);
             this.bindingNavigatorPositionItem1.Text = "0";
             this.bindingNavigatorPositionItem1.ToolTipText = "Current position";
             // 
-            // bindingNavigatorCountItem1
-            // 
-            this.bindingNavigatorCountItem1.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem1.Size = new System.Drawing.Size(54, 28);
-            this.bindingNavigatorCountItem1.Text = "of {0}";
-            this.bindingNavigatorCountItem1.ToolTipText = "Total number of items";
-            // 
             // bindingNavigatorSeparator4
             // 
-            this.bindingNavigatorSeparator4.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator4.Name = "bindingNavigatorSeparator4";
             this.bindingNavigatorSeparator4.Size = new System.Drawing.Size(6, 33);
             // 
             // bindingNavigatorMoveNextItem1
             // 
             this.bindingNavigatorMoveNextItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMoveNextItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem1.Image")));
-            this.bindingNavigatorMoveNextItem1.Name = "bindingNavigatorMoveNextItem";
+            this.bindingNavigatorMoveNextItem1.Name = "bindingNavigatorMoveNextItem1";
             this.bindingNavigatorMoveNextItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveNextItem1.Size = new System.Drawing.Size(34, 28);
             this.bindingNavigatorMoveNextItem1.Text = "Move next";
@@ -655,53 +714,25 @@ namespace TestSystemServer
             // 
             this.bindingNavigatorMoveLastItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMoveLastItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem1.Image")));
-            this.bindingNavigatorMoveLastItem1.Name = "bindingNavigatorMoveLastItem";
+            this.bindingNavigatorMoveLastItem1.Name = "bindingNavigatorMoveLastItem1";
             this.bindingNavigatorMoveLastItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem1.Size = new System.Drawing.Size(34, 28);
             this.bindingNavigatorMoveLastItem1.Text = "Move last";
             // 
             // bindingNavigatorSeparator5
             // 
-            this.bindingNavigatorSeparator5.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator5.Name = "bindingNavigatorSeparator5";
             this.bindingNavigatorSeparator5.Size = new System.Drawing.Size(6, 33);
             // 
-            // bindingNavigatorAddNewItem1
+            // openFileDialog1
             // 
-            this.bindingNavigatorAddNewItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem1.Image")));
-            this.bindingNavigatorAddNewItem1.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem1.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem1.Size = new System.Drawing.Size(34, 28);
-            this.bindingNavigatorAddNewItem1.Text = "Add new";
-            // 
-            // bindingNavigatorDeleteItem1
-            // 
-            this.bindingNavigatorDeleteItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem1.Image")));
-            this.bindingNavigatorDeleteItem1.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem1.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem1.Size = new System.Drawing.Size(34, 28);
-            this.bindingNavigatorDeleteItem1.Text = "Delete";
-            // 
-            // dataGridViewResults
-            // 
-            this.dataGridViewResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewResults.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewResults.Location = new System.Drawing.Point(6, 49);
-            this.dataGridViewResults.MultiSelect = false;
-            this.dataGridViewResults.Name = "dataGridViewResults";
-            this.dataGridViewResults.RowHeadersWidth = 62;
-            this.dataGridViewResults.RowTemplate.Height = 28;
-            this.dataGridViewResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewResults.Size = new System.Drawing.Size(558, 310);
-            this.dataGridViewResults.TabIndex = 16;
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // TestSystemServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1401, 486);
+            this.ClientSize = new System.Drawing.Size(1478, 486);
             this.Controls.Add(this.tabControlGroupManage);
             this.Controls.Add(this.splitter1);
             this.Name = "TestSystemServerForm";
@@ -730,10 +761,10 @@ namespace TestSystemServer
             this.menuStrip3.PerformLayout();
             this.tabPageResults.ResumeLayout(false);
             this.tabPageResults.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator2)).EndInit();
             this.bindingNavigator2.ResumeLayout(false);
             this.bindingNavigator2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -780,11 +811,11 @@ namespace TestSystemServer
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxAnswer;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxAnswerList;
         private System.Windows.Forms.CheckBox checkBoxIsCorrect;
         private System.Windows.Forms.Button buttonAddAnswer;
         private System.Windows.Forms.Button buttonRemoveAnswer;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSaveTest;
         private System.Windows.Forms.BindingNavigator bindingNavigator2;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem1;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem1;
@@ -798,5 +829,7 @@ namespace TestSystemServer
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem1;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator5;
         private System.Windows.Forms.DataGridView dataGridViewResults;
+        private System.Windows.Forms.ToolStripMenuItem loadTestToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

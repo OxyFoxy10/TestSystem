@@ -30,24 +30,24 @@ namespace TestDesignerProgram
         private void InitializeComponent()
         {
             this.groupBoxChooseTest = new System.Windows.Forms.GroupBox();
-            this.listBoxQuestionList = new System.Windows.Forms.ListBox();
-            this.buttonOpenFile = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.groupBoxQuestionList = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBoxQuestion = new System.Windows.Forms.TextBox();
-            this.groupBoxQuestion = new System.Windows.Forms.GroupBox();
-            this.buttonSaveQuestion = new System.Windows.Forms.Button();
-            this.checkedListBoxAnswerList = new System.Windows.Forms.CheckedListBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
+            this.listBoxQuestionList = new System.Windows.Forms.ListBox();
+            this.groupBoxQuestionList = new System.Windows.Forms.GroupBox();
+            this.buttonRemoveQuestion = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.textBoxTestName = new System.Windows.Forms.TextBox();
             this.textBoxAuthor = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBoxQuestion = new System.Windows.Forms.TextBox();
+            this.groupBoxQuestion = new System.Windows.Forms.GroupBox();
             this.numericUpDownDifficulty = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.buttonRemoveQuestion = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonSaveQuestion = new System.Windows.Forms.Button();
+            this.checkedListBoxAnswerList = new System.Windows.Forms.CheckedListBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBoxChooseTest.SuspendLayout();
             this.groupBoxQuestionList.SuspendLayout();
@@ -68,27 +68,25 @@ namespace TestDesignerProgram
             this.groupBoxChooseTest.TabStop = false;
             this.groupBoxChooseTest.Text = "choose Test";
             // 
-            // listBoxQuestionList
+            // comboBox1
             // 
-            this.listBoxQuestionList.FormattingEnabled = true;
-            this.listBoxQuestionList.ItemHeight = 20;
-            this.listBoxQuestionList.Location = new System.Drawing.Point(19, 120);
-            this.listBoxQuestionList.Name = "listBoxQuestionList";
-            this.listBoxQuestionList.ScrollAlwaysVisible = true;
-            this.listBoxQuestionList.Size = new System.Drawing.Size(308, 164);
-            this.listBoxQuestionList.TabIndex = 1;
-            this.listBoxQuestionList.DoubleClick += new System.EventHandler(this.listBoxQuestionList_DoubleClick);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(16, 50);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(194, 28);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // buttonOpenFile
+            // radioButton2
             // 
-            this.buttonOpenFile.Enabled = false;
-            this.buttonOpenFile.Location = new System.Drawing.Point(16, 114);
-            this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(194, 38);
-            this.buttonOpenFile.TabIndex = 2;
-            this.buttonOpenFile.Text = "Open File from PC";
-            this.buttonOpenFile.UseVisualStyleBackColor = true;
-            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(16, 84);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(174, 24);
+            this.radioButton2.TabIndex = 4;
+            this.radioButton2.Text = "Choose file from PC";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -103,16 +101,27 @@ namespace TestDesignerProgram
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // radioButton2
+            // buttonOpenFile
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(16, 84);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(174, 24);
-            this.radioButton2.TabIndex = 4;
-            this.radioButton2.Text = "Choose file from PC";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.buttonOpenFile.Enabled = false;
+            this.buttonOpenFile.Location = new System.Drawing.Point(16, 114);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(194, 38);
+            this.buttonOpenFile.TabIndex = 2;
+            this.buttonOpenFile.Text = "Open File from PC";
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            // 
+            // listBoxQuestionList
+            // 
+            this.listBoxQuestionList.FormattingEnabled = true;
+            this.listBoxQuestionList.ItemHeight = 20;
+            this.listBoxQuestionList.Location = new System.Drawing.Point(19, 120);
+            this.listBoxQuestionList.Name = "listBoxQuestionList";
+            this.listBoxQuestionList.ScrollAlwaysVisible = true;
+            this.listBoxQuestionList.Size = new System.Drawing.Size(308, 164);
+            this.listBoxQuestionList.TabIndex = 1;
+            this.listBoxQuestionList.DoubleClick += new System.EventHandler(this.listBoxQuestionList_DoubleClick);
             // 
             // groupBoxQuestionList
             // 
@@ -130,55 +139,23 @@ namespace TestDesignerProgram
             this.groupBoxQuestionList.TabStop = false;
             this.groupBoxQuestionList.Text = "groupBox1";
             // 
-            // comboBox1
+            // buttonRemoveQuestion
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(16, 50);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(194, 28);
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.buttonRemoveQuestion.Location = new System.Drawing.Point(19, 333);
+            this.buttonRemoveQuestion.Name = "buttonRemoveQuestion";
+            this.buttonRemoveQuestion.Size = new System.Drawing.Size(308, 37);
+            this.buttonRemoveQuestion.TabIndex = 14;
+            this.buttonRemoveQuestion.Text = "Remove question";
+            this.buttonRemoveQuestion.UseVisualStyleBackColor = true;
             // 
-            // textBoxQuestion
+            // button2
             // 
-            this.textBoxQuestion.Location = new System.Drawing.Point(17, 34);
-            this.textBoxQuestion.Multiline = true;
-            this.textBoxQuestion.Name = "textBoxQuestion";
-            this.textBoxQuestion.Size = new System.Drawing.Size(314, 80);
-            this.textBoxQuestion.TabIndex = 2;
-            // 
-            // groupBoxQuestion
-            // 
-            this.groupBoxQuestion.Controls.Add(this.numericUpDownDifficulty);
-            this.groupBoxQuestion.Controls.Add(this.label5);
-            this.groupBoxQuestion.Controls.Add(this.buttonSaveQuestion);
-            this.groupBoxQuestion.Controls.Add(this.textBoxQuestion);
-            this.groupBoxQuestion.Controls.Add(this.checkedListBoxAnswerList);
-            this.groupBoxQuestion.Location = new System.Drawing.Point(686, 36);
-            this.groupBoxQuestion.Name = "groupBoxQuestion";
-            this.groupBoxQuestion.Size = new System.Drawing.Size(353, 376);
-            this.groupBoxQuestion.TabIndex = 4;
-            this.groupBoxQuestion.TabStop = false;
-            this.groupBoxQuestion.Text = "Question";
-            // 
-            // buttonSaveQuestion
-            // 
-            this.buttonSaveQuestion.Location = new System.Drawing.Point(17, 333);
-            this.buttonSaveQuestion.Name = "buttonSaveQuestion";
-            this.buttonSaveQuestion.Size = new System.Drawing.Size(314, 37);
-            this.buttonSaveQuestion.TabIndex = 11;
-            this.buttonSaveQuestion.Text = "Save changes";
-            this.buttonSaveQuestion.UseVisualStyleBackColor = true;
-            this.buttonSaveQuestion.Click += new System.EventHandler(this.buttonSaveQuestion_Click);
-            // 
-            // checkedListBoxAnswerList
-            // 
-            this.checkedListBoxAnswerList.CheckOnClick = true;
-            this.checkedListBoxAnswerList.FormattingEnabled = true;
-            this.checkedListBoxAnswerList.Location = new System.Drawing.Point(17, 162);
-            this.checkedListBoxAnswerList.Name = "checkedListBoxAnswerList";
-            this.checkedListBoxAnswerList.Size = new System.Drawing.Size(314, 165);
-            this.checkedListBoxAnswerList.TabIndex = 0;
+            this.button2.Location = new System.Drawing.Point(19, 290);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(308, 37);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Add Question";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // textBoxTestName
             // 
@@ -212,6 +189,28 @@ namespace TestDesignerProgram
             this.label1.TabIndex = 4;
             this.label1.Text = "Author";
             // 
+            // textBoxQuestion
+            // 
+            this.textBoxQuestion.Location = new System.Drawing.Point(17, 34);
+            this.textBoxQuestion.Multiline = true;
+            this.textBoxQuestion.Name = "textBoxQuestion";
+            this.textBoxQuestion.Size = new System.Drawing.Size(314, 80);
+            this.textBoxQuestion.TabIndex = 2;
+            // 
+            // groupBoxQuestion
+            // 
+            this.groupBoxQuestion.Controls.Add(this.numericUpDownDifficulty);
+            this.groupBoxQuestion.Controls.Add(this.label5);
+            this.groupBoxQuestion.Controls.Add(this.buttonSaveQuestion);
+            this.groupBoxQuestion.Controls.Add(this.textBoxQuestion);
+            this.groupBoxQuestion.Controls.Add(this.checkedListBoxAnswerList);
+            this.groupBoxQuestion.Location = new System.Drawing.Point(686, 36);
+            this.groupBoxQuestion.Name = "groupBoxQuestion";
+            this.groupBoxQuestion.Size = new System.Drawing.Size(353, 376);
+            this.groupBoxQuestion.TabIndex = 4;
+            this.groupBoxQuestion.TabStop = false;
+            this.groupBoxQuestion.Text = "Question";
+            // 
             // numericUpDownDifficulty
             // 
             this.numericUpDownDifficulty.Location = new System.Drawing.Point(100, 120);
@@ -233,23 +232,24 @@ namespace TestDesignerProgram
             this.label5.TabIndex = 12;
             this.label5.Text = "Difficulty";
             // 
-            // buttonRemoveQuestion
+            // buttonSaveQuestion
             // 
-            this.buttonRemoveQuestion.Location = new System.Drawing.Point(19, 333);
-            this.buttonRemoveQuestion.Name = "buttonRemoveQuestion";
-            this.buttonRemoveQuestion.Size = new System.Drawing.Size(308, 37);
-            this.buttonRemoveQuestion.TabIndex = 14;
-            this.buttonRemoveQuestion.Text = "Remove question";
-            this.buttonRemoveQuestion.UseVisualStyleBackColor = true;
+            this.buttonSaveQuestion.Location = new System.Drawing.Point(17, 333);
+            this.buttonSaveQuestion.Name = "buttonSaveQuestion";
+            this.buttonSaveQuestion.Size = new System.Drawing.Size(314, 37);
+            this.buttonSaveQuestion.TabIndex = 11;
+            this.buttonSaveQuestion.Text = "Save changes";
+            this.buttonSaveQuestion.UseVisualStyleBackColor = true;
+            this.buttonSaveQuestion.Click += new System.EventHandler(this.buttonSaveQuestion_Click);
             // 
-            // button2
+            // checkedListBoxAnswerList
             // 
-            this.button2.Location = new System.Drawing.Point(19, 290);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(308, 37);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Add Question";
-            this.button2.UseVisualStyleBackColor = true;
+            this.checkedListBoxAnswerList.CheckOnClick = true;
+            this.checkedListBoxAnswerList.FormattingEnabled = true;
+            this.checkedListBoxAnswerList.Location = new System.Drawing.Point(17, 193);
+            this.checkedListBoxAnswerList.Name = "checkedListBoxAnswerList";
+            this.checkedListBoxAnswerList.Size = new System.Drawing.Size(314, 119);
+            this.checkedListBoxAnswerList.TabIndex = 0;
             // 
             // openFileDialog1
             // 

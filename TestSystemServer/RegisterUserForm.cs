@@ -106,9 +106,7 @@ namespace TestSystemServer
                 Login = textBoxUserLogin.Text,
                 Password = textBoxUserPassword.Text
             };
-
             user.IsAdmin = false;
-
             repoUsers.Add(user);
             DialogResult = DialogResult.OK;
         }

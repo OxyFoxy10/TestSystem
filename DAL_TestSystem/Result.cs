@@ -9,5 +9,9 @@ namespace DAL_TestSystem
         public int? Mark { get; set; }
         public virtual User GetUser { get; set; }
         public virtual Test GetTest { get; set; }
+        public override string ToString()
+        {
+            return $"{Mark}%";
+        }
     }
 }

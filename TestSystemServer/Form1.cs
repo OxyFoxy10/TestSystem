@@ -33,11 +33,9 @@ namespace TestSystemServer
                 {
                     TestSystemServerForm testSystemServerForm  = new TestSystemServerForm(work, res);
                     DialogResult dialogResult = testSystemServerForm.ShowDialog();
-
                 }
                 else
                     MessageBox.Show("Login or password incorrect, please try again later");
-
                 work.Dispose();
             }
         }
@@ -51,7 +49,6 @@ namespace TestSystemServer
                 if (dialogResult == DialogResult.OK)
                 {
                     MessageBox.Show("User added");
-
                 }
                 work.Dispose();
             }

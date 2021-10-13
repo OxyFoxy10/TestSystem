@@ -18,7 +18,7 @@ namespace DAL_TestSystem
 
         public override string ToString()
         {
-            return $"id {Id}, group {GroupName}";
+            return $"{GroupName}";
         }
     }
 }

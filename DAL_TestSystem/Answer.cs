@@ -5,11 +5,11 @@ namespace DAL_TestSystem
 {
     public class Answer
     {
-        public int Id { get; set; }
-        [Required, MaxLength(50), MinLength(2)]      
+        public int Id { get; set; }       
         public string Description { get; set; }
         [Required]
         public bool IsCorrect { get; set; }
+        
         public virtual Question GetQuestion { get; set; }
         public virtual ICollection<UserAnswer> UserAnswers { get; set; }
         public Answer()
@@ -18,7 +18,14 @@ namespace DAL_TestSystem
         }
         public override string ToString()
         {
-            return $"id {Id}, group {Description}";
+            return $"{Description}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Answer answer &&
+                   Description == answer.Description &&
+                   IsCorrect == answer.IsCorrect;
         }
     }
 }

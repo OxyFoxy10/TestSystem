@@ -22,7 +22,7 @@ namespace DAL_TestSystem
 
         public override string ToString()
         {
-            return $"id {Id}, Test {TestName}";
+            return $"Test {TestName}";
         }
     }
     

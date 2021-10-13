@@ -132,6 +132,10 @@
       <Project>{02565abd-a443-49c7-ba02-5fc683c498f3}</Project>
       <Name>DAL_TestSystem</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestDesignerDll\TestDesignerDll.csproj">
+      <Project>{e1f4b449-3689-4632-8900-eeefb0852ba2}</Project>
+      <Name>TestDesignerDll</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
