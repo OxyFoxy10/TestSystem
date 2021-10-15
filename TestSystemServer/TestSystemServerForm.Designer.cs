@@ -34,8 +34,6 @@ namespace TestSystemServer
             this.dataGridViewTestManage = new System.Windows.Forms.DataGridView();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItemShowAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemAddTest = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemEditTest = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemRemoveTest = new System.Windows.Forms.ToolStripMenuItem();
             this.loadTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitter1 = new System.Windows.Forms.Splitter();
@@ -116,13 +114,13 @@ namespace TestSystemServer
             this.dataGridViewTestManage.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewTestManage.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewTestManage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTestManage.Location = new System.Drawing.Point(3, 39);
+            this.dataGridViewTestManage.Location = new System.Drawing.Point(6, 60);
             this.dataGridViewTestManage.MultiSelect = false;
             this.dataGridViewTestManage.Name = "dataGridViewTestManage";
             this.dataGridViewTestManage.RowHeadersWidth = 62;
             this.dataGridViewTestManage.RowTemplate.Height = 28;
             this.dataGridViewTestManage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTestManage.Size = new System.Drawing.Size(558, 310);
+            this.dataGridViewTestManage.Size = new System.Drawing.Size(449, 310);
             this.dataGridViewTestManage.TabIndex = 10;
             this.dataGridViewTestManage.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTestManage_CellContentClick);
             this.dataGridViewTestManage.SelectionChanged += new System.EventHandler(this.dataGridViewTestManage_SelectionChanged);
@@ -136,12 +134,10 @@ namespace TestSystemServer
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemShowAll,
             this.loadTestToolStripMenuItem,
-            this.ToolStripMenuItemAddTest,
-            this.ToolStripMenuItemEditTest,
             this.ToolStripMenuItemRemoveTest});
             this.menuStrip2.Location = new System.Drawing.Point(3, 3);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(715, 33);
+            this.menuStrip2.Size = new System.Drawing.Size(345, 33);
             this.menuStrip2.TabIndex = 9;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -151,20 +147,6 @@ namespace TestSystemServer
             this.ToolStripMenuItemShowAll.Size = new System.Drawing.Size(97, 29);
             this.ToolStripMenuItemShowAll.Text = "Show All";
             this.ToolStripMenuItemShowAll.Click += new System.EventHandler(this.ToolStripMenuItemShowAll_Click);
-            // 
-            // ToolStripMenuItemAddTest
-            // 
-            this.ToolStripMenuItemAddTest.Name = "ToolStripMenuItemAddTest";
-            this.ToolStripMenuItemAddTest.Size = new System.Drawing.Size(97, 29);
-            this.ToolStripMenuItemAddTest.Text = "Add Test";
-            this.ToolStripMenuItemAddTest.Click += new System.EventHandler(this.ToolStripMenuItemAddTest_Click);
-            // 
-            // ToolStripMenuItemEditTest
-            // 
-            this.ToolStripMenuItemEditTest.Name = "ToolStripMenuItemEditTest";
-            this.ToolStripMenuItemEditTest.Size = new System.Drawing.Size(93, 29);
-            this.ToolStripMenuItemEditTest.Text = "Edit Test";
-            this.ToolStripMenuItemEditTest.Click += new System.EventHandler(this.ToolStripMenuItemEditTest_Click);
             // 
             // ToolStripMenuItemRemoveTest
             // 
@@ -194,10 +176,10 @@ namespace TestSystemServer
             this.tabControlGroupManage.Controls.Add(this.tabPageUserManage);
             this.tabControlGroupManage.Controls.Add(this.tabPageGroupManage);
             this.tabControlGroupManage.Controls.Add(this.tabPageResults);
-            this.tabControlGroupManage.Location = new System.Drawing.Point(13, 13);
+            this.tabControlGroupManage.Location = new System.Drawing.Point(12, 13);
             this.tabControlGroupManage.Name = "tabControlGroupManage";
             this.tabControlGroupManage.SelectedIndex = 0;
-            this.tabControlGroupManage.Size = new System.Drawing.Size(1365, 461);
+            this.tabControlGroupManage.Size = new System.Drawing.Size(1229, 461);
             this.tabControlGroupManage.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControlGroupManage.TabIndex = 12;
             // 
@@ -210,7 +192,7 @@ namespace TestSystemServer
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1357, 428);
+            this.tabPage1.Size = new System.Drawing.Size(1221, 428);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Test Manage";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -229,7 +211,7 @@ namespace TestSystemServer
             this.groupBoxQuestion.Controls.Add(this.label5);
             this.groupBoxQuestion.Controls.Add(this.buttonSaveQuestion);
             this.groupBoxQuestion.Controls.Add(this.textBoxQuestion);
-            this.groupBoxQuestion.Location = new System.Drawing.Point(962, 26);
+            this.groupBoxQuestion.Location = new System.Drawing.Point(833, 15);
             this.groupBoxQuestion.Name = "groupBoxQuestion";
             this.groupBoxQuestion.Size = new System.Drawing.Size(364, 396);
             this.groupBoxQuestion.TabIndex = 12;
@@ -353,7 +335,7 @@ namespace TestSystemServer
             this.groupBoxQuestionList.Controls.Add(this.label2);
             this.groupBoxQuestionList.Controls.Add(this.label1);
             this.groupBoxQuestionList.Controls.Add(this.listBoxQuestionList);
-            this.groupBoxQuestionList.Location = new System.Drawing.Point(590, 26);
+            this.groupBoxQuestionList.Location = new System.Drawing.Point(461, 15);
             this.groupBoxQuestionList.Name = "groupBoxQuestionList";
             this.groupBoxQuestionList.Size = new System.Drawing.Size(355, 396);
             this.groupBoxQuestionList.TabIndex = 11;
@@ -732,7 +714,7 @@ namespace TestSystemServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1478, 486);
+            this.ClientSize = new System.Drawing.Size(1264, 486);
             this.Controls.Add(this.tabControlGroupManage);
             this.Controls.Add(this.splitter1);
             this.Name = "TestSystemServerForm";
@@ -777,8 +759,6 @@ namespace TestSystemServer
         private System.Windows.Forms.TabControl tabControlGroupManage;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPageUserManage;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemAddTest;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemEditTest;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemRemoveTest;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridViewUserManage;

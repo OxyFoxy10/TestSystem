@@ -222,6 +222,7 @@ namespace TestDesignerProgram
             0,
             0,
             0});
+            this.numericUpDownDifficulty.ValueChanged += new System.EventHandler(this.numericUpDownDifficulty_ValueChanged);
             // 
             // label5
             // 

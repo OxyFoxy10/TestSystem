@@ -74,8 +74,7 @@ namespace TestDesignerProgram
             count++;
             currentTest.Questions.Add(new Question() { Description = textBoxQuestion.Text, Number = count, Difficulty = Convert.ToInt32(numericUpDownDifficulty.Value) });
             textBoxAnswer.Enabled = true;
-            checkedListBoxAnswerList.Items.Clear();
-            textBoxQuestion.Text = "";
+            checkedListBoxAnswerList.Items.Clear();         
 
         }
 

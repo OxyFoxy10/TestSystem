@@ -141,5 +141,10 @@ namespace TestDesignerProgram
         {
 
         }
+
+        private void numericUpDownDifficulty_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
