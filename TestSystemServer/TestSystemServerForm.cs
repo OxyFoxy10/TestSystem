@@ -7,11 +7,15 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using TestDesignerDll;
+using TestSystemClient;
 
 namespace TestSystemServer
 {
@@ -35,10 +39,16 @@ namespace TestSystemServer
         TestDesignerDll.Test curentTestXml;
         XmlSerializer formatter;
         bool IsnewGroup = false;
-        bool IsnewUser = false;
-        bool IseditGroup = false;
-        bool ISeditUser = false;
+        bool IsnewUser = false;       
         Group currentGroup = new Group();
+        User newUser = new User();
+        Socket listenSocket; // тільки для прослуховування
+        public static List<InfoClients> ClientsList = new List<InfoClients>();
+        Byte[] sendByte;
+        CancellationToken ct;
+        CancellationTokenSource tokenSource2;
+        CancellationToken ctReceive;
+        CancellationTokenSource tokenSourceReceive;
         public TestSystemServerForm()
         {
             InitializeComponent();
@@ -65,6 +75,7 @@ namespace TestSystemServer
 
         private void ToolStripMenuItemShowAll_Click(object sender, EventArgs e)
         {
+            groupBoxAssignTest.Enabled = true;
             var res = repoTests.GetAll();
             dataGridViewTestManage.DataSource = res;
             tests = res.ToList();
@@ -90,7 +101,6 @@ namespace TestSystemServer
         {
             var res = repoGroups.GetAll().Select(x => new { Id = x.Id, Name = x.GroupName, Users = String.Join<User>(",", x.Users), TestGroups = String.Join<TestGroup>(",", x.TestGroups) }).ToList();
             dataGridViewGroupManage.DataSource = res;
-
         }
 
         private void loadTestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -237,7 +247,7 @@ namespace TestSystemServer
         private void assignTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GroupInfoLoading();
-            groupBoxAssignTest.Enabled = true;
+            buttonAssignTest.Visible = true;
         }
 
         private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
@@ -250,12 +260,8 @@ namespace TestSystemServer
                         usersList.Add(i);
                 }
             }
+            comboBoxUser.Items.Clear();
             comboBoxUser.Items.AddRange(usersList.Select(x => x).ToArray());
-            buttonAssignTest.Enabled = true;
-        }
-
-        private void comboBoxUser_SelectedIndexChanged(object sender, EventArgs e)
-        {
             buttonAssignTest.Enabled = true;
         }
 
@@ -328,12 +334,13 @@ namespace TestSystemServer
         }
         private void FillGroupCheckList()
         {
+            checkedListBoxGroups.Items.Clear();
             var existingGroup = repoGroups.GetAll();
             foreach (var item in existingGroup)
             {
                 foreach (var i in item.Users)
                 {
-                    if (currentUser!=null && i.Id == currentUser.Id)
+                    if (newUser != null && i.Id == newUser.Id)
                         checkedListBoxGroups.Items.Add(item, true);
                     else
                         checkedListBoxGroups.Items.Add(item, false);
@@ -369,7 +376,7 @@ namespace TestSystemServer
             checkBoxIsAdmin.Checked = false;
             checkedListBoxGroups.Items.Clear();
             buttonSaveUser.Visible = false;
-            currentUser = new User();
+            newUser = new User();
         }
 
         private void toolStripMenuItemEditUser_Click(object sender, EventArgs e)
@@ -404,20 +411,20 @@ namespace TestSystemServer
 
         private void buttonSaveUser_Click(object sender, EventArgs e)
         {
-            currentUser.Login = textBoxLogin.Text;
-            currentUser.Password = textBoxPassword.Text;
-            currentUser.FirstName = textBoxFirstName.Text;
-            currentUser.LastName = textBoxLastName.Text;
-            currentUser.IsAdmin = checkBoxIsAdmin.Checked;
+            newUser.Login = textBoxLogin.Text;
+            newUser.Password = textBoxPassword.Text;
+            newUser.FirstName = textBoxFirstName.Text;
+            newUser.LastName = textBoxLastName.Text;
+            newUser.IsAdmin = checkBoxIsAdmin.Checked;
             var query = checkedListBoxGroups.CheckedItems;
             foreach (var item in query)
             {
                 var res = repoGroups.FindById((item as Group).Id);
-                currentUser.Groups.Add(res);
+                newUser.Groups.Add(res);
             }
             if (IsnewUser == true)
             {
-                repoUsers.Add(currentUser);
+                repoUsers.Add(newUser);
                 toolStripMenuItemShowAllUser_Click(sender, e);
                 IsnewUser = false;
                 buttonSaveUser.Text = "Save";
@@ -425,17 +432,212 @@ namespace TestSystemServer
             else
             {
                 var userToEdit = repoUsers.FindById(int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString()));
-                userToEdit.Login = currentUser.Login;
-                userToEdit.Password = currentUser.Password;
-                userToEdit.FirstName= currentUser.FirstName;
-                userToEdit.LastName=currentUser.LastName;
-                userToEdit.IsAdmin= currentUser.IsAdmin;
-                userToEdit.Groups = currentUser.Groups;
+                userToEdit.Login = newUser.Login;
+                userToEdit.Password = newUser.Password;
+                userToEdit.FirstName= newUser.FirstName;
+                userToEdit.LastName= newUser.LastName;
+                userToEdit.IsAdmin= newUser.IsAdmin;
+                userToEdit.Groups = newUser.Groups;
                 repoUsers.Update(userToEdit);
                 buttonSaveGroup.Text = "Save";
                 toolStripMenuItemShowAllUser_Click(sender, e);
             }
             ClearUserView();
+        }
+        private async void button1_ClickAsync(object sender, EventArgs e)
+        {
+            buttonStartServer.Enabled = false;
+            buttonStopServer2.Enabled = true;
+            buttonAddCilent.Enabled = true;
+            listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            // сервер завжди сідає на Localhost
+            IPHostEntry iPHostEntry = Dns.GetHostEntry("localhost");
+            IPAddress iPAddress = iPHostEntry.AddressList[1]; //[0] - доступ до першої мережевої карти
+            // номер порта
+            int port = int.Parse(textBoxPortNumberServer.Text);
+            //Створення сервера
+            // Створюємо кінцеву точку
+            IPEndPoint iPEndPoint = new IPEndPoint(iPAddress, port);
+            // призначення сокета bind
+            listenSocket.Bind(iPEndPoint);//сідає на конкретний порт
+            tokenSource2 = new CancellationTokenSource();
+            ct = tokenSource2.Token;
+            #region TaskListeningClientConnection
+            await Task.Run(() =>
+            {
+                #region ListeningClientConnection
+                listenSocket.Listen(3);
+                while (true)//вічно слухати
+                {
+                    if (ct.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                    try
+                    {
+                        Socket clientSocket = listenSocket.Accept(); //.Accept() - це блокуюча функцію
+                       
+                        InfoClients infoClients = new InfoClients()
+                        {
+                            RemoteEndPoint = clientSocket.RemoteEndPoint.ToString(),
+                            ClientSocket = clientSocket
+                        };
+                        //добавляєм клієнтів які приєдналися до сервера
+                        listBox1_clientList.Invoke(new Action(() => listBox1_clientList.Items.Add(infoClients)));
+                        textBox2.Invoke(new Action(() => {
+                            textBox2.Text += $"client {infoClients.ClientSocket.Handle}" +
+                            $" ip {infoClients.RemoteEndPoint} joined chat{Environment.NewLine}";
+                        }));
+                        ClientsList.Add(infoClients);
+                        sendByte = new byte[1024];
+                        sendByte = Encoding.ASCII.GetBytes($"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint}{Environment.NewLine}");
+                        infoClients.ClientSocket.Send(sendByte);
+                        //if (ClientsList.Count == 2)
+                        //{
+                        //    sendByte = new byte[1024];
+                        //    sendByte = Encoding.ASCII.GetBytes($"Game started!{infoClients.SymbolPlay}{Environment.NewLine}");
+                        //    foreach (var item in ClientsList)
+                        //    {
+                        //        item.ClientSocket.Send(sendByte); // відправка повідомлення
+                        //    }
+                        //}
+                        //Читання повідомлення яке надходить від клієнта
+                        tokenSourceReceive = new CancellationTokenSource();
+                        ctReceive = tokenSourceReceive.Token;
+                        #region TaskReadMessageFromClient
+                        Task.Run(() =>
+                        {
+                            ctReceive.ThrowIfCancellationRequested();
+                            #region ReadMessageFromClient
+                            while (true)//постійно читаєм( чекаєм на повідомлення клієнта)
+                            {
+                                if (ctReceive.IsCancellationRequested)
+                                {
+                                    // Clean up here, then...
+                                    //ctReceive.ThrowIfCancellationRequested();
+                                    return;
+                                }
+                                Socket receiveSocket = infoClients.ClientSocket;
+                                byte[] receivebyte = new byte[1024];
+                                //Читання
+                                try
+                                {
+                                    Int32 nCount = receiveSocket.Receive(receivebyte);//Receive() -  блокуюча функція - чекає доки не буде повідомлення
+                                    String receiveString = Encoding.ASCII.GetString(receivebyte, 0, nCount);
+                                    if (receiveString == "close")
+                                    {
+                                        string clientLeft = $"Member {infoClients.RemoteEndPoint} has left chat!{Environment.NewLine}";
+                                        listBox1_clientList.Invoke(new Action(() => listBox1_clientList.Items.Remove(infoClients)));
+                                        ClientsList.Remove(infoClients);
+                                        infoClients.Dispose();                                       
+                                        textBox2.Invoke(new Action(() => { textBox2.Text += clientLeft + Environment.NewLine; }));
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        //char[] receiveChars = Encoding.ASCII.GetChars(receivebyte, 0, nCount);
+                                        //charArray = receiveChars;
+                                        //CheckWinner(receiveChars, infoClients);
+                                        textBox2.Invoke(new Action(() => { textBox2.Text += $"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint} has done his move{Environment.NewLine}"; }));
+                                        //if (IsGameOver == true)
+                                        //{
+                                        //    if (winner.SymbolPlay != '?')
+                                        //        textBox2.Invoke(new Action(() => { textBox2.Text += $"client {winner.ClientSocket.Handle} ip {winner.RemoteEndPoint} has Won{Environment.NewLine}GAME OVER"; }));
+                                        //    else
+                                        //        textBox2.Invoke(new Action(() => { textBox2.Text += $"GAME OVER. No one won - standOff!"; }));
+                                        //    sendByte = new byte[1024];
+                                        //    foreach (var item in ClientsList)
+                                        //    {
+                                        //        if (item.SymbolPlay == winner.SymbolPlay)
+                                        //        {
+                                        //            sendByte = Encoding.ASCII.GetBytes($"Game over! You\'ve won!{winner.SymbolPlay}");
+                                        //            item.ClientSocket.Send(sendByte); // відправка повідомлення
+                                        //        }
+                                        //        else
+                                        //        {
+                                        //            sendByte = Encoding.ASCII.GetBytes($"Game over! You\'ve lost!{winner.SymbolPlay}");
+                                        //            item.ClientSocket.Send(sendByte); // відправка повідомлення
+                                        //        }
+                                        //    }
+                                        //}
+                                        // Для передачі по мережі конвертуємо в масив байтів
+                                        //sendByte = new byte[1024];
+                                        //sendByte = Encoding.ASCII.GetBytes(charArray);
+                                        //foreach (var item in ClientsList)
+                                        //{
+                                        //    if (item.RemoteEndPoint != infoClients.RemoteEndPoint)
+                                        //        item.ClientSocket.Send(sendByte); // відправка повідомлення іншим
+                                        //}
+                                    }
+                                }
+                                catch
+                                {
+                                    return;
+                                }
+                            }
+                            #endregion ReadMessageFromClient
+                        }, tokenSourceReceive.Token
+
+                            );
+                        #endregion TaskReadMessageFromClient
+                    }
+                    catch
+                    {
+                        // ct.ThrowIfCancellationRequested();                                            
+                        return;
+                    }
+                }
+                #endregion ListeningClientConnection
+            }, tokenSource2.Token);
+            #endregion TaskListeningClientConnection
+        }
+        private void CheckResult(InfoClients info)
+        {
+            
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tokenSource2.Cancel();
+                if (tokenSourceReceive != null)
+                    tokenSourceReceive.Cancel();
+            }
+
+            finally
+            {
+                for (int i = 0; i < listBox1_clientList.Items.Count; i++)
+                {
+                    (listBox1_clientList.Items[i] as InfoClients).ClientSocket.Close();
+                    listBox1_clientList.Items.RemoveAt(i);
+                }
+                listenSocket.Close();
+                this.Close();
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (ClientsList.Count < 2)
+            {
+                TestSystemClientForm newForm = new TestSystemClientForm();
+              //  newForm.textBox2.Text = this.textBox1.Text;
+                newForm.Show();
+            }
+        }
+
+        private void buttonStartServer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonStopServer2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAddCilent_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

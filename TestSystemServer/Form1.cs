@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TestSystemClient;
 
 namespace TestSystemServer
 {
@@ -29,10 +30,15 @@ namespace TestSystemServer
                 var res = repoUsers.FindAll(x => x.Login == textBox2.Text && x.Password == textBox3.Text).FirstOrDefault();
                 var res2 = repoGroups.GetAll().FirstOrDefault(); 
                 //var res2 = repoGroups.GetAll().FirstOrDefault(); 
-                if (res != null)
+                if (res != null &&res.IsAdmin==true)
                 {
                     TestSystemServerForm testSystemServerForm  = new TestSystemServerForm(work, res);
                     DialogResult dialogResult = testSystemServerForm.ShowDialog();
+                }
+                else if (res != null && res.IsAdmin == false)
+                {
+                    TestSystemClientForm newClientForm =new TestSystemClientForm(work, res);
+                    DialogResult dialogResult = newClientForm.ShowDialog();
                 }
                 else
                     MessageBox.Show("Login or password incorrect, please try again later");

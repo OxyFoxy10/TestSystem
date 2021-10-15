@@ -60,6 +60,18 @@ namespace TestSystemServer
             this.listBoxQuestionList = new System.Windows.Forms.ListBox();
             this.tabPageUserManage = new System.Windows.Forms.TabPage();
             this.groupBoxUserView = new System.Windows.Forms.GroupBox();
+            this.checkBoxIsAdmin = new System.Windows.Forms.CheckBox();
+            this.textBoxLastName = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxFirstName = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.buttonSaveUser = new System.Windows.Forms.Button();
+            this.checkedListBoxGroups = new System.Windows.Forms.CheckedListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxLogin = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.dataGridViewUserManage = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemShowAllUser = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,19 +105,16 @@ namespace TestSystemServer
             this.bindingNavigatorMoveNextItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tabPageStartServer = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAddCilent = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.listBox1_clientList = new System.Windows.Forms.ListBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.buttonStopServer2 = new System.Windows.Forms.Button();
+            this.textBoxPortNumberServer = new System.Windows.Forms.TextBox();
+            this.buttonStartServer = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.buttonSaveUser = new System.Windows.Forms.Button();
-            this.checkedListBoxGroups = new System.Windows.Forms.CheckedListBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxLogin = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBoxLastName = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBoxFirstName = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.checkBoxIsAdmin = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestManage)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.tabControlGroupManage.SuspendLayout();
@@ -126,6 +135,8 @@ namespace TestSystemServer
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator2)).BeginInit();
             this.bindingNavigator2.SuspendLayout();
+            this.tabPageStartServer.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewTestManage
@@ -202,10 +213,11 @@ namespace TestSystemServer
             this.tabControlGroupManage.Controls.Add(this.tabPageUserManage);
             this.tabControlGroupManage.Controls.Add(this.tabPageGroupManage);
             this.tabControlGroupManage.Controls.Add(this.tabPageResults);
+            this.tabControlGroupManage.Controls.Add(this.tabPageStartServer);
             this.tabControlGroupManage.Location = new System.Drawing.Point(12, 13);
             this.tabControlGroupManage.Name = "tabControlGroupManage";
             this.tabControlGroupManage.SelectedIndex = 0;
-            this.tabControlGroupManage.Size = new System.Drawing.Size(1229, 461);
+            this.tabControlGroupManage.Size = new System.Drawing.Size(1228, 473);
             this.tabControlGroupManage.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControlGroupManage.TabIndex = 12;
             // 
@@ -219,7 +231,7 @@ namespace TestSystemServer
             this.tabPageTestManage.Location = new System.Drawing.Point(4, 29);
             this.tabPageTestManage.Name = "tabPageTestManage";
             this.tabPageTestManage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTestManage.Size = new System.Drawing.Size(1221, 428);
+            this.tabPageTestManage.Size = new System.Drawing.Size(1220, 440);
             this.tabPageTestManage.TabIndex = 0;
             this.tabPageTestManage.Text = "Test Manage";
             this.tabPageTestManage.UseVisualStyleBackColor = true;
@@ -231,6 +243,7 @@ namespace TestSystemServer
             this.groupBoxAssignTest.Controls.Add(this.label6);
             this.groupBoxAssignTest.Controls.Add(this.comboBoxGroup);
             this.groupBoxAssignTest.Controls.Add(this.buttonAssignTest);
+            this.groupBoxAssignTest.Enabled = false;
             this.groupBoxAssignTest.Location = new System.Drawing.Point(461, 328);
             this.groupBoxAssignTest.Name = "groupBoxAssignTest";
             this.groupBoxAssignTest.Size = new System.Drawing.Size(736, 104);
@@ -255,7 +268,6 @@ namespace TestSystemServer
             this.comboBoxUser.Size = new System.Drawing.Size(189, 28);
             this.comboBoxUser.TabIndex = 18;
             this.comboBoxUser.Text = "All";
-            this.comboBoxUser.SelectedIndexChanged += new System.EventHandler(this.comboBoxUser_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -284,6 +296,7 @@ namespace TestSystemServer
             this.buttonAssignTest.TabIndex = 11;
             this.buttonAssignTest.Text = "Assign";
             this.buttonAssignTest.UseVisualStyleBackColor = true;
+            this.buttonAssignTest.Visible = false;
             this.buttonAssignTest.Click += new System.EventHandler(this.buttonAssignTest_Click);
             // 
             // groupBoxQuestion
@@ -413,7 +426,7 @@ namespace TestSystemServer
             this.tabPageUserManage.Location = new System.Drawing.Point(4, 29);
             this.tabPageUserManage.Name = "tabPageUserManage";
             this.tabPageUserManage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUserManage.Size = new System.Drawing.Size(1221, 428);
+            this.tabPageUserManage.Size = new System.Drawing.Size(1220, 440);
             this.tabPageUserManage.TabIndex = 1;
             this.tabPageUserManage.Text = "User Manage";
             this.tabPageUserManage.UseVisualStyleBackColor = true;
@@ -432,12 +445,115 @@ namespace TestSystemServer
             this.groupBoxUserView.Controls.Add(this.label4);
             this.groupBoxUserView.Controls.Add(this.textBoxLogin);
             this.groupBoxUserView.Controls.Add(this.label8);
-            this.groupBoxUserView.Location = new System.Drawing.Point(613, 16);
+            this.groupBoxUserView.Location = new System.Drawing.Point(798, 16);
             this.groupBoxUserView.Name = "groupBoxUserView";
             this.groupBoxUserView.Size = new System.Drawing.Size(408, 406);
             this.groupBoxUserView.TabIndex = 13;
             this.groupBoxUserView.TabStop = false;
             this.groupBoxUserView.Text = "User View";
+            // 
+            // checkBoxIsAdmin
+            // 
+            this.checkBoxIsAdmin.AutoSize = true;
+            this.checkBoxIsAdmin.Location = new System.Drawing.Point(147, 164);
+            this.checkBoxIsAdmin.Name = "checkBoxIsAdmin";
+            this.checkBoxIsAdmin.Size = new System.Drawing.Size(95, 24);
+            this.checkBoxIsAdmin.TabIndex = 51;
+            this.checkBoxIsAdmin.Text = "is Admin";
+            this.checkBoxIsAdmin.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLastName
+            // 
+            this.textBoxLastName.Location = new System.Drawing.Point(147, 132);
+            this.textBoxLastName.Name = "textBoxLastName";
+            this.textBoxLastName.Size = new System.Drawing.Size(203, 26);
+            this.textBoxLastName.TabIndex = 50;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(23, 138);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(86, 20);
+            this.label11.TabIndex = 49;
+            this.label11.Text = "Last Name";
+            // 
+            // textBoxFirstName
+            // 
+            this.textBoxFirstName.Location = new System.Drawing.Point(146, 100);
+            this.textBoxFirstName.Name = "textBoxFirstName";
+            this.textBoxFirstName.Size = new System.Drawing.Size(203, 26);
+            this.textBoxFirstName.TabIndex = 48;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(22, 106);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(86, 20);
+            this.label12.TabIndex = 47;
+            this.label12.Text = "First Name";
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(146, 68);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(203, 26);
+            this.textBoxPassword.TabIndex = 46;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(22, 74);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(77, 20);
+            this.label10.TabIndex = 45;
+            this.label10.Text = "password";
+            // 
+            // buttonSaveUser
+            // 
+            this.buttonSaveUser.Location = new System.Drawing.Point(145, 307);
+            this.buttonSaveUser.Name = "buttonSaveUser";
+            this.buttonSaveUser.Size = new System.Drawing.Size(202, 38);
+            this.buttonSaveUser.TabIndex = 44;
+            this.buttonSaveUser.Text = "Save";
+            this.buttonSaveUser.UseVisualStyleBackColor = true;
+            this.buttonSaveUser.Visible = false;
+            this.buttonSaveUser.Click += new System.EventHandler(this.buttonSaveUser_Click);
+            // 
+            // checkedListBoxGroups
+            // 
+            this.checkedListBoxGroups.CheckOnClick = true;
+            this.checkedListBoxGroups.FormattingEnabled = true;
+            this.checkedListBoxGroups.Location = new System.Drawing.Point(147, 194);
+            this.checkedListBoxGroups.Name = "checkedListBoxGroups";
+            this.checkedListBoxGroups.Size = new System.Drawing.Size(202, 96);
+            this.checkedListBoxGroups.TabIndex = 43;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(24, 194);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 20);
+            this.label4.TabIndex = 42;
+            this.label4.Text = "Groups";
+            // 
+            // textBoxLogin
+            // 
+            this.textBoxLogin.Location = new System.Drawing.Point(145, 36);
+            this.textBoxLogin.Name = "textBoxLogin";
+            this.textBoxLogin.Size = new System.Drawing.Size(203, 26);
+            this.textBoxLogin.TabIndex = 41;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(21, 42);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(42, 20);
+            this.label8.TabIndex = 40;
+            this.label8.Text = "login";
             // 
             // dataGridViewUserManage
             // 
@@ -450,7 +566,7 @@ namespace TestSystemServer
             this.dataGridViewUserManage.RowHeadersWidth = 62;
             this.dataGridViewUserManage.RowTemplate.Height = 28;
             this.dataGridViewUserManage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewUserManage.Size = new System.Drawing.Size(558, 334);
+            this.dataGridViewUserManage.Size = new System.Drawing.Size(786, 383);
             this.dataGridViewUserManage.TabIndex = 12;
             // 
             // menuStrip1
@@ -506,7 +622,7 @@ namespace TestSystemServer
             this.tabPageGroupManage.Location = new System.Drawing.Point(4, 29);
             this.tabPageGroupManage.Name = "tabPageGroupManage";
             this.tabPageGroupManage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGroupManage.Size = new System.Drawing.Size(1221, 428);
+            this.tabPageGroupManage.Size = new System.Drawing.Size(1220, 440);
             this.tabPageGroupManage.TabIndex = 2;
             this.tabPageGroupManage.Text = "Group Manage";
             this.tabPageGroupManage.UseVisualStyleBackColor = true;
@@ -518,9 +634,9 @@ namespace TestSystemServer
             this.groupBoxGroupManage.Controls.Add(this.label9);
             this.groupBoxGroupManage.Controls.Add(this.textBoxGroupName);
             this.groupBoxGroupManage.Controls.Add(this.label15);
-            this.groupBoxGroupManage.Location = new System.Drawing.Point(585, 27);
+            this.groupBoxGroupManage.Location = new System.Drawing.Point(785, 41);
             this.groupBoxGroupManage.Name = "groupBoxGroupManage";
-            this.groupBoxGroupManage.Size = new System.Drawing.Size(405, 346);
+            this.groupBoxGroupManage.Size = new System.Drawing.Size(405, 381);
             this.groupBoxGroupManage.TabIndex = 16;
             this.groupBoxGroupManage.TabStop = false;
             this.groupBoxGroupManage.Text = "Group View";
@@ -575,13 +691,13 @@ namespace TestSystemServer
             this.dataGridViewGroupManage.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewGroupManage.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewGroupManage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewGroupManage.Location = new System.Drawing.Point(6, 63);
+            this.dataGridViewGroupManage.Location = new System.Drawing.Point(6, 41);
             this.dataGridViewGroupManage.MultiSelect = false;
             this.dataGridViewGroupManage.Name = "dataGridViewGroupManage";
             this.dataGridViewGroupManage.RowHeadersWidth = 62;
             this.dataGridViewGroupManage.RowTemplate.Height = 28;
             this.dataGridViewGroupManage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewGroupManage.Size = new System.Drawing.Size(558, 310);
+            this.dataGridViewGroupManage.Size = new System.Drawing.Size(773, 381);
             this.dataGridViewGroupManage.TabIndex = 15;
             // 
             // menuStrip3
@@ -595,7 +711,7 @@ namespace TestSystemServer
             this.toolStripMenuItemAdGroup,
             this.toolStripMenuItemEditGroup,
             this.toolStripMenuItemRemoveGroup});
-            this.menuStrip3.Location = new System.Drawing.Point(3, 12);
+            this.menuStrip3.Location = new System.Drawing.Point(3, 3);
             this.menuStrip3.Name = "menuStrip3";
             this.menuStrip3.Size = new System.Drawing.Size(493, 33);
             this.menuStrip3.TabIndex = 14;
@@ -636,7 +752,7 @@ namespace TestSystemServer
             this.tabPageResults.Location = new System.Drawing.Point(4, 29);
             this.tabPageResults.Name = "tabPageResults";
             this.tabPageResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResults.Size = new System.Drawing.Size(1221, 428);
+            this.tabPageResults.Size = new System.Drawing.Size(1220, 440);
             this.tabPageResults.TabIndex = 3;
             this.tabPageResults.Text = "Results";
             this.tabPageResults.UseVisualStyleBackColor = true;
@@ -681,7 +797,7 @@ namespace TestSystemServer
             this.bindingNavigator2.MovePreviousItem = this.bindingNavigatorMovePreviousItem1;
             this.bindingNavigator2.Name = "bindingNavigator2";
             this.bindingNavigator2.PositionItem = this.bindingNavigatorPositionItem1;
-            this.bindingNavigator2.Size = new System.Drawing.Size(1215, 33);
+            this.bindingNavigator2.Size = new System.Drawing.Size(1214, 33);
             this.bindingNavigator2.TabIndex = 0;
             this.bindingNavigator2.Text = "bindingNavigator2";
             // 
@@ -771,112 +887,100 @@ namespace TestSystemServer
             this.bindingNavigatorSeparator5.Name = "bindingNavigatorSeparator5";
             this.bindingNavigatorSeparator5.Size = new System.Drawing.Size(6, 33);
             // 
+            // tabPageStartServer
+            // 
+            this.tabPageStartServer.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageStartServer.Controls.Add(this.panel1);
+            this.tabPageStartServer.Location = new System.Drawing.Point(4, 29);
+            this.tabPageStartServer.Name = "tabPageStartServer";
+            this.tabPageStartServer.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStartServer.Size = new System.Drawing.Size(1220, 440);
+            this.tabPageStartServer.TabIndex = 4;
+            this.tabPageStartServer.Text = "Start Server";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonAddCilent);
+            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.listBox1_clientList);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.buttonStopServer2);
+            this.panel1.Controls.Add(this.textBoxPortNumberServer);
+            this.panel1.Controls.Add(this.buttonStartServer);
+            this.panel1.Location = new System.Drawing.Point(21, 21);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(529, 401);
+            this.panel1.TabIndex = 17;
+            // 
+            // buttonAddCilent
+            // 
+            this.buttonAddCilent.Enabled = false;
+            this.buttonAddCilent.Location = new System.Drawing.Point(345, 184);
+            this.buttonAddCilent.Name = "buttonAddCilent";
+            this.buttonAddCilent.Size = new System.Drawing.Size(126, 39);
+            this.buttonAddCilent.TabIndex = 16;
+            this.buttonAddCilent.Text = "Add Client";
+            this.buttonAddCilent.UseVisualStyleBackColor = true;
+            this.buttonAddCilent.Click += new System.EventHandler(this.buttonAddCilent_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(13, 140);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(326, 242);
+            this.textBox2.TabIndex = 15;
+            // 
+            // listBox1_clientList
+            // 
+            this.listBox1_clientList.FormattingEnabled = true;
+            this.listBox1_clientList.ItemHeight = 20;
+            this.listBox1_clientList.Location = new System.Drawing.Point(13, 70);
+            this.listBox1_clientList.Name = "listBox1_clientList";
+            this.listBox1_clientList.Size = new System.Drawing.Size(326, 64);
+            this.listBox1_clientList.TabIndex = 14;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 23);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(98, 20);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "Port Number";
+            // 
+            // buttonStopServer2
+            // 
+            this.buttonStopServer2.Enabled = false;
+            this.buttonStopServer2.Location = new System.Drawing.Point(345, 129);
+            this.buttonStopServer2.Name = "buttonStopServer2";
+            this.buttonStopServer2.Size = new System.Drawing.Size(126, 39);
+            this.buttonStopServer2.TabIndex = 13;
+            this.buttonStopServer2.Text = "Stop server";
+            this.buttonStopServer2.UseVisualStyleBackColor = true;
+            this.buttonStopServer2.Click += new System.EventHandler(this.buttonStopServer2_Click);
+            // 
+            // textBoxPortNumberServer
+            // 
+            this.textBoxPortNumberServer.Location = new System.Drawing.Point(113, 17);
+            this.textBoxPortNumberServer.Name = "textBoxPortNumberServer";
+            this.textBoxPortNumberServer.Size = new System.Drawing.Size(100, 26);
+            this.textBoxPortNumberServer.TabIndex = 11;
+            this.textBoxPortNumberServer.Text = "33000";
+            // 
+            // buttonStartServer
+            // 
+            this.buttonStartServer.Location = new System.Drawing.Point(345, 70);
+            this.buttonStartServer.Name = "buttonStartServer";
+            this.buttonStartServer.Size = new System.Drawing.Size(124, 39);
+            this.buttonStartServer.TabIndex = 12;
+            this.buttonStartServer.Text = "Start server";
+            this.buttonStartServer.UseVisualStyleBackColor = true;
+            this.buttonStartServer.Click += new System.EventHandler(this.buttonStartServer_Click);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // buttonSaveUser
-            // 
-            this.buttonSaveUser.Location = new System.Drawing.Point(145, 307);
-            this.buttonSaveUser.Name = "buttonSaveUser";
-            this.buttonSaveUser.Size = new System.Drawing.Size(202, 38);
-            this.buttonSaveUser.TabIndex = 44;
-            this.buttonSaveUser.Text = "Save";
-            this.buttonSaveUser.UseVisualStyleBackColor = true;
-            this.buttonSaveUser.Visible = false;
-            this.buttonSaveUser.Click += new System.EventHandler(this.buttonSaveUser_Click);
-            // 
-            // checkedListBoxGroups
-            // 
-            this.checkedListBoxGroups.CheckOnClick = true;
-            this.checkedListBoxGroups.FormattingEnabled = true;
-            this.checkedListBoxGroups.Location = new System.Drawing.Point(147, 194);
-            this.checkedListBoxGroups.Name = "checkedListBoxGroups";
-            this.checkedListBoxGroups.Size = new System.Drawing.Size(202, 96);
-            this.checkedListBoxGroups.TabIndex = 43;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 194);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 20);
-            this.label4.TabIndex = 42;
-            this.label4.Text = "Groups";
-            // 
-            // textBoxLogin
-            // 
-            this.textBoxLogin.Location = new System.Drawing.Point(145, 36);
-            this.textBoxLogin.Name = "textBoxLogin";
-            this.textBoxLogin.Size = new System.Drawing.Size(203, 26);
-            this.textBoxLogin.TabIndex = 41;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 42);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 20);
-            this.label8.TabIndex = 40;
-            this.label8.Text = "login";
-            // 
-            // textBoxPassword
-            // 
-            this.textBoxPassword.Location = new System.Drawing.Point(146, 68);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(203, 26);
-            this.textBoxPassword.TabIndex = 46;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(22, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 20);
-            this.label10.TabIndex = 45;
-            this.label10.Text = "password";
-            // 
-            // textBoxLastName
-            // 
-            this.textBoxLastName.Location = new System.Drawing.Point(147, 132);
-            this.textBoxLastName.Name = "textBoxLastName";
-            this.textBoxLastName.Size = new System.Drawing.Size(203, 26);
-            this.textBoxLastName.TabIndex = 50;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(23, 138);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(86, 20);
-            this.label11.TabIndex = 49;
-            this.label11.Text = "Last Name";
-            // 
-            // textBoxFirstName
-            // 
-            this.textBoxFirstName.Location = new System.Drawing.Point(146, 100);
-            this.textBoxFirstName.Name = "textBoxFirstName";
-            this.textBoxFirstName.Size = new System.Drawing.Size(203, 26);
-            this.textBoxFirstName.TabIndex = 48;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(22, 106);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(86, 20);
-            this.label12.TabIndex = 47;
-            this.label12.Text = "First Name";
-            // 
-            // checkBoxIsAdmin
-            // 
-            this.checkBoxIsAdmin.AutoSize = true;
-            this.checkBoxIsAdmin.Location = new System.Drawing.Point(147, 164);
-            this.checkBoxIsAdmin.Name = "checkBoxIsAdmin";
-            this.checkBoxIsAdmin.Size = new System.Drawing.Size(95, 24);
-            this.checkBoxIsAdmin.TabIndex = 51;
-            this.checkBoxIsAdmin.Text = "is Admin";
-            this.checkBoxIsAdmin.UseVisualStyleBackColor = true;
             // 
             // TestSystemServerForm
             // 
@@ -921,6 +1025,9 @@ namespace TestSystemServer
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator2)).EndInit();
             this.bindingNavigator2.ResumeLayout(false);
             this.bindingNavigator2.PerformLayout();
+            this.tabPageStartServer.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1001,5 +1108,14 @@ namespace TestSystemServer
         private System.Windows.Forms.TextBox textBoxFirstName;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox checkBoxIsAdmin;
+        private System.Windows.Forms.TabPage tabPageStartServer;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonAddCilent;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ListBox listBox1_clientList;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button buttonStopServer2;
+        private System.Windows.Forms.TextBox textBoxPortNumberServer;
+        private System.Windows.Forms.Button buttonStartServer;
     }
 }

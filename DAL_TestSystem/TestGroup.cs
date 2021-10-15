@@ -15,7 +15,7 @@ namespace DAL_TestSystem
 
         public override string ToString()
         {
-            return $"{Id}: {GetTests.TestName}";
+            return $"{GetTests}";
         }
     }
 }
