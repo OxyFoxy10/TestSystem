@@ -30,7 +30,7 @@ namespace DAL_TestSystem
         }
         public override string ToString()
         {
-            return $"user {Login}";
+            return $"{Login}";
         }
     }
 }

@@ -21,7 +21,7 @@ namespace DAL_TestSystem
         }
         public override string ToString()
         {
-            return $"{Description}";
+            return $"Question {Number}: {Description}";
         }
 
         public override bool Equals(object obj)

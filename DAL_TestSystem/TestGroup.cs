@@ -12,5 +12,10 @@ namespace DAL_TestSystem
         public DateTime TestDate { get; set; }
         public virtual Group GetGroups { get; set; }
         public virtual Test GetTests { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id}: {GetTests.TestName}";
+        }
     }
 }
