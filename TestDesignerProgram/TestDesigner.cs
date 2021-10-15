@@ -17,7 +17,6 @@ namespace TestDesignerProgram
     public partial class TestDesigner : Form
     {
         List<Question> currentTestQuestionlist;
-      //  List<string> adressList = new List<string>();
         Test currentTest;
         Question newQuestion;
         Question editQuestion;
@@ -40,18 +39,16 @@ namespace TestDesignerProgram
            new XmlRootAttribute("Test")
            );
             path = @"TestList";
-           directoryInfo = new DirectoryInfo(path);
+            directoryInfo = new DirectoryInfo(path);
             directoryInfo.Create();
             currentTestQuestionlist = new List<Question>();
             currentTest = new Test();
-           newQuestion = new Question();
-           editQuestion = new Question();
+            newQuestion = new Question();
+            editQuestion = new Question();
             pattern = @"^[?!',.0-9a-zA-ZöäüÖÄÜа-яА-ЯёЁїЇґҐіІ\s-]+$";
             regex = new Regex(pattern);
-            if(comboBoxAnswerList.Items.Count>0)
-            comboBoxAnswerList.SelectedIndex = 0;     
-         
-           
+            if (comboBoxAnswerList.Items.Count > 0)
+                comboBoxAnswerList.SelectedIndex = 0;
         }
         private void buttonCheckTestName_Click(object sender, EventArgs e)
         {
@@ -62,10 +59,10 @@ namespace TestDesignerProgram
             {
                 currentTestPass = path + "\\" + currentTest.TestName + ".xml";
                 groupBoxQuestion.Enabled = true;
-                checkFile= File.Exists(currentTestPass);
-                while(checkFile)
+                checkFile = File.Exists(currentTestPass);
+                while (checkFile)
                 {
-                    currentTestPass = path + "\\" + currentTest.TestName +increase+ ".xml";
+                    currentTestPass = path + "\\" + currentTest.TestName + increase + ".xml";
                     increase++;
                     checkFile = File.Exists(currentTestPass);
                 }
@@ -104,7 +101,7 @@ namespace TestDesignerProgram
             listBoxQuestionList2.Items.AddRange(currentTest.Questions.ToArray());
             currentTestQuestionlist = currentTest.Questions;
         }
-       
+
         private void CurrentTestClear()
         {
             textBoxAuthor.Text = "";
@@ -112,7 +109,7 @@ namespace TestDesignerProgram
             listBoxQuestionList.Items.Clear();
             groupBoxQuestion.Enabled = false;
             buttonSaveTest.Enabled = false;
-            currentTest = new Test ();
+            currentTest = new Test();
             CurrentQuestionClear();
         }
         private void CurrentTestClear2()
@@ -143,14 +140,12 @@ namespace TestDesignerProgram
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
-       
         private void CurrentQuestionClear()
         {
             textBoxQuestion.Text = "";
             numericUpDownDifficulty.Value = 1;
             comboBoxAnswerList.Items.Clear();
-            comboBoxAnswerList.Text="";
+            comboBoxAnswerList.Text = "";
             newQuestion = new Question();
         }
         private void CurrentQuestionClear2()
@@ -158,10 +153,10 @@ namespace TestDesignerProgram
             textBoxQuestion2.Text = "";
             textBoxAnswer2.Text = "";
             numericUpDownDifficulty2.Value = 1;
-            checkedListBoxAnswerList.Items.Clear();            
+            checkedListBoxAnswerList.Items.Clear();
             newQuestion = new Question();
             editQuestion = new Question();
-        }       
+        }
 
         private void textBoxAuthor_TextChanged(object sender, EventArgs e)
         {
@@ -183,7 +178,7 @@ namespace TestDesignerProgram
                     hasCorrectAnswer = true;
             }
             if (hasCorrectAnswer == true)
-            {               
+            {
                 buttonSaveTest.Enabled = true;
                 count++;
                 newQuestion.Difficulty = Convert.ToInt32(numericUpDownDifficulty.Value);
@@ -206,7 +201,7 @@ namespace TestDesignerProgram
         }
 
         private void textBoxQuestion_TextChanged(object sender, EventArgs e)
-        {            
+        {
             if (textBoxQuestion.Text == "")
             {
                 textBoxAnswer.Enabled = false;
@@ -222,7 +217,7 @@ namespace TestDesignerProgram
 
         private void textBoxAnswer_TextChanged(object sender, EventArgs e)
         {
-            buttonAddAnswer.Enabled = true;            
+            buttonAddAnswer.Enabled = true;
         }
 
         private void buttonAddAnswer_Click(object sender, EventArgs e)
@@ -231,7 +226,7 @@ namespace TestDesignerProgram
             currentAnswer.Description = textBoxAnswer.Text;
             if (checkBoxIsCorrect.CheckState == CheckState.Checked)
                 currentAnswer.IsCorrect = true;
-            else currentAnswer.IsCorrect = false;           
+            else currentAnswer.IsCorrect = false;
             if (!comboBoxAnswerList.Items.Contains(currentAnswer))
             {
                 comboBoxAnswerList.Items.Add(currentAnswer);
@@ -241,9 +236,9 @@ namespace TestDesignerProgram
                 checkBoxIsCorrect.Checked = false;
             }
             else
-            {               
+            {
                 MessageBox.Show("Same answer already added!");
-            }          
+            }
 
         }
 
@@ -274,14 +269,14 @@ namespace TestDesignerProgram
             using (FileStream fs = new FileStream(currentTestPass, FileMode.Create))
             {
                 formatter.Serialize(fs, currentTest);
-            }            
+            }
             MessageBox.Show("Test saved!");
             CurrentTestClear();
             currentTest = new Test();
         }
 
         private void buttonRemoveQuestion_Click(object sender, EventArgs e)
-        {            
+        {
             int indexToDelete = 0;
             if (listBoxQuestionList.Items.Count > 1)
             {
@@ -295,12 +290,12 @@ namespace TestDesignerProgram
             else
             {
 
-              DialogResult dialogResult=  MessageBox.Show("Last item cannot be removed! Cancel Test Creating?", "Test Remove quaery!",
-              MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dialogResult = MessageBox.Show("Last item cannot be removed! Cancel Test Creating?", "Test Remove quaery!",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
                     CurrentTestClear();
-                }                
+                }
             }
             buttonRemoveQuestion.Enabled = false;
         }
@@ -323,7 +318,7 @@ namespace TestDesignerProgram
 
         private void buttonRemoveAnswer2_Click(object sender, EventArgs e)
         {
-            if(checkedListBoxAnswerList.SelectedItem!=null&& checkedListBoxAnswerList.Items.Count>0)
+            if (checkedListBoxAnswerList.SelectedItem != null && checkedListBoxAnswerList.Items.Count > 0)
                 checkedListBoxAnswerList.Items.RemoveAt(checkedListBoxAnswerList.SelectedIndex);
             else MessageBox.Show("Zero answer is forbidden! Please add one");
 
@@ -333,7 +328,7 @@ namespace TestDesignerProgram
             buttonAddToAnswerList2.Enabled = true;
         }
 
-       
+
         private void buttonAddToAnswerList2_Click(object sender, EventArgs e)
         {
             buttonAddToAnswerList2.Enabled = false;
@@ -342,8 +337,8 @@ namespace TestDesignerProgram
             if (checkBoxIsCorrect2.CheckState == CheckState.Checked)
                 tempAnswer.IsCorrect = true;
             else tempAnswer.IsCorrect = false;
-            if (isAnswerInEdit==false)
-            {                
+            if (isAnswerInEdit == false)
+            {
                 if (!checkedListBoxAnswerList.Items.Contains(tempAnswer))
                 {
                     checkedListBoxAnswerList.Items.Add(tempAnswer, tempAnswer.IsCorrect);
@@ -358,7 +353,7 @@ namespace TestDesignerProgram
                 }
             }
             else
-            {               
+            {
                 if (checkedListBoxAnswerList.Items.Contains(tempAnswer))
                 {
                     MessageBox.Show("Nothing changed! Work in Answer ListBox to change Correct status!");
@@ -377,7 +372,7 @@ namespace TestDesignerProgram
                         checkedListBoxAnswerList.SelectedIndex = indexToReplace;
                     }
                 }
-            }           
+            }
             textBoxAnswer2.Text = "";
             buttonSaveQuestion2.Enabled = true;
             buttonAddToAnswerList2.Text = "Add To AnswerList";
@@ -416,37 +411,10 @@ namespace TestDesignerProgram
             }
         }
 
-        //private void buttonEditAnswer_Click(object sender, EventArgs e)
-        //{
-        //    CheckCorrectAnswer();
-        //    currentTest.Questions[count - 1]
-        //                .Answers[checkedListBoxAnswerList.SelectedIndex]
-        //                .Description = checkedListBoxAnswerList.SelectedItem.ToString();
-
-        //    buttonEditAnswer.Enabled = false;
-        //}
-        //private void CheckCorrectAnswer()
-        //{
-        //    try
-        //    {
-        //        for (int i = 0; i < checkedListBoxAnswerList.Items.Count; i++)
-        //        {
-        //            currentTest.Questions[count - 1]
-        //                .Answers
-        //                .Find(x => x.Description == (checkedListBoxAnswerList.Items[i] as Answer)
-        //                .Description)
-        //                .IsCorrect = checkedListBoxAnswerList.GetItemChecked(i);
-        //        }
-        //    }
-        //    catch (Exception ex) { MessageBox.Show(ex.Message); }
-        //}
-
-       
-        
         private void toolStripComboBoxChooseFile_SelectedIndexChanged(object sender, EventArgs e)
         {
             CurrentTestClear2();
-              
+
             currentTest = new Test();
             currentTestQuestionlist = new List<Question>();
             try
@@ -467,10 +435,8 @@ namespace TestDesignerProgram
 
         private void textBoxAuthor2_TextChanged(object sender, EventArgs e)
         {
-          //  currentTest.Author = textBoxAuthor2.Text;
+            //  currentTest.Author = textBoxAuthor2.Text;
         }
-
-    
         private void buttonSaveTest2_Click(object sender, EventArgs e)
         {
             currentTest.Questions.Clear();
@@ -480,19 +446,16 @@ namespace TestDesignerProgram
             }
             using (FileStream fs = new FileStream(currentTestPass, FileMode.Truncate))
             {
-                //fs.Position = 0;
                 formatter.Serialize(fs, currentTest);
             }
             CurrentTestClear2();
-
-          //  currentTest = new Test();
         }
 
         private void tabControlDesignTest_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentTest = new Test();
             count = 0;
-            if (tabControlDesignTest.SelectedTab.Text== "Edit Test")
+            if (tabControlDesignTest.SelectedTab.Text == "Edit Test")
             {
                 toolStripComboBoxChooseFile.Items.Clear();
                 if (directoryInfo.Exists)
@@ -502,7 +465,7 @@ namespace TestDesignerProgram
                     if (toolStripComboBoxChooseFile.Items.Count > 0)
                         toolStripComboBoxChooseFile.SelectedIndex = 0;
                 }
-            }      
+            }
             else if (tabControlDesignTest.SelectedTab.Text == "Create New Test")
             {
                 CurrentTestClear();
@@ -511,32 +474,13 @@ namespace TestDesignerProgram
 
         private void textBoxTestName2_TextChanged(object sender, EventArgs e)
         {
-            //buttonAddNewQuestion.Enabled = true;
+            // currentTest.TestName = textBoxTestName2.Text;
         }
 
         private void listBoxQuestionList_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonRemoveQuestion.Enabled = true;
         }
-
-        private void buttonRename_Click(object sender, EventArgs e)
-        {
-            //if (textBoxTestName2.Text != currentTest.TestName)
-            //{
-            //    bool success = regex.IsMatch(textBoxTestName2.Text);
-            //    if (success)
-            //    {
-            //        currentTest.TestName = textBoxTestName2.Text;
-            //        currentTestPass = path + "\\" + currentTest.TestName + ".xml";
-            //        groupBoxQuestionView2.Enabled = false;
-            //        buttonSaveTest2.Enabled = true;
-            //    }
-            //    else MessageBox.Show(String.Format("String \"{0}\" doesn\'t correspont template \"{1}\"\nPlease try again!", textBoxTestName, pattern));
-
-            //}
-
-        }
-
         private void buttonRemoveQuestion2_Click(object sender, EventArgs e)
         {
             int indexToDelete = 0;
@@ -545,7 +489,7 @@ namespace TestDesignerProgram
                 indexToDelete = listBoxQuestionList2.SelectedIndex;
                 listBoxQuestionList2.Items.RemoveAt(indexToDelete);
                 List<Question> listq = new List<Question>();
-               
+
                 for (int i = 0; i < listBoxQuestionList2.Items.Count; i++)
                 {
                     (listBoxQuestionList2.Items[i] as Question).Number = i + 1;
@@ -607,7 +551,7 @@ namespace TestDesignerProgram
                     }
                     int indexToReplace = listBoxQuestionList2.Items.IndexOf(editQuestion);
                     listBoxQuestionList2.Items.RemoveAt(indexToReplace);
-                    listBoxQuestionList2.Items.Insert(indexToReplace, editQuestion);                     
+                    listBoxQuestionList2.Items.Insert(indexToReplace, editQuestion);
                 }
                 isQuestionInEdit = false;
                 CurrentQuestionClear2();
@@ -619,39 +563,32 @@ namespace TestDesignerProgram
         {
             CurrentQuestionClear2();
             groupBoxQuestionView2.Enabled = true;
-            groupBoxQuestionView2.Text = "Create New Question View";          
+            groupBoxQuestionView2.Text = "Create New Question View";
             newQuestion.Number = listBoxQuestionList2.Items.Count + 1;
             isQuestionInEdit = false;
         }
-      
+
         private void buttonEditQuestion2_Click(object sender, EventArgs e)
         {
-            CurrentQuestionClear2();           
+            CurrentQuestionClear2();
             if (listBoxQuestionList2.SelectedItem != null)
             {
                 groupBoxQuestionView2.Enabled = true;
-  //              buttonAddAnswer.Enabled = true;
+                //              buttonAddAnswer.Enabled = true;
                 groupBoxQuestionView2.Text = "Edit Question View";
                 CurrentQuestionLoad();
                 editQuestion = (listBoxQuestionList2.SelectedItem as Question);
                 isQuestionInEdit = true;
             }
-          
+
             else MessageBox.Show("Please select question to edit!");
 
-        }     
+        }
         private void CurrentQuestionLoad()
         {
-            //if (listBoxQuestionList2.Items.Count > 0)
-            //{
-            //    if (listBoxQuestionList2.SelectedIndex < 0)
-            //        listBoxQuestionList2.SelectedIndex = 0;
-            //    buttonRemoveQuestion2.Enabled = true;
 
-            //    groupBoxQuestionView2.Enabled = true;
-                textBoxQuestion2.Text = (listBoxQuestionList2.SelectedItem as Question).Description;
-                numericUpDownDifficulty2.Value = (listBoxQuestionList2.SelectedItem as Question).Difficulty;
-           // }
+            textBoxQuestion2.Text = (listBoxQuestionList2.SelectedItem as Question).Description;
+            numericUpDownDifficulty2.Value = (listBoxQuestionList2.SelectedItem as Question).Difficulty;
             foreach (Answer item in (listBoxQuestionList2.SelectedItem as Question).Answers)
             {
                 checkedListBoxAnswerList.Items.Add(item, item.IsCorrect);
