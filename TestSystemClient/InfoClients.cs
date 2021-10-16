@@ -23,7 +23,7 @@ namespace TestSystemClient
 
         public override string ToString()
         {
-            return $" Client {userClient.Login} IP: {RemoteEndPoint}";
+            return $" Client IP: {RemoteEndPoint}";
         }
     }
 }

@@ -40,7 +40,7 @@ namespace DAL_TestSystem
             modelBuilder.Entity<User>().HasMany(x => x.UserAnswers);
             modelBuilder.Entity<Group>().HasMany(x => x.TestGroups);
             modelBuilder.Entity<Group>().HasMany(x => x.Users);
-           
-            }
+          //  modelBuilder.Ignore<Result>();
+        }
         }    
 }

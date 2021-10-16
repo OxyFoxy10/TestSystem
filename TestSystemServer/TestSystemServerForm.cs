@@ -120,12 +120,16 @@ namespace TestSystemServer
                     }
                     currentTestDal.TestName = curentTestXml.TestName;
                     currentTestDal.Author = curentTestXml.Author;
+                    repoTests.Add(currentTestDal);
+                    currentTestDal = repoTests.GetAll().Select(x => x).Where(x => x.TestName == currentTestDal.TestName && x.Author == currentTestDal.Author).FirstOrDefault();
                     for (int i = 0; i < curentTestXml.Questions.Count; i++)
                     {
                         currentQuestionDal = new DAL_TestSystem.Question();
                         currentQuestionDal.Description = curentTestXml.Questions[i].Description;
                         currentQuestionDal.Difficulty = curentTestXml.Questions[i].Difficulty;
                         currentQuestionDal.Number = curentTestXml.Questions[i].Number;
+                        currentQuestionDal.GetTest = currentTestDal;
+                        repoQuestions.Add(currentQuestionDal);
                         for (int j = 0; j < curentTestXml.Questions[i].Answers.Count; j++)
                         {
                             currentAnswerDal = new DAL_TestSystem.Answer()
@@ -133,23 +137,20 @@ namespace TestSystemServer
                                 Description = curentTestXml.Questions[i].Answers[j].Description,
                                 IsCorrect = curentTestXml.Questions[i].Answers[j].IsCorrect,
                             };
+                            currentAnswerDal.GetQuestion = currentQuestionDal;
                             repoAnswers.Add(currentAnswerDal);
-                            currentAnswerDal = repoAnswers.GetAll().Select(x => x).Where(x => x.Description == currentAnswerDal.Description).FirstOrDefault();
-                            currentQuestionDal.Answers.Add(currentAnswerDal);
                         }
-                        repoQuestions.Add(currentQuestionDal);
-                        currentTestDal.Questions.Add(currentQuestionDal);
                     }
-                    repoTests.Add(currentTestDal);
                     dataGridViewTestManage.DataSource = repoTests.GetAll();
+                    ToolStripMenuItemShowAll_Click(sender, e);
                 }
                 catch (FileNotFoundException)
                 {
                     MessageBox.Show("File not found or has incorrect name");
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
-            }
 
+            }
         }
 
         //private void ToolStripMenuItemAddTest_Click(object sender, EventArgs e)
@@ -205,13 +206,17 @@ namespace TestSystemServer
             {
                 checkedListBoxAnswerList.Items.Add(item, item.IsCorrect);
             }
-            numericUpDownDifficulty.Value = (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Difficulty.Value;
+            numericUpDownDifficulty.Value = (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Difficulty;
         }
         private void ToolStripMenuItemRemoveTest_Click(object sender, EventArgs e)
         {
-            var testToRemove = repoTests.FindById(int.Parse(dataGridViewTestManage.SelectedRows[0].Cells[0].Value.ToString()));
-            repoTests.Remove(testToRemove);
-            ToolStripMenuItemShowAll_Click(sender, e);
+            if (dataGridViewTestManage.SelectedRows.Count > 0)
+            {
+                var testToRemove = repoTests.FindById(int.Parse(dataGridViewTestManage.SelectedRows[0].Cells[0].Value.ToString()));
+                repoTests.Remove(testToRemove);
+                ToolStripMenuItemShowAll_Click(sender, e);
+            }
+                
         }
 
         private void buttonAssignTest_Click(object sender, EventArgs e)
@@ -224,9 +229,9 @@ namespace TestSystemServer
         }
         private void TestInfoLoading()
         {
-            if (tests.Count > 0)
+            if (tests.Count > 0 &&  dataGridViewTestManage.SelectedRows.Count > 0)
             {
-                int index = Convert.ToInt32(dataGridViewTestManage.SelectedRows[0].Cells[0].Value.ToString());
+                    int index = Convert.ToInt32(dataGridViewTestManage.SelectedRows[0].Cells[0].Value.ToString());
                 textBoxAuthor.Text = tests.Select(x => x).Where(x => x.Id == index).FirstOrDefault().Author;
                 textBoxTestName.Text = tests.Select(x => x).Where(x => x.Id == index).FirstOrDefault().TestName;
                 listBoxQuestionList.Items.AddRange(tests.Select(x => x).Where(x => x.Id == index).FirstOrDefault().Questions.ToArray());
@@ -242,6 +247,10 @@ namespace TestSystemServer
         {
             ClearTestGroupBox();
             TestInfoLoading();
+           // if(dataGridViewTestManage.SelectedRows.Count>0)
+            //MessageBox.Show(dataGridViewTestManage.SelectedRows[0].Cells[0].Value.ToString());
+            //if (dataGridViewTestManage.SelectedRows.Count > 1)
+            //MessageBox.Show(dataGridViewTestManage.SelectedRows[0].Cells[1].Value.ToString());
         }
 
         private void assignTestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -444,7 +453,14 @@ namespace TestSystemServer
             }
             ClearUserView();
         }
-        private async void button1_ClickAsync(object sender, EventArgs e)
+       
+        private void CheckResult(InfoClients info)
+        {
+            
+        }
+       
+       
+        private async void buttonStartServer_ClickAsync(object sender, EventArgs e)
         {
             buttonStartServer.Enabled = false;
             buttonStopServer2.Enabled = true;
@@ -476,7 +492,7 @@ namespace TestSystemServer
                     try
                     {
                         Socket clientSocket = listenSocket.Accept(); //.Accept() - це блокуюча функцію
-                       
+
                         InfoClients infoClients = new InfoClients()
                         {
                             RemoteEndPoint = clientSocket.RemoteEndPoint.ToString(),
@@ -492,15 +508,21 @@ namespace TestSystemServer
                         sendByte = new byte[1024];
                         sendByte = Encoding.ASCII.GetBytes($"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint}{Environment.NewLine}");
                         infoClients.ClientSocket.Send(sendByte);
-                        //if (ClientsList.Count == 2)
-                        //{
-                        //    sendByte = new byte[1024];
-                        //    sendByte = Encoding.ASCII.GetBytes($"Game started!{infoClients.SymbolPlay}{Environment.NewLine}");
-                        //    foreach (var item in ClientsList)
-                        //    {
-                        //        item.ClientSocket.Send(sendByte); // відправка повідомлення
-                        //    }
-                        //}
+                       
+                        var currentTestGroup = repoTestGroups.GetAll();
+                        if (ClientsList.Count >0 && currentTestGroup!=null)
+                        {                           
+                            foreach (var item in ClientsList)
+                            {
+                                foreach (var i in currentTestGroup)
+                                {
+                                    sendByte = new byte[1024];
+                                    sendByte = Encoding.ASCII.GetBytes($"TestGroup{i.Id}");
+                                    item.ClientSocket.Send(sendByte); // відправка повідомлення
+                                }                               
+                            }
+                        }
+
                         //Читання повідомлення яке надходить від клієнта
                         tokenSourceReceive = new CancellationTokenSource();
                         ctReceive = tokenSourceReceive.Token;
@@ -529,16 +551,26 @@ namespace TestSystemServer
                                         string clientLeft = $"Member {infoClients.RemoteEndPoint} has left chat!{Environment.NewLine}";
                                         listBox1_clientList.Invoke(new Action(() => listBox1_clientList.Items.Remove(infoClients)));
                                         ClientsList.Remove(infoClients);
-                                        infoClients.Dispose();                                       
+                                        infoClients.Dispose();
                                         textBox2.Invoke(new Action(() => { textBox2.Text += clientLeft + Environment.NewLine; }));
                                         break;
                                     }
+                                   else if (receiveString == "test finished")
+                                    {
+                                        string clientLeft = $"Member {infoClients.RemoteEndPoint} has finished test!{Environment.NewLine}";
+                                        listBox1_clientList.Invoke(new Action(() => listBox1_clientList.Items.Remove(infoClients)));
+                                        ClientsList.Remove(infoClients);
+                                        infoClients.Dispose();
+                                        textBox2.Invoke(new Action(() => { textBox2.Text += clientLeft + Environment.NewLine; }));
+                                        break;
+                                    }
+
                                     else
                                     {
                                         //char[] receiveChars = Encoding.ASCII.GetChars(receivebyte, 0, nCount);
                                         //charArray = receiveChars;
                                         //CheckWinner(receiveChars, infoClients);
-                                        textBox2.Invoke(new Action(() => { textBox2.Text += $"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint} has done his move{Environment.NewLine}"; }));
+                                       // textBox2.Invoke(new Action(() => { textBox2.Text += $"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint} has done his move{Environment.NewLine}"; }));
                                         //if (IsGameOver == true)
                                         //{
                                         //    if (winner.SymbolPlay != '?')
@@ -591,11 +623,8 @@ namespace TestSystemServer
             }, tokenSource2.Token);
             #endregion TaskListeningClientConnection
         }
-        private void CheckResult(InfoClients info)
-        {
-            
-        }
-        private void button2_Click(object sender, EventArgs e)
+
+        private void buttonStopServer2_Click(object sender, EventArgs e)
         {
             try
             {
@@ -615,29 +644,13 @@ namespace TestSystemServer
                 this.Close();
             }
         }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (ClientsList.Count < 2)
-            {
-                TestSystemClientForm newForm = new TestSystemClientForm();
-              //  newForm.textBox2.Text = this.textBox1.Text;
-                newForm.Show();
-            }
-        }
-
-        private void buttonStartServer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonStopServer2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void buttonAddCilent_Click(object sender, EventArgs e)
         {
-
+            Form1 form1 = new Form1();
+            DialogResult dialogResult = form1.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+                this.Close();
         }
     }
 }

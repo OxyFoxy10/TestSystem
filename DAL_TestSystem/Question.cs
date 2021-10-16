@@ -11,8 +11,8 @@ namespace DAL_TestSystem
     {
         public int Id { get; set; }      
         public int? Number { get; set; }       
-        public string Description { get; set; }       
-        public int? Difficulty { get; set; }
+        public string Description { get; set; }
+        public int Difficulty { get; set; } = 1;
         public virtual Test GetTest { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
         public Question()

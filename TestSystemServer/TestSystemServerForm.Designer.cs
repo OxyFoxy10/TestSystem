@@ -976,7 +976,7 @@ namespace TestSystemServer
             this.buttonStartServer.TabIndex = 12;
             this.buttonStartServer.Text = "Start server";
             this.buttonStartServer.UseVisualStyleBackColor = true;
-            this.buttonStartServer.Click += new System.EventHandler(this.buttonStartServer_Click);
+            this.buttonStartServer.Click += new System.EventHandler(this.buttonStartServer_ClickAsync);
             // 
             // openFileDialog1
             // 

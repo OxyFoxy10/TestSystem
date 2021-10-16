@@ -57,7 +57,7 @@ namespace TestSystemClient
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip4 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTestSelect = new System.Windows.Forms.DataGridView();
             this.tabControlGroupManage.SuspendLayout();
             this.tabPageConnect.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -67,7 +67,7 @@ namespace TestSystemClient
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.menuStrip4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestSelect)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlGroupManage
@@ -132,6 +132,7 @@ namespace TestSystemClient
             this.buttonDisconnect.TabIndex = 17;
             this.buttonDisconnect.Text = "Disconnect";
             this.buttonDisconnect.UseVisualStyleBackColor = true;
+            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
             // 
             // label18
             // 
@@ -305,7 +306,7 @@ namespace TestSystemClient
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.menuStrip4);
-            this.tabPage2.Controls.Add(this.dataGridView1);
+            this.tabPage2.Controls.Add(this.dataGridViewTestSelect);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -334,19 +335,19 @@ namespace TestSystemClient
             this.toolStripMenuItem2.Size = new System.Drawing.Size(102, 29);
             this.toolStripMenuItem2.Text = "Load Test";
             // 
-            // dataGridView1
+            // dataGridViewTestSelect
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 39);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(749, 264);
-            this.dataGridView1.TabIndex = 10;
+            this.dataGridViewTestSelect.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewTestSelect.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewTestSelect.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTestSelect.Location = new System.Drawing.Point(6, 39);
+            this.dataGridViewTestSelect.MultiSelect = false;
+            this.dataGridViewTestSelect.Name = "dataGridViewTestSelect";
+            this.dataGridViewTestSelect.RowHeadersWidth = 62;
+            this.dataGridViewTestSelect.RowTemplate.Height = 28;
+            this.dataGridViewTestSelect.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTestSelect.Size = new System.Drawing.Size(749, 264);
+            this.dataGridViewTestSelect.TabIndex = 10;
             // 
             // TestSystemClientForm
             // 
@@ -356,6 +357,7 @@ namespace TestSystemClient
             this.Controls.Add(this.tabControlGroupManage);
             this.Name = "TestSystemClientForm";
             this.Text = "ClientForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TestSystemClientForm_FormClosing);
             this.tabControlGroupManage.ResumeLayout(false);
             this.tabPageConnect.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -370,7 +372,7 @@ namespace TestSystemClient
             this.tabPage2.PerformLayout();
             this.menuStrip4.ResumeLayout(false);
             this.menuStrip4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestSelect)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -390,7 +392,7 @@ namespace TestSystemClient
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.MenuStrip menuStrip4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewTestSelect;
         private System.Windows.Forms.BindingNavigator bindingNavigator1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;

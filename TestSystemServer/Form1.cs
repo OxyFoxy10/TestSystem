@@ -34,11 +34,13 @@ namespace TestSystemServer
                 {
                     TestSystemServerForm testSystemServerForm  = new TestSystemServerForm(work, res);
                     DialogResult dialogResult = testSystemServerForm.ShowDialog();
+                   // testSystemServerForm.Show();
                 }
                 else if (res != null && res.IsAdmin == false)
                 {
                     TestSystemClientForm newClientForm =new TestSystemClientForm(work, res);
-                    DialogResult dialogResult = newClientForm.ShowDialog();
+                   // DialogResult dialogResult =newClientForm.ShowDialog();
+                    newClientForm.Show();
                 }
                 else
                     MessageBox.Show("Login or password incorrect, please try again later");

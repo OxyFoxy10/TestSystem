@@ -31,6 +31,7 @@ namespace TestSystemClient
         List<DAL_TestSystem.Group> groupsList = new List<Group>();
         List<DAL_TestSystem.User> usersList = new List<User>();
         DAL_TestSystem.Question currentQuestionDal;
+        TestGroup currentTestGroup = new TestGroup();
        
         Socket sendSocket;
 
@@ -86,12 +87,29 @@ namespace TestSystemClient
                     while (true)
                     {
                         try
-                        {
+                        { 
                             Byte[] receiveByte = new byte[1024];
                             Int32 nCount = sendSocket.Receive(receiveByte);
-                            //String receiveString = Encoding.ASCII.GetString(receiveByte, 0, nCount);
-                            //if (receiveString.Contains("SymbolPlay") || receiveString.Contains("Game started"))
-                            //{
+                            String receiveString = Encoding.ASCII.GetString(receiveByte, 0, nCount);
+                          
+                           
+                            if (receiveString.Contains("TestGroup"))
+                            {
+                                currentTestGroup.Id = Convert.ToInt32(receiveString.Substring(9).Trim('\r', '\n'));
+                                foreach (var item in currentUser.Groups)
+                                {
+                                    foreach (TestGroup i in item.TestGroups)
+                                    {
+                                      if(  i.Id == currentTestGroup.Id)
+                                        {
+                                            DAL_TestSystem.Test currenttest = repoTests.FindById((i as TestGroup).GetTests.Id);
+                                            tests.Add(currenttest);
+                                        }
+                                    }                                  
+                                }
+                                dataGridViewTestSelect.Invoke(new Action(() => { dataGridViewTestSelect.DataSource = tests; }));                              
+
+                            }
                             //    if (receiveString.Contains("SymbolPlay"))
                             //    {
                             //        MyInfo.SymbolPlay = Convert.ToChar(receiveString.Substring(receiveString.Length - 3).Trim('\r', '\n'));
@@ -131,6 +149,38 @@ namespace TestSystemClient
                     }
                 });
             }
+        }
+
+        private void buttonDisconnect_Click(object sender, EventArgs e)
+        {
+            Disconnect();
+            this.Close();
+        }
+
+        private void Disconnect()
+        {
+            String msg = $"close";
+            // конвертуємо повідомлення в байти
+            Byte[] sendByte = new byte[1024];
+            sendByte = Encoding.ASCII.GetBytes(msg);
+            if (sendSocket != null)
+                try
+                {
+                    sendSocket.Send(sendByte); // відправка повідомлення
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            else
+            {
+                MessageBox.Show("Please connect before playing!", "Warning message", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void TestSystemClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Disconnect();
         }
     }
 }
