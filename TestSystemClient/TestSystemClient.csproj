@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PassTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassTestForm.Designer.cs">
+      <DependentUpon>PassTestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestSystemClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,9 @@
     <Compile Include="InfoClients.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="PassTestForm.resx">
+      <DependentUpon>PassTestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -49,6 +49,7 @@ namespace TestSystemServer
         CancellationTokenSource tokenSource2;
         CancellationToken ctReceive;
         CancellationTokenSource tokenSourceReceive;
+        bool isNewTestAssigned = false;
         public TestSystemServerForm()
         {
             InitializeComponent();
@@ -226,6 +227,8 @@ namespace TestSystemServer
             newTestGroup.GetGroups = repoGroups.FindById((comboBoxGroup.SelectedItem as Group).Id);
             newTestGroup.GetTests = repoTests.FindById(currentTestDal.Id);
             repoTestGroups.Add(newTestGroup);
+            isNewTestAssigned = true;
+
         }
         private void TestInfoLoading()
         {
@@ -510,7 +513,7 @@ namespace TestSystemServer
                         infoClients.ClientSocket.Send(sendByte);
                        
                         var currentTestGroup = repoTestGroups.GetAll();
-                        if (ClientsList.Count >0 && currentTestGroup!=null)
+                        if (ClientsList.Count >0 && isNewTestAssigned==true)
                         {                           
                             foreach (var item in ClientsList)
                             {
@@ -521,6 +524,7 @@ namespace TestSystemServer
                                     item.ClientSocket.Send(sendByte); // відправка повідомлення
                                 }                               
                             }
+                            isNewTestAssigned = false;
                         }
 
                         //Читання повідомлення яке надходить від клієнта
@@ -651,6 +655,16 @@ namespace TestSystemServer
             DialogResult dialogResult = form1.ShowDialog();
             if (dialogResult == DialogResult.OK)
                 this.Close();
+        }
+
+    
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            var res = repoTestGroups.GetAll();
+            //var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
+            if (res != null)
+                dataGridViewResults.DataSource = res;
         }
     }
 }

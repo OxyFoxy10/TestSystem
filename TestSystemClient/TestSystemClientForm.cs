@@ -32,7 +32,7 @@ namespace TestSystemClient
         List<DAL_TestSystem.User> usersList = new List<User>();
         DAL_TestSystem.Question currentQuestionDal;
         TestGroup currentTestGroup = new TestGroup();
-       
+        Result currentResult;
         Socket sendSocket;
 
         InfoClients MyInfo = new InfoClients();
@@ -54,6 +54,8 @@ namespace TestSystemClient
             repoAnswers = mywork.Repository<DAL_TestSystem.Answer>();
             repoResults = mywork.Repository<Result>();
             repoUserAnswers = mywork.Repository<UserAnswer>();
+            currentResult = new Result() { GetUser = currentUser };
+           
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -103,6 +105,7 @@ namespace TestSystemClient
                                       if(  i.Id == currentTestGroup.Id)
                                         {
                                             DAL_TestSystem.Test currenttest = repoTests.FindById((i as TestGroup).GetTests.Id);
+                                           
                                             tests.Add(currenttest);
                                         }
                                     }                                  
@@ -181,6 +184,36 @@ namespace TestSystemClient
         private void TestSystemClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Disconnect();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+          var res=  repoTests.GetAll();
+            //var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
+            if(res!=null)
+            dataGridViewTestSelect.DataSource = res;           
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            var res = repoResults.GetAll();
+            //var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
+            if (res != null)
+                dataGridViewTestSelect.DataSource = res;
+        }
+
+        private void toolStripMenuItemResults_Click(object sender, EventArgs e)
+        {
+            // var res = repoResults.GetAll();
+            // var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
+            var res = repoResults.GetAll().GroupBy(x => x.GetUser).Select(c => c.Key).Where(c => c.Login == currentUser.Login);
+            if (res != null)
+                dataGridViewTestSelect.DataSource = res;
+        }
+
+        private void passTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            repoResults.Add(currentResult);
         }
     }
 }
