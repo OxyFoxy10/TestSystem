@@ -10,44 +10,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestSystemClient;
 
-namespace TestSystemServer
+namespace TestSystemClient
 {
-    public partial class Form1 : Form
+    public partial class LoginClientForm : Form
     {
-        public Form1()
+        public LoginClientForm()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (GenericUnitOfWork work = new GenericUnitOfWork(new TestSystemDBContext(ConfigurationManager.ConnectionStrings["conStr"].ConnectionString)))
+            using (GenericUnitOfWork work2 = new GenericUnitOfWork(new TestSystemDBContext(ConfigurationManager.ConnectionStrings["conStr"].ConnectionString)))
             {
-                IGenericRepository<User> repoUsers = work.Repository<User>();
-                IGenericRepository<Group> repoGroups = work.Repository<Group>();
+                IGenericRepository<User> repoUsers = work2.Repository<User>();
+                IGenericRepository<Group> repoGroups = work2.Repository<Group>();
                 var res = repoUsers.FindAll(x => x.Login == textBox2.Text && x.Password == textBox3.Text).FirstOrDefault();
-                var res2 = repoGroups.GetAll().FirstOrDefault(); 
-                //var res2 = repoGroups.GetAll().FirstOrDefault(); 
-                if (res != null &&res.IsAdmin==true)
+                if (res != null)
                 {
-                    TestSystemServerForm testSystemServerForm  = new TestSystemServerForm(work, res);
-                    DialogResult dialogResult = testSystemServerForm.ShowDialog();
-                   // testSystemServerForm.Show();
-                }
-                else if (res != null && res.IsAdmin == false)
-                {
-                    TestSystemClientForm newClientForm =new TestSystemClientForm(work, res);
-                   // DialogResult dialogResult =newClientForm.ShowDialog();
-                    newClientForm.Show();
+                    TestSystemClientForm newClientForm = new TestSystemClientForm(work2, res);
+                    // DialogResult dialogResult =newClientForm.ShowDialog();
+                    newClientForm.ShowDialog();
                 }
                 else
                     MessageBox.Show("Login or password incorrect, please try again later");
-                work.Dispose();
+                work2.Dispose();
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             using (GenericUnitOfWork work = new GenericUnitOfWork(new TestSystemDBContext(ConfigurationManager.ConnectionStrings["conStr"].ConnectionString)))

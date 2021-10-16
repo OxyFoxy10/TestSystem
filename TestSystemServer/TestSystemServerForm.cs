@@ -222,12 +222,22 @@ namespace TestSystemServer
 
         private void buttonAssignTest_Click(object sender, EventArgs e)
         {
-            buttonAssignTest.Enabled = false;
+            buttonAssignTest.Visible = false;
             TestGroup newTestGroup = new TestGroup() { TestDate = DateTime.Now };
-            newTestGroup.GetGroups = repoGroups.FindById((comboBoxGroup.SelectedItem as Group).Id);
-            newTestGroup.GetTests = repoTests.FindById(currentTestDal.Id);
+            lock (repoGroups)
+            {
+                newTestGroup.GetGroups = repoGroups.FindById((comboBoxGroup.SelectedItem as Group).Id);
+                lock (repoTests)
+                {
+                newTestGroup.GetTests = repoTests.FindById(currentTestDal.Id);
+                }
+            }
+            lock (repoTestGroups)
+            {
             repoTestGroups.Add(newTestGroup);
+            }
             isNewTestAssigned = true;
+            AssignTestSent(newTestGroup);
 
         }
         private void TestInfoLoading()
@@ -260,6 +270,7 @@ namespace TestSystemServer
         {
             GroupInfoLoading();
             buttonAssignTest.Visible = true;
+            buttonAssignTest.Enabled = true;
         }
 
         private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
@@ -467,7 +478,7 @@ namespace TestSystemServer
         {
             buttonStartServer.Enabled = false;
             buttonStopServer2.Enabled = true;
-            buttonAddCilent.Enabled = true;
+            buttonAddClient.Enabled = true;
             listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             // сервер завжди сідає на Localhost
             IPHostEntry iPHostEntry = Dns.GetHostEntry("localhost");
@@ -511,22 +522,6 @@ namespace TestSystemServer
                         sendByte = new byte[1024];
                         sendByte = Encoding.ASCII.GetBytes($"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint}{Environment.NewLine}");
                         infoClients.ClientSocket.Send(sendByte);
-                       
-                        var currentTestGroup = repoTestGroups.GetAll();
-                        if (ClientsList.Count >0 && isNewTestAssigned==true)
-                        {                           
-                            foreach (var item in ClientsList)
-                            {
-                                foreach (var i in currentTestGroup)
-                                {
-                                    sendByte = new byte[1024];
-                                    sendByte = Encoding.ASCII.GetBytes($"TestGroup{i.Id}");
-                                    item.ClientSocket.Send(sendByte); // відправка повідомлення
-                                }                               
-                            }
-                            isNewTestAssigned = false;
-                        }
-
                         //Читання повідомлення яке надходить від клієнта
                         tokenSourceReceive = new CancellationTokenSource();
                         ctReceive = tokenSourceReceive.Token;
@@ -628,6 +623,31 @@ namespace TestSystemServer
             #endregion TaskListeningClientConnection
         }
 
+        private void AssignTestSent(TestGroup newTestGroup)
+        {
+            // конвертуємо повідомлення в байти
+            Byte[] sendByte = new byte[1024];
+           // var currentTestGroup = repoTestGroups.GetAll();
+            if (ClientsList.Count > 0 && isNewTestAssigned == true)
+            {
+                foreach (var item in ClientsList)
+                {                   
+                        sendByte = new byte[1024];
+                        sendByte = Encoding.ASCII.GetBytes($"TestGroup{newTestGroup.Id}");
+                        try
+                        {
+                            item.ClientSocket.Send(sendByte); // відправка повідомлення
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }                    
+                }
+                isNewTestAssigned = false;
+            }           
+            
+        }
+
         private void buttonStopServer2_Click(object sender, EventArgs e)
         {
             try
@@ -649,18 +669,14 @@ namespace TestSystemServer
             }
         }
 
-        private void buttonAddCilent_Click(object sender, EventArgs e)
+        private void buttonAddClient_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
-            DialogResult dialogResult = form1.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-                this.Close();
+            LoginClientForm form1 = new LoginClientForm();
+                form1.Show();          
         }
-
     
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
             var res = repoTestGroups.GetAll();
             //var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
             if (res != null)

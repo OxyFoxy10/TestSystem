@@ -1,7 +1,7 @@
 ﻿
 namespace TestSystemServer
 {
-    partial class Form1
+    partial class LoginServerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,6 @@ namespace TestSystemServer
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,7 +41,6 @@ namespace TestSystemServer
             // panel1
             // 
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label3);
@@ -61,16 +59,6 @@ namespace TestSystemServer
             this.label2.TabIndex = 11;
             this.label2.Text = "User Name";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(122, 165);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(185, 38);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Register";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(261, 26);
@@ -81,9 +69,9 @@ namespace TestSystemServer
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(331, 165);
+            this.button1.Location = new System.Drawing.Point(261, 148);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(185, 38);
+            this.button1.Size = new System.Drawing.Size(255, 38);
             this.button1.TabIndex = 17;
             this.button1.Text = "Login";
             this.button1.UseVisualStyleBackColor = true;
@@ -108,13 +96,13 @@ namespace TestSystemServer
             this.textBox3.Text = "1";
             this.textBox3.UseSystemPasswordChar = true;
             // 
-            // Form1
+            // LoginServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 340);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Name = "LoginServerForm";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -126,7 +114,6 @@ namespace TestSystemServer
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;

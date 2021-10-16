@@ -1,5 +1,5 @@
 ﻿
-namespace TestSystemServer
+namespace TestSystemClient
 {
     partial class RegisterUserForm
     {

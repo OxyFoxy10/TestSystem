@@ -16,7 +16,7 @@ namespace TestSystemClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestSystemClientForm());
+            Application.Run(new LoginClientForm());
         }
     }
 }

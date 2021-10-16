@@ -1,4 +1,5 @@
 ﻿using DAL_TestSystem;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,9 +19,25 @@ namespace TestSystemClient
         private DAL_TestSystem.Question userTestQuestion = new DAL_TestSystem.Question();
         private DAL_TestSystem.Answer userTestAnswer = new DAL_TestSystem.Answer();
         Result currentResult = new Result();
+        GenericUnitOfWork mywork;
+        IGenericRepository<DAL_TestSystem.Test> repoTests;
+        IGenericRepository<DAL_TestSystem.Question> repoQuestions;
+        IGenericRepository<DAL_TestSystem.Answer> repoAnswers;
+        IGenericRepository<Result> repoResults;
+        IGenericRepository<UserAnswer> repoUserAnswers;
         public PassTestForm()
         {
             InitializeComponent();
+        }
+         public PassTestForm(GenericUnitOfWork work)
+        {
+            InitializeComponent();
+            mywork = work;
+            repoTests = mywork.Repository<DAL_TestSystem.Test>();
+            repoQuestions = mywork.Repository<DAL_TestSystem.Question>();
+            repoAnswers = mywork.Repository<DAL_TestSystem.Answer>();
+            repoResults = mywork.Repository<Result>();
+            repoUserAnswers = mywork.Repository<UserAnswer>();
         }
 
         private void checkedListBoxAnswerList_SelectedIndexChanged(object sender, EventArgs e)

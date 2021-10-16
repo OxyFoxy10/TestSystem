@@ -90,10 +90,12 @@ namespace TestSystemServer
             this.toolStripMenuItemEditGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRemoveGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageResults = new System.Windows.Forms.TabPage();
+            this.menuStripResult = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewResults = new System.Windows.Forms.DataGridView();
             this.tabPageStartServer = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAddCilent = new System.Windows.Forms.Button();
+            this.buttonAddClient = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.listBox1_clientList = new System.Windows.Forms.ListBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -101,8 +103,6 @@ namespace TestSystemServer
             this.textBoxPortNumberServer = new System.Windows.Forms.TextBox();
             this.buttonStartServer = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.menuStripResult = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestManage)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.tabControlGroupManage.SuspendLayout();
@@ -120,10 +120,10 @@ namespace TestSystemServer
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGroupManage)).BeginInit();
             this.menuStrip3.SuspendLayout();
             this.tabPageResults.SuspendLayout();
+            this.menuStripResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
             this.tabPageStartServer.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.menuStripResult.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewTestManage
@@ -745,6 +745,27 @@ namespace TestSystemServer
             this.tabPageResults.UseVisualStyleBackColor = true;
             this.tabPageResults.Click += new System.EventHandler(this.tabPageResults_Click);
             // 
+            // menuStripResult
+            // 
+            this.menuStripResult.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStripResult.GripMargin = new System.Windows.Forms.Padding(3);
+            this.menuStripResult.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.menuStripResult.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStripResult.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.menuStripResult.Location = new System.Drawing.Point(6, 3);
+            this.menuStripResult.Name = "menuStripResult";
+            this.menuStripResult.Size = new System.Drawing.Size(116, 33);
+            this.menuStripResult.TabIndex = 17;
+            this.menuStripResult.Text = "menuStrip4";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(97, 29);
+            this.toolStripMenuItem1.Text = "Show All";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // dataGridViewResults
             // 
             this.dataGridViewResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
@@ -772,7 +793,7 @@ namespace TestSystemServer
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonAddCilent);
+            this.panel1.Controls.Add(this.buttonAddClient);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.listBox1_clientList);
             this.panel1.Controls.Add(this.label13);
@@ -784,16 +805,16 @@ namespace TestSystemServer
             this.panel1.Size = new System.Drawing.Size(529, 401);
             this.panel1.TabIndex = 17;
             // 
-            // buttonAddCilent
+            // buttonAddClient
             // 
-            this.buttonAddCilent.Enabled = false;
-            this.buttonAddCilent.Location = new System.Drawing.Point(345, 184);
-            this.buttonAddCilent.Name = "buttonAddCilent";
-            this.buttonAddCilent.Size = new System.Drawing.Size(126, 39);
-            this.buttonAddCilent.TabIndex = 16;
-            this.buttonAddCilent.Text = "Add Client";
-            this.buttonAddCilent.UseVisualStyleBackColor = true;
-            this.buttonAddCilent.Click += new System.EventHandler(this.buttonAddCilent_Click);
+            this.buttonAddClient.Enabled = false;
+            this.buttonAddClient.Location = new System.Drawing.Point(345, 184);
+            this.buttonAddClient.Name = "buttonAddClient";
+            this.buttonAddClient.Size = new System.Drawing.Size(126, 39);
+            this.buttonAddClient.TabIndex = 16;
+            this.buttonAddClient.Text = "Add Client";
+            this.buttonAddClient.UseVisualStyleBackColor = true;
+            this.buttonAddClient.Click += new System.EventHandler(this.buttonAddClient_Click);
             // 
             // textBox2
             // 
@@ -854,27 +875,6 @@ namespace TestSystemServer
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // menuStripResult
-            // 
-            this.menuStripResult.Dock = System.Windows.Forms.DockStyle.None;
-            this.menuStripResult.GripMargin = new System.Windows.Forms.Padding(3);
-            this.menuStripResult.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
-            this.menuStripResult.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStripResult.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.menuStripResult.Location = new System.Drawing.Point(6, 3);
-            this.menuStripResult.Name = "menuStripResult";
-            this.menuStripResult.Size = new System.Drawing.Size(296, 33);
-            this.menuStripResult.TabIndex = 17;
-            this.menuStripResult.Text = "menuStrip4";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(97, 29);
-            this.toolStripMenuItem1.Text = "Show All";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
             // TestSystemServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -914,12 +914,12 @@ namespace TestSystemServer
             this.menuStrip3.PerformLayout();
             this.tabPageResults.ResumeLayout(false);
             this.tabPageResults.PerformLayout();
+            this.menuStripResult.ResumeLayout(false);
+            this.menuStripResult.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).EndInit();
             this.tabPageStartServer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.menuStripResult.ResumeLayout(false);
-            this.menuStripResult.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -990,7 +990,7 @@ namespace TestSystemServer
         private System.Windows.Forms.CheckBox checkBoxIsAdmin;
         private System.Windows.Forms.TabPage tabPageStartServer;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonAddCilent;
+        private System.Windows.Forms.Button buttonAddClient;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ListBox listBox1_clientList;
         private System.Windows.Forms.Label label13;

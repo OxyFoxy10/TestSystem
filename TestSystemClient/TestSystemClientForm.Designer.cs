@@ -39,23 +39,24 @@ namespace TestSystemClient
             this.textBoxServerName = new System.Windows.Forms.TextBox();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItemResults = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip4 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridViewTestSelect = new System.Windows.Forms.DataGridView();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItemResults = new System.Windows.Forms.ToolStripMenuItem();
             this.passTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridViewTestSelect = new System.Windows.Forms.DataGridView();
+            this.textBoxFromServerMessages = new System.Windows.Forms.TextBox();
             this.tabControlGroupManage.SuspendLayout();
             this.tabPageConnect.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.menuStrip4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestSelect)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlGroupManage
@@ -83,6 +84,7 @@ namespace TestSystemClient
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.textBoxFromServerMessages);
             this.panel2.Controls.Add(this.label14);
             this.panel2.Controls.Add(this.textBoxPortNumber);
             this.panel2.Controls.Add(this.buttonDisconnect);
@@ -91,7 +93,7 @@ namespace TestSystemClient
             this.panel2.Controls.Add(this.buttonConnect);
             this.panel2.Location = new System.Drawing.Point(45, 23);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(619, 98);
+            this.panel2.Size = new System.Drawing.Size(619, 272);
             this.panel2.TabIndex = 19;
             // 
             // label14
@@ -162,6 +164,27 @@ namespace TestSystemClient
             this.tabPage1.Text = "Results";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(3);
+            this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemResults});
+            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(146, 33);
+            this.menuStrip1.TabIndex = 18;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItemResults
+            // 
+            this.toolStripMenuItemResults.Name = "toolStripMenuItemResults";
+            this.toolStripMenuItemResults.Size = new System.Drawing.Size(127, 29);
+            this.toolStripMenuItemResults.Text = "Load Results";
+            this.toolStripMenuItemResults.Click += new System.EventHandler(this.toolStripMenuItemResults_Click);
+            // 
             // dataGridView2
             // 
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
@@ -199,7 +222,7 @@ namespace TestSystemClient
             this.passTestToolStripMenuItem});
             this.menuStrip4.Location = new System.Drawing.Point(3, 3);
             this.menuStrip4.Name = "menuStrip4";
-            this.menuStrip4.Size = new System.Drawing.Size(398, 33);
+            this.menuStrip4.Size = new System.Drawing.Size(218, 33);
             this.menuStrip4.TabIndex = 9;
             this.menuStrip4.Text = "menuStrip4";
             // 
@@ -209,6 +232,13 @@ namespace TestSystemClient
             this.toolStripMenuItem2.Size = new System.Drawing.Size(102, 29);
             this.toolStripMenuItem2.Text = "Load Test";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // passTestToolStripMenuItem
+            // 
+            this.passTestToolStripMenuItem.Name = "passTestToolStripMenuItem";
+            this.passTestToolStripMenuItem.Size = new System.Drawing.Size(97, 29);
+            this.passTestToolStripMenuItem.Text = "Pass Test";
+            this.passTestToolStripMenuItem.Click += new System.EventHandler(this.passTestToolStripMenuItem_Click);
             // 
             // dataGridViewTestSelect
             // 
@@ -224,33 +254,13 @@ namespace TestSystemClient
             this.dataGridViewTestSelect.Size = new System.Drawing.Size(465, 264);
             this.dataGridViewTestSelect.TabIndex = 10;
             // 
-            // menuStrip1
+            // textBoxFromServerMessages
             // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(3);
-            this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemResults});
-            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(146, 33);
-            this.menuStrip1.TabIndex = 18;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItemResults
-            // 
-            this.toolStripMenuItemResults.Name = "toolStripMenuItemResults";
-            this.toolStripMenuItemResults.Size = new System.Drawing.Size(127, 29);
-            this.toolStripMenuItemResults.Text = "Load Results";
-            this.toolStripMenuItemResults.Click += new System.EventHandler(this.toolStripMenuItemResults_Click);
-            // 
-            // passTestToolStripMenuItem
-            // 
-            this.passTestToolStripMenuItem.Name = "passTestToolStripMenuItem";
-            this.passTestToolStripMenuItem.Size = new System.Drawing.Size(97, 29);
-            this.passTestToolStripMenuItem.Text = "Pass Test";
-            this.passTestToolStripMenuItem.Click += new System.EventHandler(this.passTestToolStripMenuItem_Click);
+            this.textBoxFromServerMessages.Location = new System.Drawing.Point(39, 75);
+            this.textBoxFromServerMessages.Multiline = true;
+            this.textBoxFromServerMessages.Name = "textBoxFromServerMessages";
+            this.textBoxFromServerMessages.Size = new System.Drawing.Size(545, 179);
+            this.textBoxFromServerMessages.TabIndex = 24;
             // 
             // TestSystemClientForm
             // 
@@ -267,14 +277,14 @@ namespace TestSystemClient
             this.panel2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.menuStrip4.ResumeLayout(false);
             this.menuStrip4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestSelect)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -299,6 +309,7 @@ namespace TestSystemClient
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResults;
         private System.Windows.Forms.ToolStripMenuItem passTestToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBoxFromServerMessages;
     }
 }
 

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TestSystemServer
+namespace TestSystemClient
 {
     public partial class RegisterUserForm : Form
     {
@@ -18,7 +18,7 @@ namespace TestSystemServer
         IGenericRepository<User> repoUsers;
         GroupBox groupBoxUser;
         TextBox textBoxUserName1;
-        TextBox textBoxUserName2;       
+        TextBox textBoxUserName2;
         TextBox textBoxUserLogin;
         TextBox textBoxUserPassword;
 
@@ -102,7 +102,7 @@ namespace TestSystemServer
             User user = new User()
             {
                 FirstName = textBoxUserName1.Text,
-                LastName = textBoxUserName2.Text,               
+                LastName = textBoxUserName2.Text,
                 Login = textBoxUserLogin.Text,
                 Password = textBoxUserPassword.Text
             };

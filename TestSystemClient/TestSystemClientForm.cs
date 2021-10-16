@@ -56,6 +56,7 @@ namespace TestSystemClient
             repoUserAnswers = mywork.Repository<UserAnswer>();
             currentResult = new Result() { GetUser = currentUser };
            
+
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -93,24 +94,37 @@ namespace TestSystemClient
                             Byte[] receiveByte = new byte[1024];
                             Int32 nCount = sendSocket.Receive(receiveByte);
                             String receiveString = Encoding.ASCII.GetString(receiveByte, 0, nCount);
-                          
-                           
                             if (receiveString.Contains("TestGroup"))
                             {
+                                currentUser = repoUsers.GetAll().Select(x=>x).Where(x=>x.Id==currentUser.Id).FirstOrDefault();
                                 currentTestGroup.Id = Convert.ToInt32(receiveString.Substring(9).Trim('\r', '\n'));
+                                var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser)).Select(c => c.GetTests).ToList();
+                                dataGridViewTestSelect.Invoke(new Action(() => { dataGridViewTestSelect.DataSource = res; }));
+
                                 foreach (var item in currentUser.Groups)
                                 {
                                     foreach (TestGroup i in item.TestGroups)
                                     {
-                                      if(  i.Id == currentTestGroup.Id)
+                                        if (i.Id == currentTestGroup.Id)
                                         {
-                                            DAL_TestSystem.Test currenttest = repoTests.FindById((i as TestGroup).GetTests.Id);
+                                            
+                                                //DAL_TestSystem.Test currenttest = repoTests.FindById((i as TestGroup).GetTests.Id);
+                                                //if (!tests.Select(x => x.Id).Contains(currenttest.Id))
+                                                //{
+                                                    // tests.Add(currenttest);
+                                                   // textBoxFromServerMessages.Invoke(new Action(() => { textBoxFromServerMessages.Text += $"{Environment.NewLine}You have been assigned a new Test id {currenttest.Id}"; }));
+                                                    textBoxFromServerMessages.Invoke(new Action(() => { textBoxFromServerMessages.Text += $"{Environment.NewLine}You have been assigned a new Test id"; }));
+                                              //  }
                                            
-                                            tests.Add(currenttest);
                                         }
-                                    }                                  
+                                    }
                                 }
-                                dataGridViewTestSelect.Invoke(new Action(() => { dataGridViewTestSelect.DataSource = tests; }));                              
+                                // dataGridViewTestSelect.Invoke(new Action(() => { dataGridViewTestSelect.DataSource = tests; }));                              
+
+                            }
+                            else
+                            {
+                                textBoxFromServerMessages.Invoke(new Action(() => { textBoxFromServerMessages.Text += $"{receiveString}{ Environment.NewLine}"; }));
 
                             }
                             //    if (receiveString.Contains("SymbolPlay"))
@@ -188,10 +202,30 @@ namespace TestSystemClient
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-          var res=  repoTests.GetAll();
+            var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser)).Select(c => c.GetTests).ToList();
+           // MessageBox.Show(String.Join(" ,",res.ToString()));
+            //  tests.Clear();
+
+            dataGridViewTestSelect.DataSource = res;
+            //try
+            //{
+            //    foreach (var item in currentUser.Groups)
+            //    {
+            //        foreach (TestGroup i in item.TestGroups)
+            //        {
+            //            DAL_TestSystem.Test currenttest = repoTests.FindById((i as TestGroup).GetTests.Id);
+
+            //            tests.Add(currenttest);
+            //        }
+            //    }
+            //}
+            //  catch (Exception ex) { MessageBox.Show(ex.Message); }
+            //  var res=  repoTests.GetAll();
+            //if (tests.Count>0)
+            //    dataGridViewTestSelect.Invoke(new Action(() => { dataGridViewTestSelect.DataSource = tests; }));
             //var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
-            if(res!=null)
-            dataGridViewTestSelect.DataSource = res;           
+            //if(res!=null)
+            //dataGridViewTestSelect.DataSource = res;           
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -213,7 +247,7 @@ namespace TestSystemClient
 
         private void passTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            repoResults.Add(currentResult);
+            //repoResults.Add(currentResult);
         }
     }
 }
