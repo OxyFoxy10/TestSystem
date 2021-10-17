@@ -203,12 +203,18 @@ namespace TestSystemClient
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser))
-                .Select(c => new {TestId=c.GetTests.Id, TestName=c.GetTests.TestName, Author=c.GetTests.Author, QuestionsCount=c.GetTests.Questions.Count, TestGroupId=c.GetTests.TestGroups.FirstOrDefault().Id }).ToList();
-           // MessageBox.Show(String.Join(" ,",res.ToString()));
-            //  tests.Clear();
+            try
+            {
+                var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser))
+               .Select(c => new { TestId = c.GetTests.Id, TestName = c.GetTests.TestName, Author = c.GetTests.Author, QuestionsCount = c.GetTests.Questions.Count, TestGroupId = c.GetTests.TestGroups.FirstOrDefault().Id }).ToList();
+                // MessageBox.Show(String.Join(" ,",res.ToString()));
+                //  tests.Clear();
 
-            dataGridViewTestSelect.DataSource = res;
+                dataGridViewTestSelect.DataSource = res;
+            }
+            catch (System.NullReferenceException ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+           
             //try
             //{
             //    foreach (var item in currentUser.Groups)
@@ -244,7 +250,7 @@ namespace TestSystemClient
             // var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
             var res = repoResults.GetAll().GroupBy(x => x.GetUser).Select(c => c.Key).Where(c => c.Login == currentUser.Login);
             if (res != null)
-                dataGridViewTestSelect.DataSource = res;
+                dataGridView2.DataSource = res;
         }
 
         private void passTestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -254,12 +260,12 @@ namespace TestSystemClient
             int selectedTestGroupId = 0;
             if (dataGridViewTestSelect.Rows.Count > 0)
             {
-                selectedTestId = int.Parse(dataGridViewTestSelect.Rows[0].Cells[0].Value.ToString());
-                selectedTestGroupId = int.Parse(dataGridViewTestSelect.Rows[0].Cells[4].Value.ToString());
+                selectedTestId = int.Parse(dataGridViewTestSelect.SelectedRows[0].Cells[0].Value.ToString());
+                selectedTestGroupId = int.Parse(dataGridViewTestSelect.SelectedRows[0].Cells[4].Value.ToString());
                 selectedTest = repoTests.FindById(selectedTestId);
                
             }
-            MessageBox.Show($"{selectedTest.Id} {selectedTest.TestName} {currentUser.Login}");
+          //  MessageBox.Show($"{selectedTest.Id} {selectedTest.TestName} {currentUser.Login}");
 
             PassTestForm passTestForm = new PassTestForm(mywork,selectedTest, currentUser);
              DialogResult dialogResult = passTestForm.ShowDialog();

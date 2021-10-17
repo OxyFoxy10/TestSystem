@@ -8,8 +8,7 @@ namespace DAL_TestSystem
         public int Id { get; set; }       
         public string Description { get; set; }
         [Required]
-        public bool IsCorrect { get; set; }
-        
+        public bool IsCorrect { get; set; }            
         public virtual Question GetQuestion { get; set; }
         public virtual ICollection<UserAnswer> UserAnswers { get; set; }
         public Answer()

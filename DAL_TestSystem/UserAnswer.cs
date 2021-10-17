@@ -9,5 +9,6 @@ namespace DAL_TestSystem
         public DateTime UserAnswerDate { get; set; }
         public virtual User GetUserss { get; set; }
         public virtual Answer GetAnswers { get; set; }
+        public bool IsAnsweredCorectly { get; set; }
     }
 }

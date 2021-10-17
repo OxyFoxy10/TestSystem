@@ -94,7 +94,12 @@ namespace TestSystemServer
 
         private void toolStripMenuItemShowAllUser_Click(object sender, EventArgs e)
         {
-            var res = repoUsers.GetAll();
+            var res = repoUsers.GetAll()
+                .Select(x=>new {Id=x.Id, Login= x.Login, Password=x.Password, IsAdmin=x.IsAdmin,
+                    FirstName= x.FirstName,
+                    LastName=x.LastName,
+                    Groups=String.Join<Group>(",", x.Groups)
+                }).ToList();
             dataGridViewUserManage.DataSource = res;
         }
 
@@ -136,7 +141,7 @@ namespace TestSystemServer
                             currentAnswerDal = new DAL_TestSystem.Answer()
                             {
                                 Description = curentTestXml.Questions[i].Answers[j].Description,
-                                IsCorrect = curentTestXml.Questions[i].Answers[j].IsCorrect,
+                                IsCorrect = curentTestXml.Questions[i].Answers[j].IsCorrect
                             };
                             currentAnswerDal.GetQuestion = currentQuestionDal;
                             repoAnswers.Add(currentAnswerDal);
@@ -378,6 +383,11 @@ namespace TestSystemServer
             {
                 repoGroups.Remove(groupToDelete);
                 toolStripMenuItemShowAllGroups_Click(sender, e);
+            }
+            var testGroupsToDelete = repoTestGroups.FindAll(x => x.GetGroups.Id == int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString())).ToList();
+            for (int i = 0; i < testGroupsToDelete.Count; i++)
+            {
+                repoTestGroups.Remove(testGroupsToDelete[i] as TestGroup);
             }
         }
 
