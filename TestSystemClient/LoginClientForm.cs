@@ -27,7 +27,7 @@ namespace TestSystemClient
                 IGenericRepository<User> repoUsers = work2.Repository<User>();
                 IGenericRepository<Group> repoGroups = work2.Repository<Group>();
                 var res = repoUsers.FindAll(x => x.Login == textBox2.Text && x.Password == textBox3.Text).FirstOrDefault();
-                if (res != null)
+                if (res != null&&res.Groups!=null)
                 {
                     TestSystemClientForm newClientForm = new TestSystemClientForm(work2, res);
                     // DialogResult dialogResult =newClientForm.ShowDialog();

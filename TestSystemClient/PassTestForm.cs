@@ -16,11 +16,10 @@ namespace TestSystemClient
     public partial class PassTestForm : Form
     {
         public DAL_TestSystem.Test incomingTest = new Test() ;
-        public DAL_TestSystem.Test outgoingTest = new Test() ;
+      //  public DAL_TestSystem.Test outgoingTest = new Test() ;
         private DAL_TestSystem.Question currentQuestion = new DAL_TestSystem.Question();
         private DAL_TestSystem.Answer currentAnswer = new DAL_TestSystem.Answer();
-        bool IsConsideredTrue = false;
-        private List<DAL_TestSystem.Answer> currentAnswerList = new List<Answer>();
+      //  private List<DAL_TestSystem.Answer> currentAnswerList = new List<Answer>();
         private DAL_TestSystem.UserAnswer currentUsersAnswer;
         Result currentResult = new Result();      
         GenericUnitOfWork mywork;
@@ -59,19 +58,22 @@ namespace TestSystemClient
            
                    
             //  outgoingTest = incomingTest; //є перевантажений equals, тому краще прописати всі пункти окремо
-            outgoingTest.Id = incomingTest.Id;
-            outgoingTest.TestName = incomingTest.TestName;
-            outgoingTest.Author = incomingTest.Author;
-            outgoingTest.Questions = incomingTest.Questions;
-            outgoingTest.TestGroups = incomingTest.TestGroups;
-            outgoingTest.Results = incomingTest.Results;
-            foreach (Question item in outgoingTest.Questions)
+            //outgoingTest.Id = incomingTest.Id;
+            //outgoingTest.TestName = incomingTest.TestName;
+            //outgoingTest.Author = incomingTest.Author;
+            //outgoingTest.Questions = incomingTest.Questions;
+            //outgoingTest.TestGroups = incomingTest.TestGroups;
+            //outgoingTest.Results = incomingTest.Results;
+            foreach (Question item in incomingTest.Questions)
             {
                 listBoxQuestions.Items.Add(item);
                 qcount++;
             }
-            listBoxQuestions.SelectedItem = listBoxQuestions.Items[0];
-            listBoxQuestions_Load();
+            if (listBoxQuestions.Items.Count > 0)
+            {
+                listBoxQuestions.SelectedItem = listBoxQuestions.Items[0];
+                listBoxQuestions_Load();
+            }
 
         }
             private void checkedListBoxAnswerList_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,20 +103,83 @@ namespace TestSystemClient
 
         private void buttonFinish_Click(object sender, EventArgs e)
         {
-           // var res = repoUserAnswers.GetAll().Select(x => x.GetUserss).Where(x => x.Id == currentUser.Id);
-
-            currentResult.GetUser = currentUser;
-            currentResult.GetTest = outgoingTest;
-            currentResult.TestDate = DateTime.Now;
-          //  currentResult.CalculateResult();
-            repoResults.Add(currentResult);
-            MessageBox.Show(currentUser.Id.ToString());
-            var res = repoResults.GetAll().Select(x => x).Where(x => x.GetUser.Id == currentUser.Id && x.GetTest.Id == outgoingTest.Id).Select(c => c.Mark).FirstOrDefault();
-            if (res != null)
-                MessageBox.Show(res.ToString());
+            // var res = repoUserAnswers.GetAll().Select(x => x.GetUserss).Where(x => x.Id == currentUser.Id);
+            lock (currentResult) {
+                currentResult.GetUser = currentUser;
+                currentResult.GetTest = incomingTest;
+                currentResult.TestDate = DateTime.Now;
+                //  currentResult.CalculateResult();
+                lock (repoResults)
+                {
+                    repoResults.Add(currentResult);
+                    CalculateResult();
+                    repoResults.Update(currentResult);
+                }
+            }
+            //var res = repoResults.GetAll().Select(x => x).Where(x => x.GetUser.Id == currentUser.Id && x.GetTest.Id == incomingTest.Id).Select(c => c.Mark).FirstOrDefault();
+            //if (res != null)
+            //    MessageBox.Show(res.ToString());
 
         }
 
+        private void CalculateResult()
+        {
+            int qcount = 0;
+            int maxMark = 0;
+            int correctMark = 0;
+            List<int> answersToConsider = new List<int>();
+            foreach (var item in incomingTest.Questions)
+            {
+                foreach (var i in item.Answers)
+                {
+                    answersToConsider.Add(i.Id);
+                }              
+            }
+           
+            if (currentResult.GetTest != null)
+            {
+                qcount = currentResult.GetTest.Questions.Count;
+                maxMark = 0;
+                correctMark = 0;
+                foreach (var item in currentResult.GetTest.Questions)
+                {
+                    // if(testid==GetTest.Id)
+                    maxMark += item.Difficulty;
+                    foreach (var i in item.Answers)
+                    {
+                        if (i.IsCorrect == true)
+                        {
+                            //if(answersToConsider.Contains(i.Id))
+                            //    correctMark += item.Difficulty;
+                            if (currentResult.GetUser.UserAnswers.Select(c => c.GetAnswers.Id).Contains(i.Id))
+                            {
+                                correctMark += item.Difficulty;
+                            }
+                        }
+                    }
+                }
+
+                //foreach (var item in currentResult.GetUser.UserAnswers)
+                //{
+                //    // if(userid==GetUser.Id)
+                //    if (answersToConsider.Contains(item.Id))
+                //    {
+                //        if (item.GetAnswers.IsCorrect == true)
+                //        {
+                //            if (item.IsAnsweredCorectly == true)
+                //                correctMark += item.GetAnswers.GetQuestion.Difficulty;
+                //        }
+                //    }                   
+                //}
+            }
+
+            if (maxMark != 0)
+            {
+                currentResult.Mark = correctMark * 100 / maxMark;
+               
+            }
+           
+        }
         private void buttonStartTest_Click(object sender, EventArgs e)
         {
             // listBoxQuestions.Enabled = true;
@@ -122,6 +187,7 @@ namespace TestSystemClient
             buttonNext.Enabled = true;
             buttonStartTest.Enabled = false;
             checkedListBoxAnswerList.Enabled = true;
+            groupBoxPassTest.Text = incomingTest.TestName;
         }
         private void listBoxQuestions_Load()
         {
@@ -135,9 +201,7 @@ namespace TestSystemClient
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
-        {
-           
-
+        {           
             foreach (Answer item in checkedListBoxAnswerList.CheckedItems)
             {
                 currentUsersAnswer = new DAL_TestSystem.UserAnswer() { UserAnswerDate = DateTime.Now, GetUserss = currentUser, GetAnswers=item };
@@ -157,10 +221,11 @@ namespace TestSystemClient
             int currentIndex = listBoxQuestions.SelectedIndex;
             if (currentIndex < listBoxQuestions.Items.Count - 1)
                 listBoxQuestions.SelectedIndex = currentIndex + 1;    
-            else if(currentIndex== listBoxQuestions.Items.Count - 1)
+            else if(currentIndex== listBoxQuestions.Items.Count-1)
             {
                 buttonNext.Enabled = false;
                 buttonFinish.Enabled = true;
+                checkedListBoxAnswerList.Enabled = false;
             }
         }
 

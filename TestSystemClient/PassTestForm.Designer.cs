@@ -34,7 +34,6 @@ namespace TestSystemClient
             this.buttonStartTest = new System.Windows.Forms.Button();
             this.buttonFinish = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
-            this.buttonPrevious = new System.Windows.Forms.Button();
             this.checkedListBoxAnswerList = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxQuestion = new System.Windows.Forms.TextBox();
@@ -47,7 +46,6 @@ namespace TestSystemClient
             this.groupBoxPassTest.Controls.Add(this.buttonStartTest);
             this.groupBoxPassTest.Controls.Add(this.buttonFinish);
             this.groupBoxPassTest.Controls.Add(this.buttonNext);
-            this.groupBoxPassTest.Controls.Add(this.buttonPrevious);
             this.groupBoxPassTest.Controls.Add(this.checkedListBoxAnswerList);
             this.groupBoxPassTest.Controls.Add(this.label1);
             this.groupBoxPassTest.Controls.Add(this.textBoxQuestion);
@@ -63,9 +61,10 @@ namespace TestSystemClient
             this.listBoxQuestions.FormattingEnabled = true;
             this.listBoxQuestions.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.listBoxQuestions.ItemHeight = 20;
-            this.listBoxQuestions.Location = new System.Drawing.Point(29, 43);
+            this.listBoxQuestions.Location = new System.Drawing.Point(29, 144);
             this.listBoxQuestions.Name = "listBoxQuestions";
-            this.listBoxQuestions.Size = new System.Drawing.Size(284, 264);
+            this.listBoxQuestions.ScrollAlwaysVisible = true;
+            this.listBoxQuestions.Size = new System.Drawing.Size(284, 224);
             this.listBoxQuestions.TabIndex = 22;
             // 
             // buttonStartTest
@@ -95,22 +94,13 @@ namespace TestSystemClient
             // buttonNext
             // 
             this.buttonNext.Enabled = false;
-            this.buttonNext.Location = new System.Drawing.Point(443, 324);
+            this.buttonNext.Location = new System.Drawing.Point(335, 324);
             this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(386, 44);
+            this.buttonNext.Size = new System.Drawing.Size(494, 44);
             this.buttonNext.TabIndex = 19;
             this.buttonNext.Text = "Next";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
-            // 
-            // buttonPrevious
-            // 
-            this.buttonPrevious.Location = new System.Drawing.Point(29, 324);
-            this.buttonPrevious.Name = "buttonPrevious";
-            this.buttonPrevious.Size = new System.Drawing.Size(394, 44);
-            this.buttonPrevious.TabIndex = 18;
-            this.buttonPrevious.Text = "Previous";
-            this.buttonPrevious.UseVisualStyleBackColor = true;
             // 
             // checkedListBoxAnswerList
             // 
@@ -136,12 +126,13 @@ namespace TestSystemClient
             // 
             // textBoxQuestion
             // 
-            this.textBoxQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxQuestion.Location = new System.Drawing.Point(335, 43);
+            this.textBoxQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.textBoxQuestion.Location = new System.Drawing.Point(29, 43);
             this.textBoxQuestion.Multiline = true;
             this.textBoxQuestion.Name = "textBoxQuestion";
             this.textBoxQuestion.ReadOnly = true;
-            this.textBoxQuestion.Size = new System.Drawing.Size(494, 86);
+            this.textBoxQuestion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxQuestion.Size = new System.Drawing.Size(800, 86);
             this.textBoxQuestion.TabIndex = 0;
             // 
             // PassTestForm
@@ -163,7 +154,6 @@ namespace TestSystemClient
         private System.Windows.Forms.GroupBox groupBoxPassTest;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxQuestion;
-        private System.Windows.Forms.Button buttonPrevious;
         private System.Windows.Forms.CheckedListBox checkedListBoxAnswerList;
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Button buttonFinish;

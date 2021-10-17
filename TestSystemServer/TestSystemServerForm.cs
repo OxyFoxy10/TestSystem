@@ -76,6 +76,7 @@ namespace TestSystemServer
 
         private void ToolStripMenuItemShowAll_Click(object sender, EventArgs e)
         {
+            ToolStripMenuItemShowAll.Text = "Renew";
             groupBoxAssignTest.Enabled = true;
             var res = repoTests.GetAll();
             dataGridViewTestManage.DataSource = res;
@@ -94,6 +95,7 @@ namespace TestSystemServer
 
         private void toolStripMenuItemShowAllUser_Click(object sender, EventArgs e)
         {
+            toolStripMenuItemShowAllUser.Text = "Renew!";
             var res = repoUsers.GetAll()
                 .Select(x=>new {Id=x.Id, Login= x.Login, Password=x.Password, IsAdmin=x.IsAdmin,
                     FirstName= x.FirstName,
@@ -105,6 +107,7 @@ namespace TestSystemServer
 
         private void toolStripMenuItemShowAllGroups_Click(object sender, EventArgs e)
         {
+            toolStripMenuItemShowAllGroups.Text = "Renew";
             var res = repoGroups.GetAll().Select(x => new { Id = x.Id, Name = x.GroupName, Users = String.Join<User>(",", x.Users), TestGroups = String.Join<TestGroup>(",", x.TestGroups) }).ToList();
             dataGridViewGroupManage.DataSource = res;
         }
@@ -259,6 +262,7 @@ namespace TestSystemServer
         private void GroupInfoLoading()
         {
             groupsList = repoGroups.GetAll().ToList();
+            comboBoxGroup.Items.Clear();
             comboBoxGroup.Items.AddRange(groupsList.Select(x => x).ToArray());
         }
         private void dataGridViewTestManage_SelectionChanged(object sender, EventArgs e)
@@ -288,8 +292,7 @@ namespace TestSystemServer
                         usersList.Add(i);
                 }
             }
-            comboBoxUser.Items.Clear();
-            comboBoxUser.Items.AddRange(usersList.Select(x => x).ToArray());
+           
             buttonAssignTest.Enabled = true;
         }
 
@@ -302,6 +305,18 @@ namespace TestSystemServer
             FillUserCheckList();
 
         }
+
+        private void FillUserCheckList()
+        {
+            var existingUsers = repoUsers.GetAll();         
+
+            foreach (var item in existingUsers)
+            {
+                if (!CheckedListBoxUsers.Items.Contains(item))
+                    CheckedListBoxUsers.Items.Add(item, false);
+            }
+        }
+
         private void ClearGroupView()
         {
             textBoxGroupName.Text = "";
@@ -350,32 +365,34 @@ namespace TestSystemServer
         {
             var groupToEdit = repoGroups.FindById(int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString()));
             textBoxGroupName.Text = groupToEdit.GroupName;
-            FillUserCheckList();
-        }
-        private void FillUserCheckList()
-        {
             var existingUsers = repoUsers.GetAll();
+            foreach (var item in groupToEdit.Users)
+            {
+                CheckedListBoxUsers.Items.Add(item, true);
+            }
+
             foreach (var item in existingUsers)
             {
-                CheckedListBoxUsers.Items.Add(item, item.IsAdmin);
+                if (!CheckedListBoxUsers.Items.Contains(item))
+                    CheckedListBoxUsers.Items.Add(item, false);
             }
         }
-        private void FillGroupCheckList()
-        {
-            checkedListBoxGroups.Items.Clear();
-            var existingGroup = repoGroups.GetAll();
-            foreach (var item in existingGroup)
-            {
-                foreach (var i in item.Users)
-                {
-                    if (newUser != null && i.Id == newUser.Id)
-                        checkedListBoxGroups.Items.Add(item, true);
-                    else
-                        checkedListBoxGroups.Items.Add(item, false);
-                }
+        //private void FillGroupCheckList()
+        //{
+        //    checkedListBoxGroups.Items.Clear();
+        //    var existingGroup = repoGroups.GetAll();
+        //    foreach (var item in existingGroup)
+        //    {
+        //        foreach (var i in item.Users)
+        //        {
+        //            if (newUser != null && i.Id == newUser.Id)
+        //                checkedListBoxGroups.Items.Add(item, true);
+        //            else
+        //                checkedListBoxGroups.Items.Add(item, false);
+        //        }
 
-            }
-        }
+        //    }
+        //}
         private void toolStripMenuItemRemoveGroup_Click(object sender, EventArgs e)
         {
             var groupToDelete = repoGroups.FindById(int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString()));
@@ -384,11 +401,11 @@ namespace TestSystemServer
                 repoGroups.Remove(groupToDelete);
                 toolStripMenuItemShowAllGroups_Click(sender, e);
             }
-            var testGroupsToDelete = repoTestGroups.FindAll(x => x.GetGroups.Id == int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString())).ToList();
-            for (int i = 0; i < testGroupsToDelete.Count; i++)
-            {
-                repoTestGroups.Remove(testGroupsToDelete[i] as TestGroup);
-            }
+            //var testGroupsToDelete = repoTestGroups.FindAll(x => x.GetGroups.Id == int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString())).ToList();
+            //for (int i = 0; i < testGroupsToDelete.Count; i++)
+            //{
+            //    repoTestGroups.Remove(testGroupsToDelete[i] as TestGroup);
+            //}
         }
 
         private void toolStripMenuItemAddUser_Click(object sender, EventArgs e)
@@ -397,7 +414,7 @@ namespace TestSystemServer
             buttonSaveUser.Text = "Add To Users";
             buttonSaveUser.Visible = true;
             IsnewUser = true;
-            FillGroupCheckList();
+           // FillGroupCheckList();
         }
 
         private void ClearUserView()
@@ -407,8 +424,9 @@ namespace TestSystemServer
             textBoxFirstName.Text = "";
             textBoxLastName.Text = "";
             checkBoxIsAdmin.Checked = false;
-            checkedListBoxGroups.Items.Clear();
+           // checkedListBoxGroups.Items.Clear();
             buttonSaveUser.Visible = false;
+            IsnewUser = false;
             newUser = new User();
         }
 
@@ -423,22 +441,22 @@ namespace TestSystemServer
 
         private void FillUserView()
         {
-            var userToEdit = repoUsers.FindById(int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString()));
+            var userToEdit = repoUsers.FindById(int.Parse(dataGridViewUserManage.SelectedRows[0].Cells[0].Value.ToString()));
             textBoxLogin.Text = userToEdit.Login;
             textBoxPassword.Text = userToEdit.Password;
             textBoxFirstName.Text = userToEdit.FirstName;
             textBoxLastName.Text = userToEdit.LastName;
             checkBoxIsAdmin.Checked = userToEdit.IsAdmin;
-            FillGroupCheckList();
+           // FillGroupCheckList();
         }
 
         private void toolStripMenuItemRemoveUser_Click(object sender, EventArgs e)
-        {
-            var userToDelete = repoUsers.FindById(int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString()));
+        {           
+            var userToDelete = repoUsers.FindById(int.Parse(dataGridViewUserManage.SelectedRows[0].Cells[0].Value.ToString()));
             if (userToDelete != null && userToDelete.Id != 1)
             {
                 repoUsers.Remove(userToDelete);
-                toolStripMenuItemShowAllGroups_Click(sender, e);
+                toolStripMenuItemShowAllUser_Click(sender, e);
             }
         }
 
@@ -448,13 +466,8 @@ namespace TestSystemServer
             newUser.Password = textBoxPassword.Text;
             newUser.FirstName = textBoxFirstName.Text;
             newUser.LastName = textBoxLastName.Text;
-            newUser.IsAdmin = checkBoxIsAdmin.Checked;
-            var query = checkedListBoxGroups.CheckedItems;
-            foreach (var item in query)
-            {
-                var res = repoGroups.FindById((item as Group).Id);
-                newUser.Groups.Add(res);
-            }
+            newUser.IsAdmin = checkBoxIsAdmin.Checked;        
+           
             if (IsnewUser == true)
             {
                 repoUsers.Add(newUser);
@@ -464,13 +477,13 @@ namespace TestSystemServer
             }
             else
             {
-                var userToEdit = repoUsers.FindById(int.Parse(dataGridViewGroupManage.SelectedRows[0].Cells[0].Value.ToString()));
+                var userToEdit = repoUsers.FindById(int.Parse(dataGridViewUserManage.SelectedRows[0].Cells[0].Value.ToString()));
                 userToEdit.Login = newUser.Login;
                 userToEdit.Password = newUser.Password;
                 userToEdit.FirstName= newUser.FirstName;
                 userToEdit.LastName= newUser.LastName;
                 userToEdit.IsAdmin= newUser.IsAdmin;
-                userToEdit.Groups = newUser.Groups;
+              //  userToEdit.Groups = newUser.Groups;
                 repoUsers.Update(userToEdit);
                 buttonSaveGroup.Text = "Save";
                 toolStripMenuItemShowAllUser_Click(sender, e);
@@ -487,8 +500,7 @@ namespace TestSystemServer
         private async void buttonStartServer_ClickAsync(object sender, EventArgs e)
         {
             buttonStartServer.Enabled = false;
-            buttonStopServer2.Enabled = true;
-            buttonAddClient.Enabled = true;
+            buttonStopServer2.Enabled = true;           
             listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             // сервер завжди сідає на Localhost
             IPHostEntry iPHostEntry = Dns.GetHostEntry("localhost");
@@ -564,13 +576,16 @@ namespace TestSystemServer
                                         textBox2.Invoke(new Action(() => { textBox2.Text += clientLeft + Environment.NewLine; }));
                                         break;
                                     }
-                                   else if (receiveString == "test finished")
+                                   else if (receiveString.Contains( "test finished"))
                                     {
-                                        string clientLeft = $"Member {infoClients.RemoteEndPoint} has finished test!{Environment.NewLine}";
-                                        listBox1_clientList.Invoke(new Action(() => listBox1_clientList.Items.Remove(infoClients)));
-                                        ClientsList.Remove(infoClients);
-                                        infoClients.Dispose();
-                                        textBox2.Invoke(new Action(() => { textBox2.Text += clientLeft + Environment.NewLine; }));
+                                            string clientfinished = $"{receiveString} IP {infoClients.RemoteEndPoint}!{Environment.NewLine}";
+                                      //  listBox1_clientList.Invoke(new Action(() => listBox1_clientList.Items.Remove(infoClients)));
+                                        //ClientsList.Remove(infoClients);
+                                        //infoClients.Dispose();
+                                        textBox2.Invoke(new Action(() => { textBox2.Text += clientfinished + Environment.NewLine; }));
+                                        sendByte = new byte[1024];
+                                        sendByte = Encoding.ASCII.GetBytes($"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint} can check his resuls now!{Environment.NewLine}");
+                                        infoClients.ClientSocket.Send(sendByte);
                                         break;
                                     }
 
@@ -679,18 +694,14 @@ namespace TestSystemServer
             }
         }
 
-        private void buttonAddClient_Click(object sender, EventArgs e)
-        {
-            LoginClientForm form1 = new LoginClientForm();
-                form1.Show();          
-        }
-    
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var res = repoTestGroups.GetAll();
+            toolStripMenuItem1.Text = "Renew";
+            var res = repoResults.GetAll();
             //var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
             if (res != null)
                 dataGridViewResults.DataSource = res;
         }
+
     }
 }

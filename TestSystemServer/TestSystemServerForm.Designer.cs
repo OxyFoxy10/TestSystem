@@ -39,8 +39,6 @@ namespace TestSystemServer
             this.tabControlGroupManage = new System.Windows.Forms.TabControl();
             this.tabPageTestManage = new System.Windows.Forms.TabPage();
             this.groupBoxAssignTest = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboBoxUser = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxGroup = new System.Windows.Forms.ComboBox();
             this.buttonAssignTest = new System.Windows.Forms.Button();
@@ -66,8 +64,6 @@ namespace TestSystemServer
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.buttonSaveUser = new System.Windows.Forms.Button();
-            this.checkedListBoxGroups = new System.Windows.Forms.CheckedListBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.dataGridViewUserManage = new System.Windows.Forms.DataGridView();
@@ -95,7 +91,6 @@ namespace TestSystemServer
             this.dataGridViewResults = new System.Windows.Forms.DataGridView();
             this.tabPageStartServer = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAddClient = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.listBox1_clientList = new System.Windows.Forms.ListBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -196,11 +191,11 @@ namespace TestSystemServer
             // 
             // tabControlGroupManage
             // 
-            this.tabControlGroupManage.Controls.Add(this.tabPageTestManage);
+            this.tabControlGroupManage.Controls.Add(this.tabPageStartServer);
             this.tabControlGroupManage.Controls.Add(this.tabPageUserManage);
             this.tabControlGroupManage.Controls.Add(this.tabPageGroupManage);
+            this.tabControlGroupManage.Controls.Add(this.tabPageTestManage);
             this.tabControlGroupManage.Controls.Add(this.tabPageResults);
-            this.tabControlGroupManage.Controls.Add(this.tabPageStartServer);
             this.tabControlGroupManage.Location = new System.Drawing.Point(12, 13);
             this.tabControlGroupManage.Name = "tabControlGroupManage";
             this.tabControlGroupManage.SelectedIndex = 0;
@@ -210,6 +205,7 @@ namespace TestSystemServer
             // 
             // tabPageTestManage
             // 
+            this.tabPageTestManage.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabPageTestManage.Controls.Add(this.groupBoxAssignTest);
             this.tabPageTestManage.Controls.Add(this.groupBoxQuestion);
             this.tabPageTestManage.Controls.Add(this.groupBoxQuestionList);
@@ -221,45 +217,24 @@ namespace TestSystemServer
             this.tabPageTestManage.Size = new System.Drawing.Size(1220, 440);
             this.tabPageTestManage.TabIndex = 0;
             this.tabPageTestManage.Text = "Test Manage";
-            this.tabPageTestManage.UseVisualStyleBackColor = true;
             // 
             // groupBoxAssignTest
             // 
-            this.groupBoxAssignTest.Controls.Add(this.label7);
-            this.groupBoxAssignTest.Controls.Add(this.comboBoxUser);
             this.groupBoxAssignTest.Controls.Add(this.label6);
             this.groupBoxAssignTest.Controls.Add(this.comboBoxGroup);
             this.groupBoxAssignTest.Controls.Add(this.buttonAssignTest);
             this.groupBoxAssignTest.Enabled = false;
-            this.groupBoxAssignTest.Location = new System.Drawing.Point(461, 328);
+            this.groupBoxAssignTest.Location = new System.Drawing.Point(476, 328);
             this.groupBoxAssignTest.Name = "groupBoxAssignTest";
             this.groupBoxAssignTest.Size = new System.Drawing.Size(736, 104);
             this.groupBoxAssignTest.TabIndex = 13;
             this.groupBoxAssignTest.TabStop = false;
             this.groupBoxAssignTest.Text = "Assign Test";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(265, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 20);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "User";
-            // 
-            // comboBoxUser
-            // 
-            this.comboBoxUser.FormattingEnabled = true;
-            this.comboBoxUser.Location = new System.Drawing.Point(269, 48);
-            this.comboBoxUser.Name = "comboBoxUser";
-            this.comboBoxUser.Size = new System.Drawing.Size(189, 28);
-            this.comboBoxUser.TabIndex = 18;
-            this.comboBoxUser.Text = "All";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(25, 25);
+            this.label6.Location = new System.Drawing.Point(98, 25);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 20);
             this.label6.TabIndex = 17;
@@ -268,18 +243,18 @@ namespace TestSystemServer
             // comboBoxGroup
             // 
             this.comboBoxGroup.FormattingEnabled = true;
-            this.comboBoxGroup.Location = new System.Drawing.Point(29, 48);
+            this.comboBoxGroup.Location = new System.Drawing.Point(102, 48);
             this.comboBoxGroup.Name = "comboBoxGroup";
-            this.comboBoxGroup.Size = new System.Drawing.Size(209, 28);
+            this.comboBoxGroup.Size = new System.Drawing.Size(224, 28);
             this.comboBoxGroup.TabIndex = 16;
             this.comboBoxGroup.Text = "All";
             this.comboBoxGroup.SelectedIndexChanged += new System.EventHandler(this.comboBoxGroup_SelectedIndexChanged);
             // 
             // buttonAssignTest
             // 
-            this.buttonAssignTest.Location = new System.Drawing.Point(492, 22);
+            this.buttonAssignTest.Location = new System.Drawing.Point(346, 25);
             this.buttonAssignTest.Name = "buttonAssignTest";
-            this.buttonAssignTest.Size = new System.Drawing.Size(194, 54);
+            this.buttonAssignTest.Size = new System.Drawing.Size(315, 54);
             this.buttonAssignTest.TabIndex = 11;
             this.buttonAssignTest.Text = "Assign";
             this.buttonAssignTest.UseVisualStyleBackColor = true;
@@ -293,7 +268,7 @@ namespace TestSystemServer
             this.groupBoxQuestion.Controls.Add(this.numericUpDownDifficulty);
             this.groupBoxQuestion.Controls.Add(this.label5);
             this.groupBoxQuestion.Controls.Add(this.textBoxQuestion);
-            this.groupBoxQuestion.Location = new System.Drawing.Point(833, 15);
+            this.groupBoxQuestion.Location = new System.Drawing.Point(848, 15);
             this.groupBoxQuestion.Name = "groupBoxQuestion";
             this.groupBoxQuestion.Size = new System.Drawing.Size(364, 307);
             this.groupBoxQuestion.TabIndex = 12;
@@ -355,7 +330,7 @@ namespace TestSystemServer
             this.groupBoxQuestionList.Controls.Add(this.label2);
             this.groupBoxQuestionList.Controls.Add(this.label1);
             this.groupBoxQuestionList.Controls.Add(this.listBoxQuestionList);
-            this.groupBoxQuestionList.Location = new System.Drawing.Point(461, 15);
+            this.groupBoxQuestionList.Location = new System.Drawing.Point(476, 15);
             this.groupBoxQuestionList.Name = "groupBoxQuestionList";
             this.groupBoxQuestionList.Size = new System.Drawing.Size(355, 307);
             this.groupBoxQuestionList.TabIndex = 11;
@@ -407,6 +382,7 @@ namespace TestSystemServer
             // 
             // tabPageUserManage
             // 
+            this.tabPageUserManage.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabPageUserManage.Controls.Add(this.groupBoxUserView);
             this.tabPageUserManage.Controls.Add(this.dataGridViewUserManage);
             this.tabPageUserManage.Controls.Add(this.menuStrip1);
@@ -416,7 +392,6 @@ namespace TestSystemServer
             this.tabPageUserManage.Size = new System.Drawing.Size(1220, 440);
             this.tabPageUserManage.TabIndex = 1;
             this.tabPageUserManage.Text = "User Manage";
-            this.tabPageUserManage.UseVisualStyleBackColor = true;
             // 
             // groupBoxUserView
             // 
@@ -428,8 +403,6 @@ namespace TestSystemServer
             this.groupBoxUserView.Controls.Add(this.textBoxPassword);
             this.groupBoxUserView.Controls.Add(this.label10);
             this.groupBoxUserView.Controls.Add(this.buttonSaveUser);
-            this.groupBoxUserView.Controls.Add(this.checkedListBoxGroups);
-            this.groupBoxUserView.Controls.Add(this.label4);
             this.groupBoxUserView.Controls.Add(this.textBoxLogin);
             this.groupBoxUserView.Controls.Add(this.label8);
             this.groupBoxUserView.Location = new System.Drawing.Point(798, 16);
@@ -442,64 +415,75 @@ namespace TestSystemServer
             // checkBoxIsAdmin
             // 
             this.checkBoxIsAdmin.AutoSize = true;
-            this.checkBoxIsAdmin.Location = new System.Drawing.Point(147, 164);
+            this.checkBoxIsAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.checkBoxIsAdmin.Location = new System.Drawing.Point(147, 237);
             this.checkBoxIsAdmin.Name = "checkBoxIsAdmin";
-            this.checkBoxIsAdmin.Size = new System.Drawing.Size(95, 24);
+            this.checkBoxIsAdmin.Size = new System.Drawing.Size(113, 29);
             this.checkBoxIsAdmin.TabIndex = 51;
             this.checkBoxIsAdmin.Text = "is Admin";
             this.checkBoxIsAdmin.UseVisualStyleBackColor = true;
             // 
             // textBoxLastName
             // 
-            this.textBoxLastName.Location = new System.Drawing.Point(147, 132);
+            this.textBoxLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textBoxLastName.Location = new System.Drawing.Point(148, 188);
             this.textBoxLastName.Name = "textBoxLastName";
-            this.textBoxLastName.Size = new System.Drawing.Size(203, 26);
+            this.textBoxLastName.Size = new System.Drawing.Size(205, 30);
             this.textBoxLastName.TabIndex = 50;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(23, 138);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label11.Location = new System.Drawing.Point(26, 194);
+            this.label11.Margin = new System.Windows.Forms.Padding(3);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(86, 20);
+            this.label11.Size = new System.Drawing.Size(106, 25);
             this.label11.TabIndex = 49;
             this.label11.Text = "Last Name";
             // 
             // textBoxFirstName
             // 
-            this.textBoxFirstName.Location = new System.Drawing.Point(146, 100);
+            this.textBoxFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textBoxFirstName.Location = new System.Drawing.Point(150, 136);
             this.textBoxFirstName.Name = "textBoxFirstName";
-            this.textBoxFirstName.Size = new System.Drawing.Size(203, 26);
+            this.textBoxFirstName.Size = new System.Drawing.Size(203, 30);
             this.textBoxFirstName.TabIndex = 48;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(22, 106);
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label12.Location = new System.Drawing.Point(26, 142);
+            this.label12.Margin = new System.Windows.Forms.Padding(3);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(86, 20);
+            this.label12.Size = new System.Drawing.Size(106, 25);
             this.label12.TabIndex = 47;
             this.label12.Text = "First Name";
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(146, 68);
+            this.textBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textBoxPassword.Location = new System.Drawing.Point(150, 85);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(203, 26);
+            this.textBoxPassword.Size = new System.Drawing.Size(203, 30);
             this.textBoxPassword.TabIndex = 46;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(22, 74);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label10.Location = new System.Drawing.Point(26, 91);
+            this.label10.Margin = new System.Windows.Forms.Padding(3);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 20);
+            this.label10.Size = new System.Drawing.Size(98, 25);
             this.label10.TabIndex = 45;
-            this.label10.Text = "password";
+            this.label10.Text = "Password";
             // 
             // buttonSaveUser
             // 
-            this.buttonSaveUser.Location = new System.Drawing.Point(145, 307);
+            this.buttonSaveUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonSaveUser.Location = new System.Drawing.Point(148, 267);
             this.buttonSaveUser.Name = "buttonSaveUser";
             this.buttonSaveUser.Size = new System.Drawing.Size(202, 38);
             this.buttonSaveUser.TabIndex = 44;
@@ -508,39 +492,24 @@ namespace TestSystemServer
             this.buttonSaveUser.Visible = false;
             this.buttonSaveUser.Click += new System.EventHandler(this.buttonSaveUser_Click);
             // 
-            // checkedListBoxGroups
-            // 
-            this.checkedListBoxGroups.CheckOnClick = true;
-            this.checkedListBoxGroups.FormattingEnabled = true;
-            this.checkedListBoxGroups.Location = new System.Drawing.Point(147, 194);
-            this.checkedListBoxGroups.Name = "checkedListBoxGroups";
-            this.checkedListBoxGroups.Size = new System.Drawing.Size(202, 96);
-            this.checkedListBoxGroups.TabIndex = 43;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 194);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 20);
-            this.label4.TabIndex = 42;
-            this.label4.Text = "Groups";
-            // 
             // textBoxLogin
             // 
-            this.textBoxLogin.Location = new System.Drawing.Point(145, 36);
+            this.textBoxLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textBoxLogin.Location = new System.Drawing.Point(150, 35);
             this.textBoxLogin.Name = "textBoxLogin";
-            this.textBoxLogin.Size = new System.Drawing.Size(203, 26);
+            this.textBoxLogin.Size = new System.Drawing.Size(203, 30);
             this.textBoxLogin.TabIndex = 41;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 42);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label8.Location = new System.Drawing.Point(26, 41);
+            this.label8.Margin = new System.Windows.Forms.Padding(3);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 20);
+            this.label8.Size = new System.Drawing.Size(60, 25);
             this.label8.TabIndex = 40;
-            this.label8.Text = "login";
+            this.label8.Text = "Login";
             // 
             // dataGridViewUserManage
             // 
@@ -559,6 +528,7 @@ namespace TestSystemServer
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(3);
             this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -569,40 +539,41 @@ namespace TestSystemServer
             this.toolStripMenuItemRemoveUser});
             this.menuStrip1.Location = new System.Drawing.Point(3, 3);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(448, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(566, 40);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // toolStripMenuItemShowAllUser
             // 
             this.toolStripMenuItemShowAllUser.Name = "toolStripMenuItemShowAllUser";
-            this.toolStripMenuItemShowAllUser.Size = new System.Drawing.Size(97, 29);
+            this.toolStripMenuItemShowAllUser.Size = new System.Drawing.Size(123, 36);
             this.toolStripMenuItemShowAllUser.Text = "Show All";
             this.toolStripMenuItemShowAllUser.Click += new System.EventHandler(this.toolStripMenuItemShowAllUser_Click);
             // 
             // toolStripMenuItemAddUser
             // 
             this.toolStripMenuItemAddUser.Name = "toolStripMenuItemAddUser";
-            this.toolStripMenuItemAddUser.Size = new System.Drawing.Size(102, 29);
+            this.toolStripMenuItemAddUser.Size = new System.Drawing.Size(128, 36);
             this.toolStripMenuItemAddUser.Text = "Add User";
             this.toolStripMenuItemAddUser.Click += new System.EventHandler(this.toolStripMenuItemAddUser_Click);
             // 
             // toolStripMenuItemEditUser
             // 
             this.toolStripMenuItemEditUser.Name = "toolStripMenuItemEditUser";
-            this.toolStripMenuItemEditUser.Size = new System.Drawing.Size(98, 29);
+            this.toolStripMenuItemEditUser.Size = new System.Drawing.Size(125, 36);
             this.toolStripMenuItemEditUser.Text = "Edit User";
             this.toolStripMenuItemEditUser.Click += new System.EventHandler(this.toolStripMenuItemEditUser_Click);
             // 
             // toolStripMenuItemRemoveUser
             // 
             this.toolStripMenuItemRemoveUser.Name = "toolStripMenuItemRemoveUser";
-            this.toolStripMenuItemRemoveUser.Size = new System.Drawing.Size(132, 29);
+            this.toolStripMenuItemRemoveUser.Size = new System.Drawing.Size(171, 36);
             this.toolStripMenuItemRemoveUser.Text = "Remove User";
             this.toolStripMenuItemRemoveUser.Click += new System.EventHandler(this.toolStripMenuItemRemoveUser_Click);
             // 
             // tabPageGroupManage
             // 
+            this.tabPageGroupManage.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabPageGroupManage.Controls.Add(this.groupBoxGroupManage);
             this.tabPageGroupManage.Controls.Add(this.dataGridViewGroupManage);
             this.tabPageGroupManage.Controls.Add(this.menuStrip3);
@@ -612,7 +583,6 @@ namespace TestSystemServer
             this.tabPageGroupManage.Size = new System.Drawing.Size(1220, 440);
             this.tabPageGroupManage.TabIndex = 2;
             this.tabPageGroupManage.Text = "Group Manage";
-            this.tabPageGroupManage.UseVisualStyleBackColor = true;
             // 
             // groupBoxGroupManage
             // 
@@ -630,7 +600,8 @@ namespace TestSystemServer
             // 
             // buttonSaveGroup
             // 
-            this.buttonSaveGroup.Location = new System.Drawing.Point(161, 199);
+            this.buttonSaveGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonSaveGroup.Location = new System.Drawing.Point(161, 319);
             this.buttonSaveGroup.Name = "buttonSaveGroup";
             this.buttonSaveGroup.Size = new System.Drawing.Size(202, 38);
             this.buttonSaveGroup.TabIndex = 39;
@@ -642,34 +613,38 @@ namespace TestSystemServer
             // CheckedListBoxUsers
             // 
             this.CheckedListBoxUsers.CheckOnClick = true;
+            this.CheckedListBoxUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.CheckedListBoxUsers.FormattingEnabled = true;
             this.CheckedListBoxUsers.Location = new System.Drawing.Point(161, 82);
             this.CheckedListBoxUsers.Name = "CheckedListBoxUsers";
-            this.CheckedListBoxUsers.Size = new System.Drawing.Size(202, 96);
+            this.CheckedListBoxUsers.Size = new System.Drawing.Size(202, 220);
             this.CheckedListBoxUsers.TabIndex = 38;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label9.Location = new System.Drawing.Point(38, 82);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 20);
+            this.label9.Size = new System.Drawing.Size(63, 25);
             this.label9.TabIndex = 37;
             this.label9.Text = "Users";
             // 
             // textBoxGroupName
             // 
+            this.textBoxGroupName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBoxGroupName.Location = new System.Drawing.Point(160, 38);
             this.textBoxGroupName.Name = "textBoxGroupName";
-            this.textBoxGroupName.Size = new System.Drawing.Size(203, 26);
+            this.textBoxGroupName.Size = new System.Drawing.Size(203, 30);
             this.textBoxGroupName.TabIndex = 22;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label15.Location = new System.Drawing.Point(36, 44);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(96, 20);
+            this.label15.Size = new System.Drawing.Size(118, 25);
             this.label15.TabIndex = 21;
             this.label15.Text = "GroupName";
             // 
@@ -690,6 +665,7 @@ namespace TestSystemServer
             // menuStrip3
             // 
             this.menuStrip3.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip3.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.menuStrip3.GripMargin = new System.Windows.Forms.Padding(3);
             this.menuStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip3.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -700,40 +676,41 @@ namespace TestSystemServer
             this.toolStripMenuItemRemoveGroup});
             this.menuStrip3.Location = new System.Drawing.Point(3, 3);
             this.menuStrip3.Name = "menuStrip3";
-            this.menuStrip3.Size = new System.Drawing.Size(493, 33);
+            this.menuStrip3.Size = new System.Drawing.Size(623, 40);
             this.menuStrip3.TabIndex = 14;
             this.menuStrip3.Text = "menuStrip3";
             // 
             // toolStripMenuItemShowAllGroups
             // 
             this.toolStripMenuItemShowAllGroups.Name = "toolStripMenuItemShowAllGroups";
-            this.toolStripMenuItemShowAllGroups.Size = new System.Drawing.Size(97, 29);
+            this.toolStripMenuItemShowAllGroups.Size = new System.Drawing.Size(123, 36);
             this.toolStripMenuItemShowAllGroups.Text = "Show All";
             this.toolStripMenuItemShowAllGroups.Click += new System.EventHandler(this.toolStripMenuItemShowAllGroups_Click);
             // 
             // toolStripMenuItemAdGroup
             // 
             this.toolStripMenuItemAdGroup.Name = "toolStripMenuItemAdGroup";
-            this.toolStripMenuItemAdGroup.Size = new System.Drawing.Size(117, 29);
+            this.toolStripMenuItemAdGroup.Size = new System.Drawing.Size(147, 36);
             this.toolStripMenuItemAdGroup.Text = "Add Group";
             this.toolStripMenuItemAdGroup.Click += new System.EventHandler(this.toolStripMenuItemAdGroup_Click);
             // 
             // toolStripMenuItemEditGroup
             // 
             this.toolStripMenuItemEditGroup.Name = "toolStripMenuItemEditGroup";
-            this.toolStripMenuItemEditGroup.Size = new System.Drawing.Size(113, 29);
+            this.toolStripMenuItemEditGroup.Size = new System.Drawing.Size(144, 36);
             this.toolStripMenuItemEditGroup.Text = "Edit Group";
             this.toolStripMenuItemEditGroup.Click += new System.EventHandler(this.toolStripMenuItemEditGroup_Click);
             // 
             // toolStripMenuItemRemoveGroup
             // 
             this.toolStripMenuItemRemoveGroup.Name = "toolStripMenuItemRemoveGroup";
-            this.toolStripMenuItemRemoveGroup.Size = new System.Drawing.Size(147, 29);
+            this.toolStripMenuItemRemoveGroup.Size = new System.Drawing.Size(190, 36);
             this.toolStripMenuItemRemoveGroup.Text = "Remove Group";
             this.toolStripMenuItemRemoveGroup.Click += new System.EventHandler(this.toolStripMenuItemRemoveGroup_Click);
             // 
             // tabPageResults
             // 
+            this.tabPageResults.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabPageResults.Controls.Add(this.menuStripResult);
             this.tabPageResults.Controls.Add(this.dataGridViewResults);
             this.tabPageResults.Location = new System.Drawing.Point(4, 29);
@@ -742,12 +719,12 @@ namespace TestSystemServer
             this.tabPageResults.Size = new System.Drawing.Size(1220, 440);
             this.tabPageResults.TabIndex = 3;
             this.tabPageResults.Text = "Results";
-            this.tabPageResults.UseVisualStyleBackColor = true;
             this.tabPageResults.Click += new System.EventHandler(this.tabPageResults_Click);
             // 
             // menuStripResult
             // 
             this.menuStripResult.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStripResult.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.menuStripResult.GripMargin = new System.Windows.Forms.Padding(3);
             this.menuStripResult.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStripResult.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -755,14 +732,14 @@ namespace TestSystemServer
             this.toolStripMenuItem1});
             this.menuStripResult.Location = new System.Drawing.Point(6, 3);
             this.menuStripResult.Name = "menuStripResult";
-            this.menuStripResult.Size = new System.Drawing.Size(116, 33);
+            this.menuStripResult.Size = new System.Drawing.Size(142, 40);
             this.menuStripResult.TabIndex = 17;
             this.menuStripResult.Text = "menuStrip4";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(97, 29);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 36);
             this.toolStripMenuItem1.Text = "Show All";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -777,12 +754,12 @@ namespace TestSystemServer
             this.dataGridViewResults.RowHeadersWidth = 62;
             this.dataGridViewResults.RowTemplate.Height = 28;
             this.dataGridViewResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewResults.Size = new System.Drawing.Size(558, 310);
+            this.dataGridViewResults.Size = new System.Drawing.Size(837, 310);
             this.dataGridViewResults.TabIndex = 16;
             // 
             // tabPageStartServer
             // 
-            this.tabPageStartServer.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageStartServer.BackColor = System.Drawing.Color.LemonChiffon;
             this.tabPageStartServer.Controls.Add(this.panel1);
             this.tabPageStartServer.Location = new System.Drawing.Point(4, 29);
             this.tabPageStartServer.Name = "tabPageStartServer";
@@ -793,7 +770,6 @@ namespace TestSystemServer
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonAddClient);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.listBox1_clientList);
             this.panel1.Controls.Add(this.label13);
@@ -805,22 +781,12 @@ namespace TestSystemServer
             this.panel1.Size = new System.Drawing.Size(529, 401);
             this.panel1.TabIndex = 17;
             // 
-            // buttonAddClient
-            // 
-            this.buttonAddClient.Enabled = false;
-            this.buttonAddClient.Location = new System.Drawing.Point(345, 184);
-            this.buttonAddClient.Name = "buttonAddClient";
-            this.buttonAddClient.Size = new System.Drawing.Size(126, 39);
-            this.buttonAddClient.TabIndex = 16;
-            this.buttonAddClient.Text = "Add Client";
-            this.buttonAddClient.UseVisualStyleBackColor = true;
-            this.buttonAddClient.Click += new System.EventHandler(this.buttonAddClient_Click);
-            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(13, 140);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox2.Size = new System.Drawing.Size(326, 242);
             this.textBox2.TabIndex = 15;
             // 
@@ -965,8 +931,6 @@ namespace TestSystemServer
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem assignTestToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBoxAssignTest;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBoxUser;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxGroup;
         private System.Windows.Forms.Button buttonAssignTest;
@@ -979,8 +943,6 @@ namespace TestSystemServer
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button buttonSaveUser;
-        private System.Windows.Forms.CheckedListBox checkedListBoxGroups;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxLogin;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxLastName;
@@ -990,7 +952,6 @@ namespace TestSystemServer
         private System.Windows.Forms.CheckBox checkBoxIsAdmin;
         private System.Windows.Forms.TabPage tabPageStartServer;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonAddClient;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ListBox listBox1_clientList;
         private System.Windows.Forms.Label label13;

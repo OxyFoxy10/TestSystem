@@ -107,14 +107,13 @@ namespace TestSystemClient
                                     foreach (TestGroup i in item.TestGroups)
                                     {
                                         if (i.Id == currentTestGroup.Id)
-                                        {
-                                            
+                                        {                                            
                                                 //DAL_TestSystem.Test currenttest = repoTests.FindById((i as TestGroup).GetTests.Id);
                                                 //if (!tests.Select(x => x.Id).Contains(currenttest.Id))
                                                 //{
                                                     // tests.Add(currenttest);
                                                    // textBoxFromServerMessages.Invoke(new Action(() => { textBoxFromServerMessages.Text += $"{Environment.NewLine}You have been assigned a new Test id {currenttest.Id}"; }));
-                                                    textBoxFromServerMessages.Invoke(new Action(() => { textBoxFromServerMessages.Text += $"{Environment.NewLine}You have been assigned a new Test id"; }));
+                                                    textBoxFromServerMessages.Invoke(new Action(() => { textBoxFromServerMessages.Text += $"You have been assigned a new Test!{Environment.NewLine}"; }));
                                               //  }
                                            
                                         }
@@ -203,6 +202,7 @@ namespace TestSystemClient
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            toolStripMenuItem2.Text = "Renew";
             try
             {
                 var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser))
@@ -248,7 +248,10 @@ namespace TestSystemClient
         {
             // var res = repoResults.GetAll();
             // var res = repoTests.GetAll().Select(x=>x).Where(x=>x.TestGroups.Contains(currentTestGroup));
-            var res = repoResults.GetAll().GroupBy(x => x.GetUser).Select(c => c.Key).Where(c => c.Login == currentUser.Login);
+            //  var res = repoResults.GetAll().GroupBy(x => x.GetUser).Select(c => c.Key).Where(c => c.Login == currentUser.Login).ToList();
+            toolStripMenuItemResults.Text = "Renew!";
+            var res = repoResults.GetAll().Select(x => x).Where(x => x.GetUser.Id == currentUser.Id).ToList();
+           
             if (res != null)
                 dataGridView2.DataSource = res;
         }
@@ -260,21 +263,51 @@ namespace TestSystemClient
             int selectedTestGroupId = 0;
             if (dataGridViewTestSelect.Rows.Count > 0)
             {
+                if(dataGridViewTestSelect.SelectedRows[0].Cells[4].Value!=null)
                 selectedTestId = int.Parse(dataGridViewTestSelect.SelectedRows[0].Cells[0].Value.ToString());
                 selectedTestGroupId = int.Parse(dataGridViewTestSelect.SelectedRows[0].Cells[4].Value.ToString());
                 selectedTest = repoTests.FindById(selectedTestId);
                
             }
-          //  MessageBox.Show($"{selectedTest.Id} {selectedTest.TestName} {currentUser.Login}");
+            //  MessageBox.Show($"{selectedTest.Id} {selectedTest.TestName} {currentUser.Login}");
+            if (selectedTest != null && selectedTest.Questions.Count>0)
+            {
+                PassTestForm passTestForm = new PassTestForm(mywork, selectedTest, currentUser);
+                DialogResult dialogResult = passTestForm.ShowDialog();
+                TestGroup testGroupToDelete = new TestGroup();
+                if (dialogResult == DialogResult.OK)
+                {
+                    //  testGroupToDelete = repoTestGroups.GetAll().Where(c => c.GetGroups.Id == currentGroup.Id && c.GetTests.Id == selectedTest.Id).FirstOrDefault();
+                  
+                    //remove from window!!!
+                    testGroupToDelete = repoTestGroups.FindById(selectedTestGroupId);
+                    repoTestGroups.Remove(testGroupToDelete);
+                    toolStripMenuItem2_Click(sender, e);
+                    TestFinishedNotification();
+                }
+            }
+           
+        }
 
-            PassTestForm passTestForm = new PassTestForm(mywork,selectedTest, currentUser);
-             DialogResult dialogResult = passTestForm.ShowDialog();
-            TestGroup testGroupToDelete=new TestGroup ();
-            if (dialogResult == DialogResult.OK) {
-                //  testGroupToDelete = repoTestGroups.GetAll().Where(c => c.GetGroups.Id == currentGroup.Id && c.GetTests.Id == selectedTest.Id).FirstOrDefault();
-                testGroupToDelete = repoTestGroups.FindById(selectedTestGroupId);           
-                repoTestGroups.Remove(testGroupToDelete);
-                toolStripMenuItem2_Click(sender, e);
+        private void TestFinishedNotification()
+        {
+            //який текст
+            string msg = $"{selectedTest.TestName} test finished by user {currentUser.Id} ";
+                                                // конвертуємо повідомлення в байти
+            Byte[] sendByte = new byte[1024];
+            sendByte = Encoding.ASCII.GetBytes(msg);
+            if (sendSocket != null)
+                try
+                {
+                    sendSocket.Send(sendByte); // відправка повідомлення
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            else
+            {
+                MessageBox.Show("Please connect to start working!", "Warning message", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             }
         }
     }
