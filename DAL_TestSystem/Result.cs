@@ -15,7 +15,7 @@ namespace DAL_TestSystem
             return $"{Mark}%";
         }
 
-        private void CalculateResult()
+        public void CalculateResult()
         {
             int qcount = GetTest.Questions.Count;
             int maxMark = 0;

@@ -32,6 +32,7 @@ namespace TestSystemClient
             this.tabControlGroupManage = new System.Windows.Forms.TabControl();
             this.tabPageConnect = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.textBoxFromServerMessages = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxPortNumber = new System.Windows.Forms.TextBox();
             this.buttonDisconnect = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@ namespace TestSystemClient
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.passTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTestSelect = new System.Windows.Forms.DataGridView();
-            this.textBoxFromServerMessages = new System.Windows.Forms.TextBox();
             this.tabControlGroupManage.SuspendLayout();
             this.tabPageConnect.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -95,6 +95,14 @@ namespace TestSystemClient
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(619, 272);
             this.panel2.TabIndex = 19;
+            // 
+            // textBoxFromServerMessages
+            // 
+            this.textBoxFromServerMessages.Location = new System.Drawing.Point(39, 75);
+            this.textBoxFromServerMessages.Multiline = true;
+            this.textBoxFromServerMessages.Name = "textBoxFromServerMessages";
+            this.textBoxFromServerMessages.Size = new System.Drawing.Size(545, 179);
+            this.textBoxFromServerMessages.TabIndex = 24;
             // 
             // label14
             // 
@@ -251,16 +259,8 @@ namespace TestSystemClient
             this.dataGridViewTestSelect.RowHeadersWidth = 62;
             this.dataGridViewTestSelect.RowTemplate.Height = 28;
             this.dataGridViewTestSelect.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTestSelect.Size = new System.Drawing.Size(465, 264);
+            this.dataGridViewTestSelect.Size = new System.Drawing.Size(798, 264);
             this.dataGridViewTestSelect.TabIndex = 10;
-            // 
-            // textBoxFromServerMessages
-            // 
-            this.textBoxFromServerMessages.Location = new System.Drawing.Point(39, 75);
-            this.textBoxFromServerMessages.Multiline = true;
-            this.textBoxFromServerMessages.Name = "textBoxFromServerMessages";
-            this.textBoxFromServerMessages.Size = new System.Drawing.Size(545, 179);
-            this.textBoxFromServerMessages.TabIndex = 24;
             // 
             // TestSystemClientForm
             // 

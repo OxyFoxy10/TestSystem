@@ -15,32 +15,60 @@ namespace TestSystemClient
    
     public partial class PassTestForm : Form
     {
-        private DAL_TestSystem.Test userTest = new DAL_TestSystem.Test();
-        private DAL_TestSystem.Question userTestQuestion = new DAL_TestSystem.Question();
-        private DAL_TestSystem.Answer userTestAnswer = new DAL_TestSystem.Answer();
-        Result currentResult = new Result();
+        public DAL_TestSystem.Test incomingTest = new Test() ;
+        public DAL_TestSystem.Test outgoingTest = new Test() ;
+        private DAL_TestSystem.Question currentQuestion = new DAL_TestSystem.Question();
+        private List<DAL_TestSystem.Answer> currentAnswerList = new List<Answer>();
+        private DAL_TestSystem.UserAnswer currentUsersAnswer;
+        Result currentResult = new Result();      
         GenericUnitOfWork mywork;
-        IGenericRepository<DAL_TestSystem.Test> repoTests;
-        IGenericRepository<DAL_TestSystem.Question> repoQuestions;
-        IGenericRepository<DAL_TestSystem.Answer> repoAnswers;
+        User currentUser = new User();
+      //  IGenericRepository<DAL_TestSystem.Test> repoTests;
+        //IGenericRepository<DAL_TestSystem.Question> repoQuestions;
+        //IGenericRepository<DAL_TestSystem.Answer> repoAnswers;
         IGenericRepository<Result> repoResults;
         IGenericRepository<UserAnswer> repoUserAnswers;
+        IGenericRepository<Answer> repoAnswers;
+        int qcount = 0;
         public PassTestForm()
         {
             InitializeComponent();
         }
-         public PassTestForm(GenericUnitOfWork work)
+         public PassTestForm(GenericUnitOfWork work, Test test, User user)
         {
             InitializeComponent();
             mywork = work;
-            repoTests = mywork.Repository<DAL_TestSystem.Test>();
-            repoQuestions = mywork.Repository<DAL_TestSystem.Question>();
-            repoAnswers = mywork.Repository<DAL_TestSystem.Answer>();
+            incomingTest = test;
+            currentUser = user;
+          //  repoTests = mywork.Repository<DAL_TestSystem.Test>();
+            //repoQuestions = mywork.Repository<DAL_TestSystem.Question>();
+            //repoAnswers = mywork.Repository<DAL_TestSystem.Answer>();
             repoResults = mywork.Repository<Result>();
             repoUserAnswers = mywork.Repository<UserAnswer>();
+            repoAnswers = mywork.Repository<Answer>();
+            TestInfoLoading();
+           // currentUsersAnswer.GetUserss = currentUser;
         }
 
-        private void checkedListBoxAnswerList_SelectedIndexChanged(object sender, EventArgs e)
+        private void TestInfoLoading()
+        {
+            foreach (Question item in incomingTest.Questions)
+            {
+                listBoxQuestions.Items.Add(item);
+                qcount++;
+            }
+            listBoxQuestions.SelectedIndex = 0;
+            listBoxQuestions_Load();
+            //  outgoingTest = incomingTest; //є перевантажений equals, тому краще прописати всі пункти окремо
+            outgoingTest.Id = incomingTest.Id;
+            outgoingTest.TestName = incomingTest.TestName;
+            outgoingTest.Author = incomingTest.Author;
+         //   outgoingTest.Questions = incomingTest.Questions;
+            outgoingTest.TestGroups = incomingTest.TestGroups;
+            outgoingTest.Results = incomingTest.Results;
+
+        }
+            private void checkedListBoxAnswerList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (checkedListBoxAnswerList.Items.Count > 0)
             {
@@ -67,7 +95,78 @@ namespace TestSystemClient
 
         private void buttonFinish_Click(object sender, EventArgs e)
         {
+           // var res = repoUserAnswers.GetAll().Select(x => x.GetUserss).Where(x => x.Id == currentUser.Id);
 
+            currentResult.GetUser = currentUser;
+            currentResult.GetTest = incomingTest;
+            currentResult.TestDate = DateTime.Now;
+            currentResult.CalculateResult();
+            repoResults.Add(currentResult);
+            var res = repoResults.GetAll().Select(x => x).Where(x => x.GetUser.Id == currentUser.Id && x.GetTest.Id == incomingTest.Id).Select(c => c.Mark).FirstOrDefault();
+          if(res!=null)
+            MessageBox.Show(res.ToString());
+
+        }
+
+        private void buttonStartTest_Click(object sender, EventArgs e)
+        {
+            // listBoxQuestions.Enabled = true;
+            currentUsersAnswer = new DAL_TestSystem.UserAnswer() { UserAnswerDate = DateTime.Now, GetUserss=currentUser };
+         
+            buttonNext.Enabled = true;
+            buttonStartTest.Enabled = false;
+        }
+        private void listBoxQuestions_Load()
+        {
+            CurrentQuestionClear();
+            textBoxQuestion.Text = (listBoxQuestions.SelectedItem as Question).Description;
+            foreach (var item in (listBoxQuestions.SelectedItem as Question).Answers)
+            {
+                    checkedListBoxAnswerList.Items.Add(item, false);               
+            }
+           // listBoxQuestions.Enabled = false;
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            foreach (Answer item in checkedListBoxAnswerList.CheckedItems)
+            {
+               
+                currentUsersAnswer.GetAnswers = new Answer()
+                {
+                    Description = item.Description,
+                    IsCorrect = true,
+                    GetQuestion = item.GetQuestion
+                } ;
+                repoAnswers.Add(currentUsersAnswer.GetAnswers);
+                    repoUserAnswers.Add(currentUsersAnswer);                
+            }           
+            SelectNextQuestion();
+            listBoxQuestions_Load();
+          //  listBoxQuestions.Enabled = true;
+        }
+
+        private void SelectNextQuestion()
+        {
+            int currentIndex = listBoxQuestions.SelectedIndex;
+            if (currentIndex < listBoxQuestions.Items.Count - 1)
+                listBoxQuestions.SelectedIndex = currentIndex + 1;    
+            else if(currentIndex== listBoxQuestions.Items.Count - 1)
+            {
+                buttonNext.Enabled = false;
+                buttonFinish.Enabled = true;
+            }
+        }
+
+        private void CurrentQuestionClear()
+        {
+            textBoxQuestion.Text = ""; 
+            checkedListBoxAnswerList.Items.Clear();
+        }
+
+        private void listBoxQuestions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonNext.Enabled = true;
         }
     }
 }

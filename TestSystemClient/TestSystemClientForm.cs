@@ -26,11 +26,12 @@ namespace TestSystemClient
         IGenericRepository<Result> repoResults;
         IGenericRepository<UserAnswer> repoUserAnswers;
         public User currentUser = new User();
-        DAL_TestSystem.Test currentTestDal = new DAL_TestSystem.Test();
-        List<DAL_TestSystem.Test> tests = new List<DAL_TestSystem.Test>();
-        List<DAL_TestSystem.Group> groupsList = new List<Group>();
-        List<DAL_TestSystem.User> usersList = new List<User>();
-        DAL_TestSystem.Question currentQuestionDal;
+         Group currentGroup = new Group();
+        DAL_TestSystem.Test selectedTest = new DAL_TestSystem.Test();
+       //  List<DAL_TestSystem.Test> tests = new List<DAL_TestSystem.Test>();
+       //  List<DAL_TestSystem.Group> groupsList = new List<Group>();
+       //  List<DAL_TestSystem.User> usersList = new List<User>();
+       //  DAL_TestSystem.Question currentQuestionDal;
         TestGroup currentTestGroup = new TestGroup();
         Result currentResult;
         Socket sendSocket;
@@ -45,7 +46,7 @@ namespace TestSystemClient
         {
             InitializeComponent();           
             mywork = work;
-            currentUser = user;
+            currentUser = user;            
             repoUsers = mywork.Repository<User>();
             repoGroups = mywork.Repository<Group>();
             repoTestGroups = mywork.Repository<TestGroup>();
@@ -202,7 +203,8 @@ namespace TestSystemClient
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser)).Select(c => c.GetTests).ToList();
+            var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser))
+                .Select(c => new {TestId=c.GetTests.Id, TestName=c.GetTests.TestName, Author=c.GetTests.Author, QuestionsCount=c.GetTests.Questions.Count, TestGroupId=c.GetTests.TestGroups.FirstOrDefault().Id }).ToList();
            // MessageBox.Show(String.Join(" ,",res.ToString()));
             //  tests.Clear();
 
@@ -248,6 +250,26 @@ namespace TestSystemClient
         private void passTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //repoResults.Add(currentResult);
+            int selectedTestId = 0;
+            int selectedTestGroupId = 0;
+            if (dataGridViewTestSelect.Rows.Count > 0)
+            {
+                selectedTestId = int.Parse(dataGridViewTestSelect.Rows[0].Cells[0].Value.ToString());
+                selectedTestGroupId = int.Parse(dataGridViewTestSelect.Rows[0].Cells[4].Value.ToString());
+                selectedTest = repoTests.FindById(selectedTestId);
+               
+            }
+            MessageBox.Show($"{selectedTest.Id} {selectedTest.TestName} {currentUser.Login}");
+
+            PassTestForm passTestForm = new PassTestForm(mywork,selectedTest, currentUser);
+             DialogResult dialogResult = passTestForm.ShowDialog();
+            TestGroup testGroupToDelete=new TestGroup ();
+            if (dialogResult == DialogResult.OK) {
+                //  testGroupToDelete = repoTestGroups.GetAll().Where(c => c.GetGroups.Id == currentGroup.Id && c.GetTests.Id == selectedTest.Id).FirstOrDefault();
+                testGroupToDelete = repoTestGroups.FindById(selectedTestGroupId);           
+                repoTestGroups.Remove(testGroupToDelete);
+                toolStripMenuItem2_Click(sender, e);
+            }
         }
     }
 }
