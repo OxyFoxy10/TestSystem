@@ -96,15 +96,17 @@ namespace TestDesignerProgram
             // 
             // tabPageCreateTest
             // 
+            this.tabPageCreateTest.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.tabPageCreateTest.Controls.Add(this.groupBoxQuestion);
             this.tabPageCreateTest.Controls.Add(this.groupBoxQuestionList);
+            this.tabPageCreateTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.tabPageCreateTest.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabPageCreateTest.Location = new System.Drawing.Point(4, 29);
             this.tabPageCreateTest.Name = "tabPageCreateTest";
             this.tabPageCreateTest.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageCreateTest.Size = new System.Drawing.Size(873, 584);
             this.tabPageCreateTest.TabIndex = 0;
             this.tabPageCreateTest.Text = "Create New Test";
-            this.tabPageCreateTest.UseVisualStyleBackColor = true;
             // 
             // groupBoxQuestion
             // 
@@ -343,6 +345,7 @@ namespace TestDesignerProgram
             // 
             // tabPageEditTest
             // 
+            this.tabPageEditTest.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.tabPageEditTest.Controls.Add(this.toolStrip1);
             this.tabPageEditTest.Controls.Add(this.groupBox1);
             this.tabPageEditTest.Controls.Add(this.groupBoxQuestionView2);
@@ -352,7 +355,6 @@ namespace TestDesignerProgram
             this.tabPageEditTest.Size = new System.Drawing.Size(873, 584);
             this.tabPageEditTest.TabIndex = 1;
             this.tabPageEditTest.Text = "Edit Test";
-            this.tabPageEditTest.UseVisualStyleBackColor = true;
             // 
             // toolStrip1
             // 
@@ -369,6 +371,7 @@ namespace TestDesignerProgram
             // 
             // toolStripLabel1
             // 
+            this.toolStripLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.toolStripLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel1.Image")));
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(128, 29);
@@ -377,12 +380,14 @@ namespace TestDesignerProgram
             // 
             // toolStripComboBoxChooseFile
             // 
+            this.toolStripComboBoxChooseFile.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.toolStripComboBoxChooseFile.Name = "toolStripComboBoxChooseFile";
             this.toolStripComboBoxChooseFile.Size = new System.Drawing.Size(150, 34);
             this.toolStripComboBoxChooseFile.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxChooseFile_SelectedIndexChanged);
             // 
             // toolStripButtonSearchFile
             // 
+            this.toolStripButtonSearchFile.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.toolStripButtonSearchFile.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSearchFile.Image")));
             this.toolStripButtonSearchFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripButtonSearchFile.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -461,7 +466,6 @@ namespace TestDesignerProgram
             this.textBoxTestName2.ReadOnly = true;
             this.textBoxTestName2.Size = new System.Drawing.Size(214, 26);
             this.textBoxTestName2.TabIndex = 7;
-            this.textBoxTestName2.TextChanged += new System.EventHandler(this.textBoxTestName2_TextChanged);
             // 
             // textBoxAuthor2
             // 
@@ -470,7 +474,6 @@ namespace TestDesignerProgram
             this.textBoxAuthor2.ReadOnly = true;
             this.textBoxAuthor2.Size = new System.Drawing.Size(214, 26);
             this.textBoxAuthor2.TabIndex = 6;
-            this.textBoxAuthor2.TextChanged += new System.EventHandler(this.textBoxAuthor2_TextChanged);
             // 
             // label6
             // 

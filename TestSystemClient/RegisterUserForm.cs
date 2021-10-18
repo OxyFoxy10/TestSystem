@@ -42,8 +42,7 @@ namespace TestSystemClient
             textBoxUserPassword = new TextBox() { Location = new Point(110, 153), Size = new Size(181, 26) };
 
             labelUserName1 = new Label() { Location = new Point(7, 31), Text = "First Name" };
-            labelUserName2 = new Label() { Location = new Point(7, 63), Text = "Last Name" };
-            labelUserAge = new Label() { Location = new Point(7, 95), Text = "Age" };
+            labelUserName2 = new Label() { Location = new Point(7, 63), Text = "Last Name" };          
             labelUserLogin = new Label() { Location = new Point(7, 127), Text = "Login" };
             labelUserPassword = new Label() { Location = new Point(7, 159), Text = "Password" };
             buttonAddUser = new Button() { Location = new Point(110, 217), Size = new Size(181, 38), Text = "Add User" };

@@ -15,7 +15,6 @@ namespace DAL_TestSystem
             Users = new List<User>();
             TestGroups = new List<TestGroup>();
         }
-
         public override string ToString()
         {
             return $"{GroupName}";

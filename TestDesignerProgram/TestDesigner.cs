@@ -433,10 +433,6 @@ namespace TestDesignerProgram
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void textBoxAuthor2_TextChanged(object sender, EventArgs e)
-        {
-            //  currentTest.Author = textBoxAuthor2.Text;
-        }
         private void buttonSaveTest2_Click(object sender, EventArgs e)
         {
             currentTest.Questions.Clear();
@@ -470,11 +466,6 @@ namespace TestDesignerProgram
             {
                 CurrentTestClear();
             }
-        }
-
-        private void textBoxTestName2_TextChanged(object sender, EventArgs e)
-        {
-            // currentTest.TestName = textBoxTestName2.Text;
         }
 
         private void listBoxQuestionList_SelectedIndexChanged(object sender, EventArgs e)

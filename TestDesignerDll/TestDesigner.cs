@@ -27,7 +27,6 @@ namespace TestDesignerDll
             Author = author;
             Questions = questions;
         }
-
         public override string ToString()
         {
 			return $"Test Name: {TestName} | Author {Author} | Question Count: {QuestionCount}";

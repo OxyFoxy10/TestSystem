@@ -30,7 +30,6 @@ namespace TestSystemClient
                 if (res != null&&res.Groups!=null)
                 {
                     TestSystemClientForm newClientForm = new TestSystemClientForm(work2, res);
-                    // DialogResult dialogResult =newClientForm.ShowDialog();
                     newClientForm.ShowDialog();
                 }
                 else

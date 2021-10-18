@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace DAL_TestSystem
 {
-   
-        public class TestSystemContextInitializer : CreateDatabaseIfNotExists<TestSystemDBContext>
+
+    public class TestSystemContextInitializer : CreateDatabaseIfNotExists<TestSystemDBContext>
+    {
+        protected override void Seed(TestSystemDBContext context)
         {
-            protected override void Seed(TestSystemDBContext context)
-            {
-                User admin = new User() { Login = "sa", Password = "1", IsAdmin = true, FirstName = "admin", LastName = "admin" };
-                Group group = new Group() { GroupName = "Administrators" };
-           // admin.Groups.Add(group);
+            User admin = new User() { Login = "sa", Password = "1", IsAdmin = true, FirstName = "admin", LastName = "admin" };
+            Group group = new Group() { GroupName = "Administrators" };
             group.Users.Add(admin);
             context.Users.Add(admin);
             context.Groups.Add(group);
-                context.SaveChanges();
-            }
+            context.SaveChanges();
         }
-    
+    }
+
 }

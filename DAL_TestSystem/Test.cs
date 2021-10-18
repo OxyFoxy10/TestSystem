@@ -19,7 +19,6 @@ namespace DAL_TestSystem
             TestGroups = new List<TestGroup>();
             Questions = new List<Question>();
         }
-
         public override string ToString()
         {
             return $"Test {TestName}";

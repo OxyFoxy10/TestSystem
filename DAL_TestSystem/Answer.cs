@@ -19,7 +19,6 @@ namespace DAL_TestSystem
         {
             return $"{Description}";
         }
-
         public override bool Equals(object obj)
         {
             return obj is Answer answer &&

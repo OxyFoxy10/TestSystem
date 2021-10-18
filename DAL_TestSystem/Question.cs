@@ -23,7 +23,6 @@ namespace DAL_TestSystem
         {
             return $"Question {Number}: {Description}";
         }
-
         public override bool Equals(object obj)
         {
             return obj is Question question &&
