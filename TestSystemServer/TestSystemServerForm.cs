@@ -184,13 +184,17 @@ namespace TestSystemServer
         private void listBoxQuestionList_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClearAnswerGroupBox();
-            currentQuestionDal = listBoxQuestionList.SelectedItem as DAL_TestSystem.Question;
-            textBoxQuestion.Text = (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Description;
-            foreach (DAL_TestSystem.Answer item in (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Answers)
+            if (listBoxQuestionList.SelectedIndex >= 0)
             {
-                checkedListBoxAnswerList.Items.Add(item, item.IsCorrect);
+                currentQuestionDal = listBoxQuestionList.SelectedItem as DAL_TestSystem.Question;
+                textBoxQuestion.Text = (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Description;
+                foreach (DAL_TestSystem.Answer item in (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Answers)
+                {
+                    checkedListBoxAnswerList.Items.Add(item, item.IsCorrect);
+                }
+                numericUpDownDifficulty.Value = (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Difficulty;
             }
-            numericUpDownDifficulty.Value = (listBoxQuestionList.SelectedItem as DAL_TestSystem.Question).Difficulty;
+
         }
         private void ToolStripMenuItemRemoveTest_Click(object sender, EventArgs e)
         {
@@ -205,6 +209,11 @@ namespace TestSystemServer
 
         private void buttonAssignTest_Click(object sender, EventArgs e)
         {
+            if (comboBoxGroup.SelectedItem == null)
+            {
+                MessageBox.Show("Please check group to assign test!");
+                return;
+            }
             buttonAssignTest.Visible = false;
             TestGroup newTestGroup = new TestGroup() { TestDate = DateTime.Now };
             lock (repoGroups)
@@ -498,7 +507,7 @@ namespace TestSystemServer
                                 if (ctReceive.IsCancellationRequested)
                                 {
                                     // Clean up here, then...
-                                    //ctReceive.ThrowIfCancellationRequested();
+                                    //ctReceive.ThrowIfCancellationRequested();                                    
                                     return;
                                 }
                                 Socket receiveSocket = infoClients.ClientSocket;
@@ -508,7 +517,7 @@ namespace TestSystemServer
                                 {
                                     Int32 nCount = receiveSocket.Receive(receivebyte);//Receive() -  блокуюча функція - чекає доки не буде повідомлення
                                     String receiveString = Encoding.ASCII.GetString(receivebyte, 0, nCount);
-                                    if (receiveString == "close")
+                                    if (receiveString.Contains("close"))
                                     {
                                         string clientLeft = $"Member {infoClients.RemoteEndPoint} has left chat!{Environment.NewLine}";
                                         listBox1_clientList.Invoke(new Action(() => listBox1_clientList.Items.Remove(infoClients)));
@@ -524,9 +533,8 @@ namespace TestSystemServer
                                         sendByte = new byte[1024];
                                         sendByte = Encoding.ASCII.GetBytes($"client {infoClients.ClientSocket.Handle} ip {infoClients.RemoteEndPoint} can check his resuls now!{Environment.NewLine}");
                                         infoClients.ClientSocket.Send(sendByte);
-                                        break;
+                                        toolStripMenuItem2_Click(sender, e);                                      
                                     }
-
                                 }
                                 catch
                                 {
@@ -604,5 +612,34 @@ namespace TestSystemServer
                 dataGridViewResults.DataSource = res;
         }
 
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItem2.Text = "Renew";
+            var res = repoTestGroups.GetAll();
+            if (res != null)
+                dataGridViewTestGroup.DataSource = res;
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewResults.SelectedRows.Count > 0)
+            {
+                var resultToRemove = repoResults.FindById(int.Parse(dataGridViewResults.SelectedRows[0].Cells[0].Value.ToString()));
+                repoResults.Remove(resultToRemove);
+                toolStripMenuItem1_Click(sender, e);
+            }
+
+        }
+
+        private void removeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewTestGroup.SelectedRows.Count > 0)
+            {
+                var testGroupToRemove = repoTestGroups.FindById(int.Parse(dataGridViewTestGroup.SelectedRows[0].Cells[0].Value.ToString()));
+                repoTestGroups.Remove(testGroupToRemove);
+                toolStripMenuItem2_Click(sender, e);
+            }
+
+        }
     }
 }

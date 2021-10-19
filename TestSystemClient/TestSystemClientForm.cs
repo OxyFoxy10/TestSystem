@@ -132,7 +132,7 @@ namespace TestSystemClient
 
         private void Disconnect()
         {
-            String msg = $"close";
+            String msg = "close";
             // конвертуємо повідомлення в байти
             Byte[] sendByte = new byte[1024];
             sendByte = Encoding.ASCII.GetBytes(msg);
