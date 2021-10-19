@@ -365,7 +365,7 @@ namespace TestDesignerProgram
             this.toolStripButtonSearchFile});
             this.toolStrip1.Location = new System.Drawing.Point(3, 3);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(867, 34);
+            this.toolStrip1.Size = new System.Drawing.Size(867, 38);
             this.toolStrip1.TabIndex = 15;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -374,7 +374,7 @@ namespace TestDesignerProgram
             this.toolStripLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.toolStripLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel1.Image")));
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(128, 29);
+            this.toolStripLabel1.Size = new System.Drawing.Size(128, 33);
             this.toolStripLabel1.Text = "Choose file:";
             this.toolStripLabel1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
@@ -588,6 +588,7 @@ namespace TestDesignerProgram
             // 
             // checkedListBoxAnswerList
             // 
+            this.checkedListBoxAnswerList.CheckOnClick = true;
             this.checkedListBoxAnswerList.FormattingEnabled = true;
             this.checkedListBoxAnswerList.Location = new System.Drawing.Point(6, 175);
             this.checkedListBoxAnswerList.Name = "checkedListBoxAnswerList";

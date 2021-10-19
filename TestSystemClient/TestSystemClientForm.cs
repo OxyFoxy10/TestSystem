@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace TestSystemClient
 {
     public partial class TestSystemClientForm : Form
-    {
+    {        
         GenericUnitOfWork mywork;
         IGenericRepository<User> repoUsers;
         IGenericRepository<Group> repoGroups;
@@ -163,7 +163,7 @@ namespace TestSystemClient
             {
                 var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser))
                .Select(c => new { TestId = c.GetTests.Id, TestName = c.GetTests.TestName, Author = c.GetTests.Author, QuestionsCount = c.GetTests.Questions.Count, TestGroupId = c.GetTests.TestGroups.FirstOrDefault().Id }).ToList();
-                dataGridViewTestSelect.DataSource = res;
+                              dataGridViewTestSelect.DataSource = res;
             }
             catch (System.NullReferenceException ex) { MessageBox.Show(ex.Message); }
             catch (Exception ex) { MessageBox.Show(ex.Message); }

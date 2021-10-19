@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -20,7 +21,6 @@ namespace TestDesignerProgram
         Test currentTest;
         Question newQuestion;
         Question editQuestion;
-        Question tempQuestion;
         Answer currentAnswer;
         string pattern;
         Regex regex;
@@ -378,7 +378,6 @@ namespace TestDesignerProgram
             buttonAddToAnswerList2.Text = "Add To AnswerList";
             isAnswerInEdit = false;
         }
-
         private void checkedListBoxAnswerList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (checkedListBoxAnswerList.Items.Count > 0)
@@ -386,31 +385,48 @@ namespace TestDesignerProgram
                 if (checkedListBoxAnswerList.SelectedIndex < 0)
                     checkedListBoxAnswerList.SelectedIndex = 0;
                 buttonRemoveAnswer2.Enabled = true;
+                buttonSaveQuestion2.Enabled = true;
             }
-            buttonSaveQuestion2.Enabled = true;
+            else
+            {
+                buttonRemoveAnswer2.Enabled = false;
+                buttonSaveQuestion2.Enabled = false;
+            }
             if (checkedListBoxAnswerList.Items.Count > 0)
             {
                 try
                 {
-                    if (checkedListBoxAnswerList.SelectedIndex < 0)
-                        checkedListBoxAnswerList.SelectedIndex = 0;
-                    if (checkedListBoxAnswerList.GetItemChecked(checkedListBoxAnswerList.SelectedIndex) == true)
+                    if (checkedListBoxAnswerList.GetItemCheckState(checkedListBoxAnswerList.SelectedIndex) == CheckState.Checked)
                     {
                         for (int i = 0; i < checkedListBoxAnswerList.Items.Count; i++)
                         {
                             if (i != checkedListBoxAnswerList.SelectedIndex)
+                            {
                                 checkedListBoxAnswerList.SetItemChecked(i, false);
-                            else
-                                checkedListBoxAnswerList.SetItemChecked(i, true);
+                                (checkedListBoxAnswerList.Items[i] as Answer).IsCorrect = false;
+                            }                           
                         }
-                        (checkedListBoxAnswerList.Items[checkedListBoxAnswerList.SelectedIndex] as Answer).IsCorrect = true;
+                         (checkedListBoxAnswerList.Items[checkedListBoxAnswerList.SelectedIndex] as Answer).IsCorrect = true;
                     }
-                    else (checkedListBoxAnswerList.Items[checkedListBoxAnswerList.SelectedIndex] as Answer).IsCorrect = false;
+                    else
+                    {
+                        if (checkedListBoxAnswerList.GetItemCheckState(checkedListBoxAnswerList.SelectedIndex) == CheckState.Unchecked)
+                        {                        
+                            for (int i = 0; i < checkedListBoxAnswerList.Items.Count; i++)
+                            {
+                                if (i != checkedListBoxAnswerList.SelectedIndex)
+                                {
+                                    checkedListBoxAnswerList.SetItemChecked(i, false);
+                                    (checkedListBoxAnswerList.Items[i] as Answer).IsCorrect = false;
+                                }
+                            }
+                        }
+                    }
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
+         
         }
-
         private void toolStripComboBoxChooseFile_SelectedIndexChanged(object sender, EventArgs e)
         {
             CurrentTestClear2();
@@ -432,7 +448,6 @@ namespace TestDesignerProgram
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
         private void buttonSaveTest2_Click(object sender, EventArgs e)
         {
             currentTest.Questions.Clear();
@@ -446,7 +461,6 @@ namespace TestDesignerProgram
             }
             CurrentTestClear2();
         }
-
         private void tabControlDesignTest_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentTest = new Test();
@@ -467,7 +481,6 @@ namespace TestDesignerProgram
                 CurrentTestClear();
             }
         }
-
         private void listBoxQuestionList_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonRemoveQuestion.Enabled = true;
@@ -500,7 +513,6 @@ namespace TestDesignerProgram
             }
             buttonRemoveQuestion2.Enabled = false;
         }
-
         private void buttonSaveQuestion2_Click(object sender, EventArgs e)
         {
             bool hasCorrectAnswer = false;
@@ -549,7 +561,6 @@ namespace TestDesignerProgram
             }
             else { MessageBox.Show("There are no correct answer in Answer comboBox, please add one before saving to Question List"); return; }
         }
-
         private void buttonAddNewQuestion_Click(object sender, EventArgs e)
         {
             CurrentQuestionClear2();
@@ -573,7 +584,6 @@ namespace TestDesignerProgram
             }
 
             else MessageBox.Show("Please select question to edit!");
-
         }
         private void CurrentQuestionLoad()
         {
@@ -585,14 +595,12 @@ namespace TestDesignerProgram
                 checkedListBoxAnswerList.Items.Add(item, item.IsCorrect);
             }
         }
-
         private void checkedListBoxAnswerList_DoubleClick(object sender, EventArgs e)
         {
             textBoxAnswer2.Text = checkedListBoxAnswerList.Text;
             checkBoxIsCorrect2.Checked = (checkedListBoxAnswerList.Items[checkedListBoxAnswerList.SelectedIndex] as Answer).IsCorrect;
             isAnswerInEdit = true;
         }
-
         private void listBoxQuestionList2_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonRemoveQuestion2.Enabled = true;
