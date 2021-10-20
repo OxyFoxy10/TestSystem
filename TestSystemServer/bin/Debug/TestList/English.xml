@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TestName>English</TestName>
+  <Author>AnnaWest</Author>
+  <Question Number="1" Description="We ________ a lovely three weeks in the south of Spain last year.">
+    <Difficulty>2</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>took</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>did</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>spent</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>passed</Description>
+    </Answer>
+  </Question>
+  <Question Number="2" Description="Please don't forget to ring me when you ________ home.">
+    <Difficulty>2</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>get</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>are going to get</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>will get</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>are getting</Description>
+    </Answer>
+  </Question>
+  <Question Number="3" Description="Suzie and John are planning to get married and ________ a lot of children.">
+    <Difficulty>3</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>make</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>have</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>bring</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>get</Description>
+    </Answer>
+  </Question>
+  <Question Number="4" Description="It's a great place to live apart from the increasing volume of ________ that passes under my window every day.">
+    <Difficulty>4</Difficulty>
+    <Answer IsCorrect="true">
+      <Description>transport</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>traffic</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>vehicles</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>circulation</Description>
+    </Answer>
+  </Question>
+</Test>

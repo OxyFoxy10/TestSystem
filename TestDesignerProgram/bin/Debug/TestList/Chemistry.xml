@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TestName>Chemistry</TestName>
+  <Author>Foxy😺</Author>
+  <Question Number="1" Description="The smallest particle of substance">
+    <Difficulty>2</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>Atom</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Electron</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Neutron</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>Molecule</Description>
+    </Answer>
+  </Question>
+  <Question Number="2" Description="Measuring device for finding volume">
+    <Difficulty>4</Difficulty>
+    <Answer IsCorrect="true">
+      <Description>Beaker</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Barometer</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Manometer</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Dynamometer</Description>
+    </Answer>
+  </Question>
+  <Question Number="3" Description="The phenomenon that is due to the fact that liquid molecules are attracted to each other less than solid molecules">
+    <Difficulty>3</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>Expansion</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Attraction</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Crystallization</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>Wetting</Description>
+    </Answer>
+  </Question>
+  <Question Number="4" Description="The property of gases, as a result of which their volume changes easily.">
+    <Difficulty>1</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>Inertia</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>Compressibility</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Condensation</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>Entropy</Description>
+    </Answer>
+  </Question>
+</Test>

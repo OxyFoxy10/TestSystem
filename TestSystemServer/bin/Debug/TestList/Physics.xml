@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TestName>Physics</TestName>
+  <Author>oxana</Author>
+  <Question Number="1" Description="Isaac Newton discovered:">
+    <Difficulty>3</Difficulty>
+    <Answer IsCorrect="true">
+      <Description>law of universal gravitation</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>the formula of the period of oscillations in the oscillating circuit</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>atomic structure</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>the law of the photo effect</Description>
+    </Answer>
+  </Question>
+  <Question Number="2" Description="The dynamometer is intended for measurement">
+    <Difficulty>4</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>densities</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>current strength</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>electric current operation</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>forces</Description>
+    </Answer>
+  </Question>
+  <Question Number="3" Description="Unit of force according to the SI system:">
+    <Difficulty>1</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>ampere</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>kilogram / meter</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>newton</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>watts</Description>
+    </Answer>
+  </Question>
+  <Question Number="4" Description="Joseph John Thomson discovered:">
+    <Difficulty>3</Difficulty>
+    <Answer IsCorrect="false">
+      <Description>law of interaction of electric charges</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>the phenomenon of radioactivity</Description>
+    </Answer>
+    <Answer IsCorrect="true">
+      <Description>the formula of the period of oscillations in the oscillating circuit</Description>
+    </Answer>
+    <Answer IsCorrect="false">
+      <Description>neutron</Description>
+    </Answer>
+  </Question>
+</Test>
