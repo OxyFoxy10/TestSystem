@@ -226,7 +226,12 @@ namespace TestSystemServer
             }
             lock (repoTestGroups)
             {
+               var res=repoTestGroups.GetAll()
+                    .Select(c=>c).Where(x=>x.GetTests.Id== newTestGroup.GetTests.Id&&x.GetGroups.Id== newTestGroup.GetGroups.Id).FirstOrDefault();
+                if(res==null)
                 repoTestGroups.Add(newTestGroup);
+                else
+                    MessageBox.Show($"{newTestGroup.GetTests.TestName} is already assigned to this group!");
             }
             isNewTestAssigned = true;
             AssignTestSent(newTestGroup);
@@ -607,7 +612,7 @@ namespace TestSystemServer
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             toolStripMenuItem1.Text = "Renew";
-            var res = repoResults.GetAll();
+            var res = repoResults.GetAll();           
             if (res != null)
                 dataGridViewResults.DataSource = res;
         }
@@ -615,7 +620,19 @@ namespace TestSystemServer
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             toolStripMenuItem2.Text = "Renew";
-            var res = repoTestGroups.GetAll();
+            var testgroupToDelete = repoTestGroups.GetAll().Select(x => x).Where(x=>x.UsersPassedTest.Count == x.GetGroups.Users.Count).ToList();
+            if (testgroupToDelete != null&& testgroupToDelete.Count>0)
+            {
+               DialogResult dr= MessageBox.Show($"Some Tests assigned to group are fully passed\n TestGroup table will be cleaned from those elements!", "Need admin attention!",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+               if(dr==DialogResult.Yes)
+                foreach (var item in testgroupToDelete)
+                {
+                    repoTestGroups.Remove(item);                  
+                }               
+            }
+            
+            var res = repoTestGroups.GetAll().Select(x => new { Id = x.Id, TestDate = x.TestDate, TestName = x.GetTests.TestName, GetGroups = x.GetGroups, Users = String.Join<User>(",", x.GetGroups.Users), Userspassed = String.Join<User>(",", x.UsersPassedTest) }).ToList();
+
             if (res != null)
                 dataGridViewTestGroup.DataSource = res;
         }

@@ -12,7 +12,6 @@ namespace TestSystemClient
         public Socket ClientSocket { get; set; }
         public String RemoteEndPoint { get; set; } // кінцева точка тобто фактично це ip
         public DAL_TestSystem.User userClient { get; set; }
-
         public void Dispose()
         {
             if (ClientSocket != null)
@@ -20,7 +19,6 @@ namespace TestSystemClient
                 ClientSocket.Close();
             }
         }
-
         public override string ToString()
         {
             return $" Client IP: {RemoteEndPoint}";

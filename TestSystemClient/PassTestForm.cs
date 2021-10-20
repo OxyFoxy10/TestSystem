@@ -93,10 +93,6 @@ namespace TestSystemClient
                     repoResults.Update(currentResult);
                 }
             }
-            //var res = repoResults.GetAll().Select(x => x).Where(x => x.GetUser.Id == currentUser.Id && x.GetTest.Id == incomingTest.Id).Select(c => c.Mark).FirstOrDefault();
-            //if (res != null)
-            //    MessageBox.Show(res.ToString());
-
         }
 
         private void CalculateResult()
@@ -132,19 +128,6 @@ namespace TestSystemClient
                         }
                     }
                 }
-
-                //foreach (var item in currentResult.GetUser.UserAnswers)
-                //{
-                //    // if(userid==GetUser.Id)
-                //    if (answersToConsider.Contains(item.Id))
-                //    {
-                //        if (item.GetAnswers.IsCorrect == true)
-                //        {
-                //            if (item.IsAnsweredCorectly == true)
-                //                correctMark += item.GetAnswers.GetQuestion.Difficulty;
-                //        }
-                //    }                   
-                //}
             }
 
             if (maxMark != 0)
@@ -156,7 +139,6 @@ namespace TestSystemClient
         }
         private void buttonStartTest_Click(object sender, EventArgs e)
         {
-            // listBoxQuestions.Enabled = true;
             testStart = DateTime.Now;
             buttonNext.Enabled = true;
             buttonStartTest.Enabled = false;
@@ -171,9 +153,7 @@ namespace TestSystemClient
             {
                     checkedListBoxAnswerList.Items.Add(item, false);               
             }
-           // listBoxQuestions.Enabled = false;
         }
-
         private void buttonNext_Click(object sender, EventArgs e)
         {           
             foreach (Answer item in checkedListBoxAnswerList.CheckedItems)
@@ -187,7 +167,6 @@ namespace TestSystemClient
             }           
             SelectNextQuestion();
             listBoxQuestions_Load();
-          //  listBoxQuestions.Enabled = true;
         }
 
         private void SelectNextQuestion()
@@ -208,7 +187,6 @@ namespace TestSystemClient
             textBoxQuestion.Text = ""; 
             checkedListBoxAnswerList.Items.Clear();
         }
-
         private void listBoxQuestions_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonNext.Enabled = true;

@@ -19,7 +19,7 @@ namespace TestSystemClient
         {
             InitializeComponent();
         }
-
+      
         private void button1_Click(object sender, EventArgs e)
         {
             using (GenericUnitOfWork work2 = new GenericUnitOfWork(new TestSystemDBContext(ConfigurationManager.ConnectionStrings["conStr"].ConnectionString)))

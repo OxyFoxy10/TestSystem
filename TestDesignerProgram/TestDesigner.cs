@@ -576,7 +576,6 @@ namespace TestDesignerProgram
             if (listBoxQuestionList2.SelectedItem != null)
             {
                 groupBoxQuestionView2.Enabled = true;
-                //              buttonAddAnswer.Enabled = true;
                 groupBoxQuestionView2.Text = "Edit Question View";
                 CurrentQuestionLoad();
                 editQuestion = (listBoxQuestionList2.SelectedItem as Question);

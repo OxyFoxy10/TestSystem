@@ -161,8 +161,9 @@ namespace TestSystemClient
             toolStripMenuItem2.Text = "Renew";
             try
             {
-                var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser))
+                var res = repoTestGroups.GetAll().Where(x => x.GetGroups.Users.Contains<User>(currentUser)&&!x.UsersPassedTest.Contains(currentUser))
                .Select(c => new { TestId = c.GetTests.Id, TestName = c.GetTests.TestName, Author = c.GetTests.Author, QuestionsCount = c.GetTests.Questions.Count, TestGroupId = c.GetTests.TestGroups.FirstOrDefault().Id }).ToList();
+             
                               dataGridViewTestSelect.DataSource = res;
             }
             catch (System.NullReferenceException ex) { MessageBox.Show(ex.Message); }
@@ -194,7 +195,6 @@ namespace TestSystemClient
                     selectedTestId = int.Parse(dataGridViewTestSelect.SelectedRows[0].Cells[0].Value.ToString());
                 selectedTestGroupId = int.Parse(dataGridViewTestSelect.SelectedRows[0].Cells[4].Value.ToString());
                 selectedTest = repoTests.FindById(selectedTestId);
-
             }
             if (selectedTest != null && selectedTest.Questions.Count > 0)
             {
@@ -204,13 +204,18 @@ namespace TestSystemClient
                 if (dialogResult == DialogResult.OK)
                 {
                     //remove from window!!!
-                    testGroupToDelete = repoTestGroups.FindById(selectedTestGroupId);
-                    repoTestGroups.Remove(testGroupToDelete);
+                    var testGroupToEdit = repoTestGroups.FindById(selectedTestGroupId);
+                    testGroupToEdit.UsersPassedTest.Add(currentUser);
+                    repoTestGroups.Update(testGroupToEdit);
+                   // int studentsCount = repoTestGroups.FindById(selectedTestGroupId).GetGroups.Users.Count;                   
+                    //if(studentsCount== testGroupToEdit.UsersPassedTest.Count)
+                    //{
+                    //repoTestGroups.Remove(testGroupToEdit);
+                    //} 
                     toolStripMenuItem2_Click(sender, e);
                     TestFinishedNotification();
                 }
             }
-
         }
 
         private void TestFinishedNotification()

@@ -26,20 +26,16 @@ namespace TestSystemServer
             using (GenericUnitOfWork work = new GenericUnitOfWork(new TestSystemDBContext(ConfigurationManager.ConnectionStrings["conStr"].ConnectionString)))
             {
                 IGenericRepository<User> repoUsers = work.Repository<User>();
-                IGenericRepository<Group> repoGroups = work.Repository<Group>();
                 var res = repoUsers.FindAll(x => x.Login == textBox2.Text && x.Password == textBox3.Text).FirstOrDefault();
-                //var res2 = repoGroups.GetAll().FirstOrDefault(); 
                 if (res != null &&res.IsAdmin==true)
                 {
                     TestSystemServerForm testSystemServerForm  = new TestSystemServerForm(work, res);
                     DialogResult dialogResult = testSystemServerForm.ShowDialog();
-                   // testSystemServerForm.Show();
                 }
-                //else if (res != null && res.IsAdmin == false)
+                //else if (res != null && res.Groups!= null&& res.IsAdmin == false)
                 //{
-                //    TestSystemClientForm newClientForm =new TestSystemClientForm(work, res);
-                //   // DialogResult dialogResult =newClientForm.ShowDialog();
-                //    newClientForm.Show();
+                //    TestSystemClientForm newClientForm = new TestSystemClientForm(work, res);
+                //     DialogResult dialogResult =newClientForm.ShowDialog();
                 //}
                 else
                     MessageBox.Show("Login or password incorrect, please try again later");
